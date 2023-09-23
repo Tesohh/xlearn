@@ -3,6 +3,8 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/Tesohh/xlearn/db"
 )
 
 func writeJSON(w http.ResponseWriter, status int, v any) error {
@@ -11,11 +13,11 @@ func writeJSON(w http.ResponseWriter, status int, v any) error {
 	return json.NewEncoder(w).Encode(v)
 }
 
-type apiFunc func(w http.ResponseWriter, r *http.Request) error
+type APIFunc func(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 
-func DecorateHTTPFunc(f apiFunc) http.HandlerFunc {
+func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		err := f(w, r)
+		err := f(w, r, stores)
 		if err != nil {
 			writeJSON(w, 400, map[string]string{"error": err.Error()})
 		}

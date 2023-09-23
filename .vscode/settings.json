@@ -1,0 +1,20 @@
+{
+    "inlineSQL.enableDBIntegration": true,
+    "inlineSQL.dbDriver": "postgres",
+    "inlineSQL.dbHost": "localhost",
+    "inlineSQL.dbPort": 5432,
+    "inlineSQL.dbUser": "postgres",
+    "inlineSQL.dbPassword": "postgres",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "database": "xlearn",
+            "username": "pyros",
+            "name": "XLearn"
+        }
+    ]
+}

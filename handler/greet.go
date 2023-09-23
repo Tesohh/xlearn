@@ -1,8 +1,12 @@
 package handler
 
-import "net/http"
+import (
+	"net/http"
 
-func Greet(w http.ResponseWriter, r *http.Request) error {
+	"github.com/Tesohh/xlearn/db"
+)
+
+func Greet(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	writeJSON(w, 200, "COmeon manee")
 	return nil
 }
