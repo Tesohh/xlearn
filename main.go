@@ -13,7 +13,7 @@ import (
 )
 
 func decoratedHandle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder) {
-	r.HandleFunc(path, handler.DecorateHTTPFunc(handler.Greet, stores))
+	r.HandleFunc(path, handler.DecorateHTTPFunc(f, stores))
 }
 
 func main() {
@@ -27,7 +27,8 @@ func main() {
 	}
 
 	r := mux.NewRouter()
-	decoratedHandle(r, "/", handler.Greet, stores)
+	decoratedHandle(r, "/api/user/put", handler.PutUser, stores)
+	decoratedHandle(r, "/api/user/one", handler.OneUser, stores)
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
 }

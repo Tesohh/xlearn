@@ -1,11 +1,11 @@
 package data
 
 type User struct {
-	Display  string `db:"display"`  // Tesohh Dockerton
-	Username string `db:"username"` // @tesohh
-	XP       int    `db:"xp"`
-	Level    int    `db:"lvl"`
-	Coins    int    `db:"coins"`
+	Display  string `json:"display,omitempty" bson:"display,omitempty"`   // Tesohh Dockerton
+	Username string `json:"username,omitempty" bson:"username,omitempty"` // @tesohh
+	XP       int    `json:"xp,omitempty" bson:"xp,omitempty"`
+	Level    int    `json:"level,omitempty" bson:"level,omitempty"`
+	Coins    int    `json:"coins,omitempty" bson:"coins,omitempty"`
 }
 
 func (u User) IsEmpty() bool {

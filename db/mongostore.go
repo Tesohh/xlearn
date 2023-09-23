@@ -2,11 +2,26 @@ package db
 
 import (
 	"context"
+	"errors"
 	"os"
 
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+var (
+	ErrDocumentNotFound = errors.New("couldn't find document")
+)
+
+func (q Query) ToMongo() primitive.D {
+	d := primitive.D{}
+	for k, v := range q {
+		d = append(d, primitive.E{Key: k, Value: v})
+	}
+	return d
+}
 
 func NewMongoClient() (*mongo.Client, error) {
 	connection := os.Getenv("DB_CONNECTION")
@@ -30,21 +45,42 @@ type MongoStore[T IsEmptier] struct {
 }
 
 func (s MongoStore[T]) One(q Query) (*T, error) {
-	panic("not implemented") // TODO: Implement
+	res := s.Coll.FindOne(context.Background(), q.ToMongo())
+	var document T
+	res.Decode(&document)
+
+	if document.IsEmpty() {
+		return nil, ErrDocumentNotFound
+	}
+	return &document, nil
 }
 
 func (s MongoStore[T]) Many(q Query) ([]T, error) {
-	panic("not implemented") // TODO: Implement
+	cur, err := s.Coll.Find(context.Background(), q.ToMongo())
+	if err != nil {
+		return nil, err
+	}
+
+	var results []T
+	if err = cur.All(context.TODO(), &results); err != nil {
+		return nil, err
+	}
+
+	return results, nil
 }
 
 func (s MongoStore[T]) Put(doc T) error {
-	panic("not implemented") // TODO: Implement
+	_, err := s.Coll.InsertOne(context.Background(), doc, nil)
+	return err
 }
 
 func (s MongoStore[T]) Update(q Query, doc T) error {
-	panic("not implemented") // TODO: Implement
+	update := bson.M{"$set": doc}
+	_, err := s.Coll.UpdateOne(context.Background(), q.ToMongo(), update)
+	return err
 }
 
 func (s MongoStore[T]) Delete(q Query) error {
-	panic("not implemented") // TODO: Implement
+	_, err := s.Coll.DeleteOne(context.Background(), q.ToMongo())
+	return err
 }
