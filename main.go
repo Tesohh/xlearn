@@ -27,7 +27,8 @@ func main() {
 	}
 
 	r := mux.NewRouter()
-	decoratedHandle(r, "/api/user/put", handler.PutUser, stores)
+	decoratedHandle(r, "/api/unprotected/user/signup", handler.UserSignup, stores)
+	decoratedHandle(r, "/api/unprotected/user/login", handler.UserLogin, stores)
 	decoratedHandle(r, "/api/user/one", handler.OneUser, stores)
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
