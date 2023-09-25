@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
 	"github.com/dgrijalva/jwt-go"
 )
@@ -18,6 +19,15 @@ func writeJSON(w http.ResponseWriter, status int, v any) error {
 	w.WriteHeader(status)
 	w.Header().Add("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(v)
+}
+
+func currentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
+	username := r.Header.Get("jwt-username")
+	if username == "" {
+		return nil, ErrJwtUsernameInexistent
+	}
+
+	return stores.Users.One(db.Query{"username": username})
 }
 
 type APIFunc func(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error

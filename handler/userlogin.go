@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"os"
 	"time"
@@ -16,10 +15,6 @@ type loginBody struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
-
-var (
-	ErrInvalidPassword = errors.New("password invalid")
-)
 
 func UserLogin(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body loginBody

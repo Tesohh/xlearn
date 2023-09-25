@@ -1,4 +1,5 @@
 # User
+## Definition
 ```ts
 type User = {
     display: string,
@@ -8,4 +9,10 @@ type User = {
     level: number,
     coins: number,
 }
+```
+
+## `GET ` api/user/me
+returns the currently logged in user
+```ts
+type Returns = User | Error
 ```

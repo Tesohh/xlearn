@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"strings"
 
@@ -16,11 +15,6 @@ type signupBody struct {
 	Display  string `json:"display,omitempty"`
 	Password string `json:"password"`
 }
-
-var (
-	ErrMalformedBody = errors.New("malformed body")
-	ErrPWTooShort    = errors.New("password is too short. must be at least 12 characters")
-)
 
 func UserSignup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body signupBody
