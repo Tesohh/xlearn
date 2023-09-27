@@ -17,3 +17,14 @@ type Body = {
 }
 type Returns = Org | Error
 ```
+
+## api/org/@{tag}
+```ts
+type Returns = Org | Error
+```
+
+## api/org/@{tag}/meta
+returns an org, but omits the adventures for performance reasons (returns only the metadata)
+```ts
+type Returns = Omit<Org, "adventures"> | Error
+```

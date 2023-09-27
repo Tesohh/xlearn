@@ -5,17 +5,10 @@ import (
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
-	"github.com/gorilla/mux"
 )
 
 func OrgAdventuresAll(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
-	vars := mux.Vars(r)
-	tag, ok := vars["tag"]
-	if !ok {
-		return ErrPathVar
-	}
-
-	org, err := stores.Orgs.One(db.Query{"tag": tag})
+	org, err := getOrg(r, stores)
 	if err != nil {
 		return err
 	}

@@ -38,6 +38,8 @@ func main() {
 
 	// org
 	decoratedHandle(r, "/admin/org/new", handler.OrgNew, stores)
+	decoratedHandle(r, "/org/@{tag}", handler.Org, stores)
+	decoratedHandle(r, "/org/@{tag}/meta", handler.OrgMeta, stores)
 	decoratedHandle(r, "/org/@{tag}/adventure/all", handler.OrgAdventuresAll, stores)
 
 	fmt.Println("Server running on http://localhost:8080")

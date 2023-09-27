@@ -11,6 +11,7 @@ import (
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/mux"
 )
 
 type M map[string]string
@@ -28,6 +29,16 @@ func currentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
 	}
 
 	return stores.Users.One(db.Query{"username": username})
+}
+
+func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
+	vars := mux.Vars(r)
+	tag, ok := vars["tag"]
+	if !ok {
+		return nil, ErrPathVar
+	}
+
+	return stores.Orgs.One(db.Query{"tag": tag})
 }
 
 type APIFunc func(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error

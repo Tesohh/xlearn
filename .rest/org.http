@@ -10,3 +10,11 @@ Content-Type: application/json
 ###
 
 {{api}}/org/@silandro-investors/adventure/all
+
+###
+
+{{api}}/org/@silandro-investors
+
+###
+
+{{api}}/org/@silandro-investors/meta
