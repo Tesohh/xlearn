@@ -3,7 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
@@ -11,7 +10,6 @@ import (
 
 type orgNewBody struct {
 	Name   string `json:"name"`
-	Tag    string `json:"tag"`
 	Secret string `json:"secret"`
 }
 
@@ -21,13 +19,13 @@ func OrgNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 
 	org := data.Org{
 		Name:   body.Name,
-		Tag:    strings.ReplaceAll(strings.ToLower(body.Tag), " ", "-"),
+		Tag:    data.Tagify(body.Name),
 		Secret: body.Secret,
 	}
 	// validate request
 	if (body == orgNewBody{}) {
 		return ErrEmptyBody
-	} else if body.Name == "" || body.Secret == "" || body.Tag == "" {
+	} else if body.Name == "" || body.Secret == "" {
 		return ErrMalformedBody
 	}
 

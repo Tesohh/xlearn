@@ -1,6 +1,9 @@
 package data
 
-import "reflect"
+import (
+	"reflect"
+	"strings"
+)
 
 type Org struct {
 	Name string `json:"name,omitempty" bson:"name,omitempty"`
@@ -12,4 +15,12 @@ type Org struct {
 
 func (o Org) IsEmpty() bool {
 	return reflect.DeepEqual(o, Org{})
+}
+
+func Tagify(display string) string {
+	tag := display
+	tag = strings.ReplaceAll(tag, " ", "-")
+	tag = strings.ReplaceAll(tag, "_", "-")
+	tag = strings.ToLower(tag)
+	return tag
 }

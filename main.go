@@ -38,6 +38,7 @@ func main() {
 
 	// org
 	decoratedHandle(r, "/admin/org/new", handler.OrgNew, stores)
+	decoratedHandle(r, "/org/@{tag}/adventure/all", handler.OrgAdventuresAll, stores)
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

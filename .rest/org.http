@@ -4,7 +4,9 @@
 Content-Type: application/json
 
 {
-    "name": "TUBRE INVESTORS INC.",
-    "tag": "TUBRE-INVESTORS",
-    "secret": "silandro"
+    "name": "SILANDRO INVESTORS",
+    "secret": "tubre"
 }
+###
+
+{{api}}/org/@silandro-investors/adventure/all

@@ -19,3 +19,9 @@ type Step = {
 	children: Step[]
 }
 ```
+
+## `GET ` api/org/@{tag}/adventure/all
+Returns a list of adventures in the current org (steps are omitted to save resources)
+```ts
+type Returns = Adventure[] | null | Error
+```

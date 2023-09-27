@@ -13,7 +13,6 @@ type Org = {
 ```ts
 type Body = {
     name: string,
-    tag: string,
     secret: string,
 }
 type Returns = Org | Error

@@ -9,3 +9,10 @@ If a route has the `unprotected` modifier, it can be accessed freely by anyone, 
 
 ### `admin`
 The route can only be accessed by users with the Admin role.
+
+## Errors
+```ts
+type Error = {
+    error: string
+}
+```
