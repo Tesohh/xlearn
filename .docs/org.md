@@ -5,11 +5,16 @@ type Org = {
     name: string,
     tag: string,
     secret: string,
+    adventures: Adventure[]
 }
 ```
 
 ## `POST` api/org/new
 ```ts
-type Body = Org
+type Body = {
+    name: string,
+    tag: string,
+    secret: string,
+}
 type Returns = Org | Error
 ```
