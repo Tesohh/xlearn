@@ -8,6 +8,7 @@ type User = {
     xp: number,
     level: number,
     coins: number,
+    role: 0 | 1 | 2, // user, teacher, admin
 }
 ```
 

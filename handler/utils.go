@@ -35,7 +35,8 @@ type APIFunc func(w http.ResponseWriter, r *http.Request, stores db.StoreHolder)
 func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// authentication
-		if strings.Split(r.URL.Path, "/")[2] != "unprotected" {
+		modifier := strings.Split(r.URL.Path, "/")[2]
+		if modifier != "unprotected" {
 			tokenString, err := r.Cookie("token")
 			if err != nil {
 				writeJSON(w, http.StatusUnauthorized, M{"error": "token cookie not found"})
@@ -74,7 +75,19 @@ func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder) http.HandlerFunc {
 			fmt.Printf("claims: %+v\n", claims)
 		}
 
-		// if authentication failed at this point the function would have exited
+		if modifier == "admin" {
+			user, err := currentUser(r, stores)
+			if err != nil {
+				writeJSON(w, 400, M{"error": err.Error()})
+				return
+			}
+			if user.Role < data.RoleAdmin {
+				writeJSON(w, http.StatusUnauthorized, M{"error": ErrUnauthorized.Error()})
+				return
+			}
+		}
+
+		// if authentication / authorization failed at this point the function would have exited
 		// so from this point on everything is protected
 
 		err := f(w, r, stores)
