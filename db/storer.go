@@ -14,4 +14,5 @@ type Storer[T any] interface {
 
 type StoreHolder struct {
 	Users Storer[data.User]
+	Orgs  Storer[data.Org]
 }

@@ -1,0 +1,10 @@
+@api = http://localhost:8080/api
+
+{{api}}/admin/org/new
+Content-Type: application/json
+
+{
+    "name": "TUBRE INVESTORS INC.",
+    "tag": "TUBRE-INVESTORS",
+    "secret": "silandro"
+}

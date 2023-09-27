@@ -13,7 +13,7 @@ import (
 )
 
 func decoratedHandle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder) {
-	r.HandleFunc(path, handler.DecorateHTTPFunc(f, stores))
+	r.HandleFunc("/api"+path, handler.DecorateHTTPFunc(f, stores))
 }
 
 func main() {
@@ -24,13 +24,21 @@ func main() {
 
 	stores := db.StoreHolder{
 		Users: db.MongoStore[data.User]{Client: client, Coll: client.Database("main").Collection("users")},
+		Orgs:  db.MongoStore[data.Org]{Client: client, Coll: client.Database("main").Collection("orgs")},
 	}
 
 	r := mux.NewRouter()
-	decoratedHandle(r, "/api/unprotected/user/signup", handler.UserSignup, stores)
-	decoratedHandle(r, "/api/unprotected/user/login", handler.UserLogin, stores)
-	decoratedHandle(r, "/api/user/one", handler.OneUser, stores)
-	decoratedHandle(r, "/api/user/me", handler.UserMe, stores)
+	// auth
+	decoratedHandle(r, "/unprotected/user/signup", handler.UserSignup, stores)
+	decoratedHandle(r, "/unprotected/user/login", handler.UserLogin, stores)
+
+	// user
+	decoratedHandle(r, "/user/one", handler.OneUser, stores)
+	decoratedHandle(r, "/user/me", handler.UserMe, stores)
+
+	// org
+	decoratedHandle(r, "/admin/org/new", handler.OrgNew, stores)
+
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
 }
