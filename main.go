@@ -38,11 +38,12 @@ func main() {
 
 	// org
 	handle(r, "/admin/org/new", handler.OrgNew, stores)
-	handle(r, "/org/@{tag}", handler.Org, stores)
-	handle(r, "/org/@{tag}/meta", handler.OrgMeta, stores)
+	handle(r, "/org/@{orgtag}", handler.Org, stores)
+	handle(r, "/org/@{orgtag}/meta", handler.OrgMeta, stores)
 
 	// org adventures
-	handle(r, "/org/@{tag}/adventure/all", handler.OrgAdventuresAll, stores)
+	handle(r, "/org/@{orgtag}/adventure/@{advtag}", handler.OrgAdventureOne, stores)
+	handle(r, "/org/@{orgtag}/adventure/all", handler.OrgAdventuresAll, stores)
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

@@ -33,7 +33,7 @@ func currentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
 
 func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
 	vars := mux.Vars(r)
-	tag, ok := vars["tag"]
+	tag, ok := vars["orgtag"]
 	if !ok {
 		return nil, ErrPathVar
 	}
