@@ -1,5 +1,5 @@
 # Authentication
-## `POST` api/unprotected/users/signup
+## `POST` api/unprotected/user/signup
 use this to create a new user from a username, password and optionally a display name
 ```ts
 type Body = {
@@ -10,7 +10,20 @@ type Body = {
 type Returns = User | Error
 ```
 
-## `GET ` api/unprotected/users/login
+## `GET ` api/unprotected/user/login
+logs in a user for 24 hours by setting the JWT cookie
+```ts
+type Body = {
+    username: string,
+    password: string, // UNHASHED!
+}
+type Returns = {
+    success: string // just a success message, can be ignored.
+} | Error
+// Also sets a cookie on the client, `token`, which contains the JWT.
+```
+
+## `GET ` api/user/logout
 logs in a user for 24 hours by setting the JWT cookie
 ```ts
 type Body = {

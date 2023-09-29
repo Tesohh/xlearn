@@ -31,6 +31,7 @@ func main() {
 	// auth
 	handle(r, "/unprotected/user/signup", handler.UserSignup, stores)
 	handle(r, "/unprotected/user/login", handler.UserLogin, stores)
+	handle(r, "/user/logout", handler.UserLogout, stores)
 
 	// user
 	handle(r, "/user/one", handler.OneUser, stores)

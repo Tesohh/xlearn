@@ -17,3 +17,7 @@ Content-Type: application/json
     "username": "michele",
     "password": "michelepazzofolle"
 }
+
+###
+
+http://localhost:8080/api/user/logout

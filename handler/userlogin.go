@@ -54,3 +54,16 @@ func UserLogin(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) er
 	writeJSON(w, 200, M{"success": "set cookie properly"})
 	return nil
 }
+
+func UserLogout(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
+	cookie := http.Cookie{
+		Name:    "token",
+		Value:   "",
+		Path:    "/",
+		Expires: time.Now(),
+	}
+
+	http.SetCookie(w, &cookie)
+	writeJSON(w, 200, M{"success": "logged out properly"})
+	return nil
+}
