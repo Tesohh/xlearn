@@ -24,14 +24,10 @@ type Returns = {
 ```
 
 ## `GET ` api/user/logout
-logs in a user for 24 hours by setting the JWT cookie
+removes the jwt cookie from the user
 ```ts
-type Body = {
-    username: string,
-    password: string, // UNHASHED!
-}
 type Returns = {
     success: string // just a success message, can be ignored.
 } | Error
-// Also sets a cookie on the client, `token`, which contains the JWT.
+```
 ```
