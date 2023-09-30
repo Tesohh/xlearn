@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strings"
+	"slices"
 	"time"
 
 	"github.com/Tesohh/xlearn/data"
@@ -48,11 +48,10 @@ func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
 
 type APIFunc func(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 
-func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder) http.HandlerFunc {
+func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder, modifiers []string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// authentication
-		modifier := strings.Split(r.URL.Path, "/")[2]
-		if modifier != "unprotected" {
+		if !slices.Contains(modifiers, "unprotected") {
 			tokenString, err := r.Cookie("token")
 			if err != nil {
 				writeJSON(w, http.StatusUnauthorized, M{"error": "token cookie not found"})
@@ -91,7 +90,7 @@ func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder) http.HandlerFunc {
 			fmt.Printf("claims: %+v\n", claims)
 		}
 
-		if modifier == "admin" {
+		if slices.Contains(modifiers, "admin") {
 			user, err := currentUser(r, stores)
 			if err != nil {
 				writeJSON(w, 400, M{"error": err.Error()})

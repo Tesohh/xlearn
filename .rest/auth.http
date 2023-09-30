@@ -1,4 +1,4 @@
-@api = http://localhost:8080/api/unprotected/user
+@api = http://localhost:8080/api/user
 
 POST {{api}}/signup
 Content-Type: application/json
@@ -20,4 +20,4 @@ Content-Type: application/json
 
 ###
 
-http://localhost:8080/api/user/logout
+{{api}}/logout

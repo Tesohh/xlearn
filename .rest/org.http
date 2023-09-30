@@ -1,6 +1,6 @@
-@api = http://localhost:8080/api
+@api = http://localhost:8080/api/org/@silandro-investors
 
-{{api}}/admin/org/new
+http://localhost:8080/api/org/new
 Content-Type: application/json
 
 {
@@ -9,10 +9,10 @@ Content-Type: application/json
 }
 ###
 
-{{api}}/org/@silandro-investors/adventure/all
+{{api}}/adventure/all
 
 ###
-{{api}}/admin/org/@silandro-investors/adventure/new
+{{api}}/adventure/new
 Content-Type: application/json
 
 {
@@ -21,12 +21,12 @@ Content-Type: application/json
 
 
 ###
-{{api}}/org/@silandro-investors/adventure/@forklift-certification
+{{api}}/adventure/@forklift-certification
+
+###
+// @silandro-investors
+{{api}}
 
 ###
 
-{{api}}/org/@silandro-investors
-
-###
-
-{{api}}/org/@silandro-investors/meta
+{{api}}/meta

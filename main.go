@@ -12,8 +12,8 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
-func handle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder) {
-	r.HandleFunc("/api"+path, handler.DecorateHTTPFunc(f, stores))
+func handle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder, modifiers ...string) {
+	r.HandleFunc("/api"+path, handler.DecorateHTTPFunc(f, stores, modifiers))
 }
 
 func main() {
@@ -29,8 +29,8 @@ func main() {
 
 	r := mux.NewRouter()
 	// auth
-	handle(r, "/unprotected/user/signup", handler.UserSignup, stores)
-	handle(r, "/unprotected/user/login", handler.UserLogin, stores)
+	handle(r, "/user/signup", handler.UserSignup, stores, "unprotected")
+	handle(r, "/user/login", handler.UserLogin, stores, "unprotected")
 	handle(r, "/user/logout", handler.UserLogout, stores)
 
 	// user
@@ -38,13 +38,13 @@ func main() {
 	handle(r, "/user/me", handler.UserMe, stores)
 
 	// org
-	handle(r, "/admin/org/new", handler.OrgNew, stores)
+	handle(r, "/org/new", handler.OrgNew, stores, "admin")
 	handle(r, "/org/@{orgtag}", handler.Org, stores)
 	handle(r, "/org/@{orgtag}/meta", handler.OrgMeta, stores)
 
 	// org adventures
 	handle(r, "/org/@{orgtag}/adventure/@{advtag}", handler.OrgAdventureOne, stores)
-	handle(r, "/admin/org/@{orgtag}/adventure/new", handler.OrgAdventureNew, stores)
+	handle(r, "/org/@{orgtag}/adventure/new", handler.OrgAdventureNew, stores, "admin")
 	handle(r, "/org/@{orgtag}/adventure/all", handler.OrgAdventuresAll, stores)
 
 	fmt.Println("Server running on http://localhost:8080")
