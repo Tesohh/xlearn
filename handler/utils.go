@@ -31,9 +31,14 @@ func currentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
 	return stores.Users.One(db.Query{"username": username})
 }
 
-func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
+func getOrgTag(r *http.Request) (string, bool) {
 	vars := mux.Vars(r)
 	tag, ok := vars["orgtag"]
+	return tag, ok
+}
+
+func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
+	tag, ok := getOrgTag(r)
 	if !ok {
 		return nil, ErrPathVar
 	}

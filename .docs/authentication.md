@@ -30,4 +30,3 @@ type Returns = {
     success: string // just a success message, can be ignored.
 } | Error
 ```
-```

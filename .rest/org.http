@@ -12,6 +12,15 @@ Content-Type: application/json
 {{api}}/org/@silandro-investors/adventure/all
 
 ###
+{{api}}/admin/org/@silandro-investors/adventure/new
+Content-Type: application/json
+
+{
+    "name": "forklift certification brodiecast"
+}
+
+
+###
 {{api}}/org/@silandro-investors/adventure/@forklift-certification
 
 ###

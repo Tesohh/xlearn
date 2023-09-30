@@ -44,6 +44,7 @@ func main() {
 
 	// org adventures
 	handle(r, "/org/@{orgtag}/adventure/@{advtag}", handler.OrgAdventureOne, stores)
+	handle(r, "/admin/org/@{orgtag}/adventure/new", handler.OrgAdventureNew, stores)
 	handle(r, "/org/@{orgtag}/adventure/all", handler.OrgAdventuresAll, stores)
 
 	fmt.Println("Server running on http://localhost:8080")

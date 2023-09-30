@@ -19,7 +19,7 @@ func OrgNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 
 	org := data.Org{
 		Name:   body.Name,
-		Tag:    data.Tagify(body.Name),
+		Tag:    data.Tagify(body.Name, false),
 		Secret: body.Secret,
 	}
 	// validate request
@@ -28,6 +28,8 @@ func OrgNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 	} else if body.Name == "" || body.Secret == "" {
 		return ErrMalformedBody
 	}
+
+	// TODO: check if tag already exists
 
 	err := stores.Orgs.Put(org)
 	if err != nil {

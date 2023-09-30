@@ -32,3 +32,16 @@ Returns a single adventure from a tag
 ```ts
 type Returns = Adventure | Error
 ```
+
+
+
+## `POST ` api/admin/org/@{orgtag}/adventure/new
+```ts
+type Body = {
+	name: string,
+	description: string,
+}
+```
+```ts
+type Returns = Adventure | Error
+```
