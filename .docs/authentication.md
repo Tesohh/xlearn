@@ -1,5 +1,6 @@
 # Authentication
-## `POST` api/unprotected/user/signup
+## `POST` api/user/signup
+Modifiers: `unprotected`
 use this to create a new user from a username, password and optionally a display name
 ```ts
 type Body = {
@@ -10,7 +11,8 @@ type Body = {
 type Returns = User | Error
 ```
 
-## `GET ` api/unprotected/user/login
+## `GET ` api/user/login
+Modifiers: `unprotected`
 logs in a user for 24 hours by setting the JWT cookie
 ```ts
 type Body = {

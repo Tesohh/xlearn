@@ -35,7 +35,8 @@ type Returns = Adventure | Error
 
 
 
-## `POST ` api/admin/org/@{orgtag}/adventure/new
+## `POST ` api/org/@{orgtag}/adventure/new
+Modifiers: `admin`
 ```ts
 type Body = {
 	name: string,
