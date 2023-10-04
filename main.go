@@ -61,3 +61,5 @@ func main() {
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
 }
+
+// todo make post edit functions usable ONLY by admins
