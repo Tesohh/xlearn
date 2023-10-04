@@ -1,6 +1,6 @@
 @api = http://localhost:8080/api/org/@silandro-investors
 
-http://localhost:8080/api/org/new
+POST http://localhost:8080/api/org/new
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 {{api}}/adventure/all
 
 ###
-{{api}}/adventure/new
+POST {{api}}/adventure/new
 Content-Type: application/json
 
 {

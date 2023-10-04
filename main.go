@@ -12,9 +12,9 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
-func handle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder, modifiers ...string) {
-	r.HandleFunc("/api"+path, handler.DecorateHTTPFunc(f, stores, modifiers))
-}
+// func handle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder, modifiers ...string) {
+// 	r.HandleFunc("/api"+path, handler.DecorateHTTPFunc(f, stores, modifiers))
+// }
 
 func main() {
 	client, err := db.NewMongoClient()
@@ -27,25 +27,30 @@ func main() {
 		Orgs:  db.MongoStore[data.Org]{Client: client, Coll: client.Database("main").Collection("orgs")},
 	}
 
-	r := mux.NewRouter()
+	r := mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter()
 	// auth
-	handle(r, "/user/signup", handler.UserSignup, stores, "unprotected")
-	handle(r, "/user/login", handler.UserLogin, stores, "unprotected")
-	handle(r, "/user/logout", handler.UserLogout, stores)
+	auth := r.NewRoute().PathPrefix("/user").Subrouter()
+	auth.HandleFunc("/signup", handler.MW(handler.UserSignup, stores, "unprotected")).Methods("POST")
+	auth.HandleFunc("/login", handler.MW(handler.UserLogin, stores, "unprotected")).Methods("GET")
+	auth.HandleFunc("/logout", handler.MW(handler.UserLogout, stores)).Methods("GET")
 
 	// user
-	handle(r, "/user/one", handler.OneUser, stores)
-	handle(r, "/user/me", handler.UserMe, stores)
+	user := r.NewRoute().PathPrefix("/user").Subrouter()
+	user.HandleFunc("/one", handler.MW(handler.OneUser, stores)).Methods("GET")
+	user.HandleFunc("/me", handler.MW(handler.UserMe, stores)).Methods("GET")
 
 	// org
-	handle(r, "/org/new", handler.OrgNew, stores, "admin")
-	handle(r, "/org/@{orgtag}", handler.Org, stores)
-	handle(r, "/org/@{orgtag}/meta", handler.OrgMeta, stores)
+	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()
+	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
+	orgGeneric.HandleFunc("/new", handler.MW(handler.OrgNew, stores, "admin")).Methods("POST")
+	org.HandleFunc("", handler.MW(handler.Org, stores)).Methods("GET")
+	org.HandleFunc("/meta", handler.MW(handler.OrgMeta, stores)).Methods("GET")
 
 	// org adventures
-	handle(r, "/org/@{orgtag}/adventure/@{advtag}", handler.OrgAdventureOne, stores)
-	handle(r, "/org/@{orgtag}/adventure/new", handler.OrgAdventureNew, stores, "admin")
-	handle(r, "/org/@{orgtag}/adventure/all", handler.OrgAdventuresAll, stores)
+	adventure := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
+	adventure.HandleFunc("/@{advtag}", handler.MW(handler.OrgAdventureOne, stores)).Methods("GET")
+	adventure.HandleFunc("/new", handler.MW(handler.OrgAdventureNew, stores, "admin")).Methods("POST")
+	adventure.HandleFunc("/all", handler.MW(handler.OrgAdventuresAll, stores)).Methods("GET")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

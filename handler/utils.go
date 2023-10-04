@@ -48,7 +48,7 @@ func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
 
 type APIFunc func(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 
-func DecorateHTTPFunc(f APIFunc, stores db.StoreHolder, modifiers []string) http.HandlerFunc {
+func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// authentication
 		if !slices.Contains(modifiers, "unprotected") {
