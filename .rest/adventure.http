@@ -13,3 +13,13 @@ Content-Type: application/json
 
 ###
 GET {{api}}/@forklift-certification-adf87
+
+###
+POST {{api}}/@forklift-certification-adf87
+Content-Type: application/json
+
+{
+    "name": "forklift certification-zestyyyyy"
+}
+
+

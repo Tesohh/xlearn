@@ -33,6 +33,12 @@ Returns a single adventure from a tag
 type Returns = Adventure | Error
 ```
 
+## `POST` api/org/@{orgtag}/adventure/@{advtag}
+can edit an adventure. Note: if you put in a tag it will be ignored as it can never be changed.
+```ts
+type Body = Adventure
+type Returns = Success | Error
+```
 
 
 ## `POST ` api/org/@{orgtag}/adventure/new

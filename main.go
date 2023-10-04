@@ -54,6 +54,7 @@ func main() {
 	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
 
 	adv.HandleFunc("", handler.MW(handler.OrgAdventureOne, stores)).Methods("GET")
+	adv.HandleFunc("", handler.MW(handler.OrgAdventureEdit, stores)).Methods("POST")
 	advGeneric.HandleFunc("/new", handler.MW(handler.OrgAdventureNew, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/all", handler.MW(handler.OrgAdventuresAll, stores)).Methods("GET")
 
