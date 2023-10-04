@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
 )
 
@@ -23,7 +22,7 @@ func OrgMeta(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 		return err
 	}
 
-	org.Adventures = []data.Adventure{}
+	org.Adventures = []string{}
 
 	writeJSON(w, 200, org)
 	return nil

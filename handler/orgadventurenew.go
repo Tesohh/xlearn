@@ -30,18 +30,19 @@ func OrgAdventureNew(w http.ResponseWriter, r *http.Request, stores db.StoreHold
 		return ErrMalformedBody
 	}
 
-	tag, ok := getOrgTag(r)
-	if !ok {
-		return ErrPathVar
+	err := stores.Adventures.Put(adventure)
+	if err != nil {
+		return err
 	}
 
+	// update the org's list
 	org, err := getOrg(r, stores)
 	if err != nil {
 		return err
 	}
-	org.Adventures = append(org.Adventures, adventure)
+	org.Adventures = append(org.Adventures, adventure.Tag)
 
-	err = stores.Orgs.Update(db.Query{"tag": tag}, *org)
+	err = stores.Orgs.Update(db.Query{"tag": org.Tag}, *org)
 	if err != nil {
 		return err
 	}

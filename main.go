@@ -23,8 +23,9 @@ func main() {
 	}
 
 	stores := db.StoreHolder{
-		Users: db.MongoStore[data.User]{Client: client, Coll: client.Database("main").Collection("users")},
-		Orgs:  db.MongoStore[data.Org]{Client: client, Coll: client.Database("main").Collection("orgs")},
+		Users:      db.MongoStore[data.User]{Client: client, Coll: client.Database("main").Collection("users")},
+		Orgs:       db.MongoStore[data.Org]{Client: client, Coll: client.Database("main").Collection("orgs")},
+		Adventures: db.MongoStore[data.Adventure]{Client: client, Coll: client.Database("main").Collection("adventures")},
 	}
 
 	r := mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter()

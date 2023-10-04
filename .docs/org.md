@@ -5,7 +5,7 @@ type Org = {
     name: string,
     tag: string,
     secret: string,
-    adventures: Adventure[]
+    adventures: string[]
 }
 ```
 

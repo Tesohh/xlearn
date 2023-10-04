@@ -7,9 +7,9 @@ POST {{api}}/new
 Content-Type: application/json
 
 {
-    "name": "forklift certification brodiecast"
+    "name": "forklift certification"
 }
 
 
 ###
-GET {{api}}/@forklift-certification
+GET {{api}}/@forklift-certification-adf87
