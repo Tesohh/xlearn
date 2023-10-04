@@ -25,6 +25,7 @@ type Returns = Org | Error
 
 ## `POST` api/org/@{orgtag}
 can edit an org. Note: if you put in a tag it will be ignored as it can never be changed.
+Modifiers: `admin`
 ```ts
 type Body = Org
 type Returns = Success | Error

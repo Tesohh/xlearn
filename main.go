@@ -45,7 +45,7 @@ func main() {
 	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()
 	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
 	orgGeneric.HandleFunc("/new", handler.MW(handler.OrgNew, stores, "admin")).Methods("POST")
-	org.HandleFunc("", handler.MW(handler.Org, stores)).Methods("GET")
+	org.HandleFunc("", handler.MW(handler.Org, stores, "admin")).Methods("GET")
 	org.HandleFunc("", handler.MW(handler.OrgEdit, stores)).Methods("POST")
 	org.HandleFunc("/meta", handler.MW(handler.OrgMeta, stores)).Methods("GET")
 
@@ -54,12 +54,10 @@ func main() {
 	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
 
 	adv.HandleFunc("", handler.MW(handler.OrgAdventureOne, stores)).Methods("GET")
-	adv.HandleFunc("", handler.MW(handler.OrgAdventureEdit, stores)).Methods("POST")
+	adv.HandleFunc("", handler.MW(handler.OrgAdventureEdit, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/new", handler.MW(handler.OrgAdventureNew, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/all", handler.MW(handler.OrgAdventuresAll, stores)).Methods("GET")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
 }
-
-// todo make post edit functions usable ONLY by admins

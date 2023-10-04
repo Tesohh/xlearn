@@ -35,6 +35,7 @@ type Returns = Adventure | Error
 
 ## `POST` api/org/@{orgtag}/adventure/@{advtag}
 can edit an adventure. Note: if you put in a tag it will be ignored as it can never be changed.
+Modifiers: `admin`
 ```ts
 type Body = Adventure
 type Returns = Success | Error
