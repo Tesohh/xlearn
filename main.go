@@ -26,6 +26,7 @@ func main() {
 		Users:      db.MongoStore[data.User]{Client: client, Coll: client.Database("main").Collection("users")},
 		Orgs:       db.MongoStore[data.Org]{Client: client, Coll: client.Database("main").Collection("orgs")},
 		Adventures: db.MongoStore[data.Adventure]{Client: client, Coll: client.Database("main").Collection("adventures")},
+		Steps:      db.MongoStore[data.Step]{Client: client, Coll: client.Database("main").Collection("steps")},
 	}
 
 	r := mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter()
@@ -45,6 +46,7 @@ func main() {
 	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
 	orgGeneric.HandleFunc("/new", handler.MW(handler.OrgNew, stores, "admin")).Methods("POST")
 	org.HandleFunc("", handler.MW(handler.Org, stores)).Methods("GET")
+	org.HandleFunc("", handler.MW(handler.OrgEdit, stores)).Methods("POST")
 	org.HandleFunc("/meta", handler.MW(handler.OrgMeta, stores)).Methods("GET")
 
 	// org adventures

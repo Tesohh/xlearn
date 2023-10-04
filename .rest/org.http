@@ -15,3 +15,12 @@ Content-Type: application/json
 ###
 
 {{api}}/meta
+
+###
+// @silandro-investors
+POST {{api}}
+Content-Type: application/json
+
+{
+    "tag": "SILANDRO INVESTORS TUBRETTI"
+}

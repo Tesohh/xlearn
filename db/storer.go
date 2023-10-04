@@ -16,4 +16,5 @@ type StoreHolder struct {
 	Users      Storer[data.User]
 	Orgs       Storer[data.Org]
 	Adventures Storer[data.Adventure]
+	Steps      Storer[data.Step]
 }

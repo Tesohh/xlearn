@@ -3,10 +3,10 @@ package data
 import "reflect"
 
 type Adventure struct {
-	Name        string `bson:"name,omitempty" json:"name,omitempty"`
-	Tag         string `bson:"tag,omitempty" json:"tag,omitempty"`
-	Description string `bson:"description,omitempty" json:"description,omitempty"`
-	Steps       []Step `bson:"steps,omitempty" json:"steps,omitempty"`
+	Name        string   `bson:"name,omitempty" json:"name,omitempty"`
+	Tag         string   `bson:"tag,omitempty" json:"tag,omitempty"`
+	Description string   `bson:"description,omitempty" json:"description,omitempty"`
+	Steps       []string `bson:"steps,omitempty" json:"steps,omitempty"`
 }
 
 func (a Adventure) IsEmpty() bool {
@@ -22,5 +22,9 @@ type Step struct {
 	CoinsAward  int    `bson:"coins_award,omitempty" json:"coins_award,omitempty"`
 	EnergyCost  int    `bson:"energy_cost,omitempty" json:"energy_cost,omitempty"`
 
-	Children []Step `bson:"children,omitempty" json:"children,omitempty"`
+	Children []string `bson:"children,omitempty" json:"children,omitempty"`
+}
+
+func (s Step) IsEmpty() bool {
+	return reflect.DeepEqual(s, Step{})
 }

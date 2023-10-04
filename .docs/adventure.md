@@ -5,7 +5,7 @@ type Adventure = {
 	name: string
 	tag: string
 	description: string
-	steps: Step[]
+	steps: string[]
 }
 type Step = {
 	name: string
@@ -16,7 +16,7 @@ type Step = {
 	coinsAward: number   
 	energyCost: number   
 
-	children: Step[]
+	children: string[] // the tags to children
 }
 ```
 
