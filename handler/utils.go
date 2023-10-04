@@ -101,6 +101,17 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 				return
 			}
 		}
+		if slices.Contains(modifiers, "teacher") {
+			user, err := currentUser(r, stores)
+			if err != nil {
+				writeJSON(w, 400, M{"error": err.Error()})
+				return
+			}
+			if user.Role < data.RoleTeacher {
+				writeJSON(w, http.StatusUnauthorized, M{"error": ErrUnauthorized.Error()})
+				return
+			}
+		}
 
 		// if authentication / authorization failed at this point the function would have exited
 		// so from this point on everything is protected

@@ -47,10 +47,12 @@ func main() {
 	org.HandleFunc("/meta", handler.MW(handler.OrgMeta, stores)).Methods("GET")
 
 	// org adventures
-	adventure := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
-	adventure.HandleFunc("/@{advtag}", handler.MW(handler.OrgAdventureOne, stores)).Methods("GET")
-	adventure.HandleFunc("/new", handler.MW(handler.OrgAdventureNew, stores, "admin")).Methods("POST")
-	adventure.HandleFunc("/all", handler.MW(handler.OrgAdventuresAll, stores)).Methods("GET")
+	advGeneric := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
+	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
+
+	adv.HandleFunc("", handler.MW(handler.OrgAdventureOne, stores)).Methods("GET")
+	advGeneric.HandleFunc("/new", handler.MW(handler.OrgAdventureNew, stores, "admin")).Methods("POST")
+	advGeneric.HandleFunc("/all", handler.MW(handler.OrgAdventuresAll, stores)).Methods("GET")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

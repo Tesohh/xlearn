@@ -1,0 +1,15 @@
+@api = http://localhost:8080/api/org/@silandro-investors/adventure
+
+{{api}}/all
+
+###
+POST {{api}}/new
+Content-Type: application/json
+
+{
+    "name": "forklift certification brodiecast"
+}
+
+
+###
+GET {{api}}/@forklift-certification

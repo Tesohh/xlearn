@@ -7,21 +7,6 @@ Content-Type: application/json
     "name": "SILANDRO INVESTORS",
     "secret": "tubre"
 }
-###
-
-{{api}}/adventure/all
-
-###
-POST {{api}}/adventure/new
-Content-Type: application/json
-
-{
-    "name": "forklift certification brodiecast"
-}
-
-
-###
-{{api}}/adventure/@forklift-certification
 
 ###
 // @silandro-investors
