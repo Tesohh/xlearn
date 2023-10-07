@@ -7,17 +7,6 @@ type Adventure = {
 	description: string
 	steps: string[]
 }
-type Step = {
-	name: string
-	tag: string
-	description: string
-	content: string // WARNING: will extremely likely change in type in the near future 
-	xpAward: number
-	coinsAward: number   
-	energyCost: number   
-
-	children: string[] // the tags to children
-}
 ```
 
 ## `GET ` api/org/@{orgtag}/adventure/all
