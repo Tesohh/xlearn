@@ -20,8 +20,8 @@ type Step struct {
 	CoinsAward  int     `bson:"coins_award,omitempty" json:"coins_award,omitempty"`
 	EnergyCost  int     `bson:"energy_cost,omitempty" json:"energy_cost,omitempty"`
 
-	// slice of tags to other Steps
-	Children []string `bson:"children,omitempty" json:"children,omitempty"`
+	// slice of slices of tags to other Steps
+	Children [][]string `bson:"children,omitempty" json:"children,omitempty"`
 }
 
 func (s Step) IsEmpty() bool {
