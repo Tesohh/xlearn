@@ -12,10 +12,6 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
-// func handle(r *mux.Router, path string, f handler.APIFunc, stores db.StoreHolder, modifiers ...string) {
-// 	r.HandleFunc("/api"+path, handler.DecorateHTTPFunc(f, stores, modifiers))
-// }
-
 func main() {
 	client, err := db.NewMongoClient()
 	if err != nil { // if it doesnt connect to mongo, it needs to panic out
@@ -45,8 +41,8 @@ func main() {
 	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()
 	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
 	orgGeneric.HandleFunc("/new", handler.MW(handler.OrgNew, stores, "admin")).Methods("POST")
-	org.HandleFunc("", handler.MW(handler.Org, stores, "admin")).Methods("GET")
-	org.HandleFunc("", handler.MW(handler.OrgEdit, stores)).Methods("POST")
+	org.HandleFunc("", handler.MW(handler.Org, stores)).Methods("GET")
+	org.HandleFunc("", handler.MW(handler.OrgEdit, stores, "admin")).Methods("POST")
 	org.HandleFunc("/meta", handler.MW(handler.OrgMeta, stores)).Methods("GET")
 
 	// org adventures
