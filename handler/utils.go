@@ -16,13 +16,13 @@ import (
 
 type M map[string]string
 
-func writeJSON(w http.ResponseWriter, status int, v any) error {
+func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.WriteHeader(status)
 	w.Header().Add("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(v)
 }
 
-func currentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
+func CurrentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
 	username := r.Header.Get("jwt-username")
 	if username == "" {
 		return nil, ErrJwtUsernameInexistent
@@ -31,14 +31,14 @@ func currentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
 	return stores.Users.One(db.Query{"username": username})
 }
 
-func getOrgTag(r *http.Request) (string, bool) {
+func GetOrgTag(r *http.Request) (string, bool) {
 	vars := mux.Vars(r)
 	tag, ok := vars["orgtag"]
 	return tag, ok
 }
 
-func getOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
-	tag, ok := getOrgTag(r)
+func GetOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
+	tag, ok := GetOrgTag(r)
 	if !ok {
 		return nil, ErrPathVar
 	}
@@ -54,7 +54,7 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 		if !slices.Contains(modifiers, "unprotected") {
 			tokenString, err := r.Cookie("token")
 			if err != nil {
-				writeJSON(w, http.StatusUnauthorized, M{"error": "token cookie not found"})
+				WriteJSON(w, http.StatusUnauthorized, M{"error": "token cookie not found"})
 				return
 			}
 
@@ -66,24 +66,24 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 				return []byte(os.Getenv("JWT_SECRET")), nil
 			})
 			if err != nil {
-				writeJSON(w, 400, M{"error": err.Error()})
+				WriteJSON(w, 400, M{"error": err.Error()})
 				return
 			}
 
 			claims, ok := token.Claims.(jwt.MapClaims)
 			// basic validation
 			if !ok || !token.Valid {
-				writeJSON(w, http.StatusUnauthorized, M{"error": err.Error()})
+				WriteJSON(w, http.StatusUnauthorized, M{"error": err.Error()})
 				return
 			}
 			// validate expiration
 			if float64(time.Now().Unix()) > claims["exp"].(float64) {
-				writeJSON(w, http.StatusUnauthorized, M{"error": "token is expired"})
+				WriteJSON(w, http.StatusUnauthorized, M{"error": "token is expired"})
 				return
 			}
 			username, ok := claims["username"]
 			if !ok {
-				writeJSON(w, http.StatusUnauthorized, M{"error": "username undefined in jwt"})
+				WriteJSON(w, http.StatusUnauthorized, M{"error": "username undefined in jwt"})
 				return
 			}
 			r.Header.Add("jwt-username", username.(string))
@@ -91,24 +91,24 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 		}
 
 		if slices.Contains(modifiers, "admin") {
-			user, err := currentUser(r, stores)
+			user, err := CurrentUser(r, stores)
 			if err != nil {
-				writeJSON(w, 400, M{"error": err.Error()})
+				WriteJSON(w, 400, M{"error": err.Error()})
 				return
 			}
 			if user.Role < data.RoleAdmin {
-				writeJSON(w, http.StatusUnauthorized, M{"error": ErrUnauthorized.Error()})
+				WriteJSON(w, http.StatusUnauthorized, M{"error": ErrUnauthorized.Error()})
 				return
 			}
 		}
 		if slices.Contains(modifiers, "teacher") {
-			user, err := currentUser(r, stores)
+			user, err := CurrentUser(r, stores)
 			if err != nil {
-				writeJSON(w, 400, M{"error": err.Error()})
+				WriteJSON(w, 400, M{"error": err.Error()})
 				return
 			}
 			if user.Role < data.RoleTeacher {
-				writeJSON(w, http.StatusUnauthorized, M{"error": ErrUnauthorized.Error()})
+				WriteJSON(w, http.StatusUnauthorized, M{"error": ErrUnauthorized.Error()})
 				return
 			}
 		}
@@ -118,7 +118,7 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 
 		err := f(w, r, stores)
 		if err != nil {
-			writeJSON(w, 400, M{"error": err.Error()})
+			WriteJSON(w, 400, M{"error": err.Error()})
 		}
 	}
 }

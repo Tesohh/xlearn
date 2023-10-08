@@ -1,4 +1,4 @@
-package handler
+package adventurehandler
 
 import (
 	"encoding/json"
@@ -6,15 +6,16 @@ import (
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
+	"github.com/Tesohh/xlearn/handler"
 )
 
-type orgAdventureNewBody struct {
+type newBody struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 }
 
-func OrgAdventureNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
-	var body orgAdventureNewBody
+func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
+	var body newBody
 	json.NewDecoder(r.Body).Decode(&body)
 
 	adventure := data.Adventure{
@@ -24,10 +25,10 @@ func OrgAdventureNew(w http.ResponseWriter, r *http.Request, stores db.StoreHold
 	}
 
 	// validate request
-	if (body == orgAdventureNewBody{}) {
-		return ErrEmptyBody
+	if (body == newBody{}) {
+		return handler.ErrEmptyBody
 	} else if body.Name == "" {
-		return ErrMalformedBody
+		return handler.ErrMalformedBody
 	}
 
 	err := stores.Adventures.Put(adventure)
@@ -36,7 +37,7 @@ func OrgAdventureNew(w http.ResponseWriter, r *http.Request, stores db.StoreHold
 	}
 
 	// update the org's list
-	org, err := getOrg(r, stores)
+	org, err := handler.GetOrg(r, stores)
 	if err != nil {
 		return err
 	}
@@ -47,6 +48,6 @@ func OrgAdventureNew(w http.ResponseWriter, r *http.Request, stores db.StoreHold
 		return err
 	}
 
-	writeJSON(w, 200, adventure)
+	handler.WriteJSON(w, 200, adventure)
 	return nil
 }

@@ -1,4 +1,4 @@
-package handler
+package userhandler
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
+	"github.com/Tesohh/xlearn/handler"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -16,19 +17,19 @@ type signupBody struct {
 	Password string `json:"password"`
 }
 
-func UserSignup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
+func Signup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body signupBody
 	json.NewDecoder(r.Body).Decode(&body)
 
 	// validate request
 	if (body == signupBody{}) {
-		return ErrEmptyBody
+		return handler.ErrEmptyBody
 	} else if body.Username == "" {
-		return ErrMalformedBody
+		return handler.ErrMalformedBody
 	} else if body.Password == "" {
-		return ErrMalformedBody
+		return handler.ErrMalformedBody
 	} else if len(body.Password) < 12 {
-		return ErrPWTooShort
+		return handler.ErrPWTooShort
 	}
 
 	// normalize username and display (just in case)
@@ -43,7 +44,7 @@ func UserSignup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) e
 	// check if username already exists
 	_, err := stores.Users.One(db.Query{"username": body.Username})
 	if err != db.ErrDocumentNotFound {
-		return ErrUsernameTaken
+		return handler.ErrUsernameTaken
 	}
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
@@ -62,6 +63,6 @@ func UserSignup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) e
 		return err
 	}
 
-	writeJSON(w, 200, user)
+	handler.WriteJSON(w, 200, user)
 	return nil
 }

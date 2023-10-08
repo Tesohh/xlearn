@@ -1,4 +1,4 @@
-package handler
+package userhandler
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/Tesohh/xlearn/db"
+	"github.com/Tesohh/xlearn/handler"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -16,7 +17,7 @@ type loginBody struct {
 	Password string `json:"password"`
 }
 
-func UserLogin(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
+func Login(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body loginBody
 	json.NewDecoder(r.Body).Decode(&body)
 
@@ -27,7 +28,7 @@ func UserLogin(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) er
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(body.Password))
 	if err != nil {
-		return ErrInvalidPassword
+		return handler.ErrInvalidPassword
 	}
 
 	expiration := time.Now().Add(24 * time.Hour)
@@ -51,19 +52,6 @@ func UserLogin(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) er
 	}
 
 	http.SetCookie(w, &cookie)
-	writeJSON(w, 200, M{"success": "set cookie properly"})
-	return nil
-}
-
-func UserLogout(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
-	cookie := http.Cookie{
-		Name:    "token",
-		Value:   "",
-		Path:    "/",
-		Expires: time.Now(),
-	}
-
-	http.SetCookie(w, &cookie)
-	writeJSON(w, 200, M{"success": "logged out properly"})
+	handler.WriteJSON(w, 200, handler.M{"success": "set cookie properly"})
 	return nil
 }

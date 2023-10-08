@@ -8,6 +8,9 @@ import (
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
 	"github.com/Tesohh/xlearn/handler"
+	"github.com/Tesohh/xlearn/handler/adventurehandler"
+	"github.com/Tesohh/xlearn/handler/orghandler"
+	"github.com/Tesohh/xlearn/handler/userhandler"
 	"github.com/gorilla/mux"
 	_ "github.com/joho/godotenv/autoload"
 )
@@ -26,33 +29,34 @@ func main() {
 	}
 
 	r := mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter()
+
 	// auth
 	auth := r.NewRoute().PathPrefix("/user").Subrouter()
-	auth.HandleFunc("/signup", handler.MW(handler.UserSignup, stores, "unprotected")).Methods("POST")
-	auth.HandleFunc("/login", handler.MW(handler.UserLogin, stores, "unprotected")).Methods("GET")
-	auth.HandleFunc("/logout", handler.MW(handler.UserLogout, stores)).Methods("GET")
+	auth.HandleFunc("/signup", handler.MW(userhandler.Signup, stores, "unprotected")).Methods("POST")
+	auth.HandleFunc("/login", handler.MW(userhandler.Login, stores, "unprotected")).Methods("GET")
+	auth.HandleFunc("/logout", handler.MW(userhandler.Logout, stores)).Methods("GET")
 
 	// user
 	user := r.NewRoute().PathPrefix("/user").Subrouter()
-	user.HandleFunc("/one", handler.MW(handler.OneUser, stores)).Methods("GET")
-	user.HandleFunc("/me", handler.MW(handler.UserMe, stores)).Methods("GET")
+	user.HandleFunc("/me", handler.MW(userhandler.Me, stores)).Methods("GET")
 
 	// org
 	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()
 	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
-	orgGeneric.HandleFunc("/new", handler.MW(handler.OrgNew, stores, "admin")).Methods("POST")
-	org.HandleFunc("", handler.MW(handler.Org, stores)).Methods("GET")
-	org.HandleFunc("", handler.MW(handler.OrgEdit, stores, "admin")).Methods("POST")
-	org.HandleFunc("/meta", handler.MW(handler.OrgMeta, stores)).Methods("GET")
+
+	orgGeneric.HandleFunc("/new", handler.MW(orghandler.New, stores, "admin")).Methods("POST")
+	org.HandleFunc("", handler.MW(orghandler.One, stores)).Methods("GET")
+	org.HandleFunc("", handler.MW(orghandler.Edit, stores, "admin")).Methods("POST")
+	org.HandleFunc("/meta", handler.MW(orghandler.Meta, stores)).Methods("GET")
 
 	// org adventures
 	advGeneric := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
 	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
 
-	adv.HandleFunc("", handler.MW(handler.OrgAdventureOne, stores)).Methods("GET")
-	adv.HandleFunc("", handler.MW(handler.OrgAdventureEdit, stores, "admin")).Methods("POST")
-	advGeneric.HandleFunc("/new", handler.MW(handler.OrgAdventureNew, stores, "admin")).Methods("POST")
-	advGeneric.HandleFunc("/all", handler.MW(handler.OrgAdventuresAll, stores)).Methods("GET")
+	adv.HandleFunc("", handler.MW(adventurehandler.One, stores)).Methods("GET")
+	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin")).Methods("POST")
+	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin")).Methods("POST")
+	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores)).Methods("GET")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

@@ -1,4 +1,4 @@
-package handler
+package orghandler
 
 import (
 	"encoding/json"
@@ -6,6 +6,7 @@ import (
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
+	"github.com/Tesohh/xlearn/handler"
 )
 
 type orgNewBody struct {
@@ -13,7 +14,7 @@ type orgNewBody struct {
 	Secret string `json:"secret"`
 }
 
-func OrgNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
+func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body orgNewBody
 	json.NewDecoder(r.Body).Decode(&body)
 
@@ -26,13 +27,13 @@ func OrgNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 	}
 	// validate request
 	if (body == orgNewBody{}) {
-		return ErrEmptyBody
+		return handler.ErrEmptyBody
 	} else if body.Name == "" || body.Secret == "" {
-		return ErrMalformedBody
+		return handler.ErrMalformedBody
 	}
 
 	if _, err := stores.Orgs.One(db.Query{"tag": tag}); err == nil {
-		return ErrTagTaken
+		return handler.ErrTagTaken
 	}
 
 	err := stores.Orgs.Put(org)
@@ -40,6 +41,6 @@ func OrgNew(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 		return err
 	}
 
-	writeJSON(w, 200, org)
+	handler.WriteJSON(w, 200, org)
 	return nil
 }
