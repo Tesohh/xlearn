@@ -5,3 +5,6 @@ test:
 
 run:
 	@go run .
+
+svelte:
+	@cd frontend; npm run dev
