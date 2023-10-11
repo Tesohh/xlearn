@@ -1,0 +1,16 @@
+@api = http://localhost:8080/api/step
+
+POST {{api}}/new
+Content-Type: application/json
+
+{
+    "name": "turning on the forklift",
+    "description": "learn how to turn on your forklift",
+    "content": "bro take the key and put it in 🤑",
+    "category": "lesson",
+    "xp_award": 233333,
+    "coins_award": 30,
+    "energy_cost": 1,
+    "parent": "turning-on-the-forklift-aafb5",
+    "branch_index": 0
+}

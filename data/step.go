@@ -15,7 +15,7 @@ type Step struct {
 	Tag         string  `bson:"tag,omitempty" json:"tag,omitempty"`
 	Description string  `bson:"description,omitempty" json:"description,omitempty"`
 	Content     string  `bson:"content,omitempty" json:"content,omitempty"`
-	Category    StepCat `bson:"step_cat,omitempty" json:"step_cat,omitempty"`
+	Category    StepCat `bson:"category,omitempty" json:"category,omitempty"`
 	XPAward     int     `bson:"xp_award,omitempty" json:"xp_award,omitempty"`
 	CoinsAward  int     `bson:"coins_award,omitempty" json:"coins_award,omitempty"`
 	EnergyCost  int     `bson:"energy_cost,omitempty" json:"energy_cost,omitempty"`

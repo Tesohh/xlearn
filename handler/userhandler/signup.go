@@ -55,6 +55,7 @@ func Signup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 	user := data.User{
 		Display:      body.Display,
 		Username:     body.Username,
+		Role:         data.RoleUser,
 		PasswordHash: string(hash),
 		Coins:        5,
 	}

@@ -12,4 +12,5 @@ var (
 	ErrJwtUsernameInexistent = errors.New("jwt-username header doesn't exist somehow")
 	ErrUnauthorized          = errors.New("unauthorized")
 	ErrPathVar               = errors.New("invalid path variable")
+	ErrOutOfRange            = errors.New("index out of range or negative")
 )

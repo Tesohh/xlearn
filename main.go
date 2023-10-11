@@ -10,6 +10,7 @@ import (
 	"github.com/Tesohh/xlearn/handler"
 	"github.com/Tesohh/xlearn/handler/adventurehandler"
 	"github.com/Tesohh/xlearn/handler/orghandler"
+	"github.com/Tesohh/xlearn/handler/stephandler"
 	"github.com/Tesohh/xlearn/handler/userhandler"
 	"github.com/gorilla/mux"
 	_ "github.com/joho/godotenv/autoload"
@@ -57,6 +58,13 @@ func main() {
 	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores)).Methods("GET")
+
+	// steps
+	stepGeneric := r.NewRoute().PathPrefix("/step").Subrouter()
+	step := stepGeneric.NewRoute().PathPrefix("/@{steptag}").Subrouter()
+	_ = step
+
+	stepGeneric.HandleFunc("/new", handler.MW(stephandler.New, stores, "teacher")).Methods("POST")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
