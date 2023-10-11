@@ -14,3 +14,14 @@ Content-Type: application/json
     "parent": "turning-on-the-forklift-aafb5",
     "branch_index": 0
 }
+
+###
+GET {{api}}/@turning-on-the-forklift-5b20b
+
+###
+GET {{api}}/many
+Content-Type: application/json
+
+{
+    "items": ["turning-on-the-forklift-5b20b", "turning-on-the-forklift-aafb5"]
+}

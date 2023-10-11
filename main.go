@@ -54,17 +54,18 @@ func main() {
 	advGeneric := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
 	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
 
-	adv.HandleFunc("", handler.MW(adventurehandler.One, stores)).Methods("GET")
-	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores)).Methods("GET")
+	adv.HandleFunc("", handler.MW(adventurehandler.One, stores)).Methods("GET")
+	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin")).Methods("POST")
 
 	// steps
 	stepGeneric := r.NewRoute().PathPrefix("/step").Subrouter()
 	step := stepGeneric.NewRoute().PathPrefix("/@{steptag}").Subrouter()
-	_ = step
 
 	stepGeneric.HandleFunc("/new", handler.MW(stephandler.New, stores, "teacher")).Methods("POST")
+	stepGeneric.HandleFunc("/many", handler.MW(stephandler.Many, stores)).Methods("GET")
+	step.HandleFunc("", handler.MW(stephandler.One, stores)).Methods("GET")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
