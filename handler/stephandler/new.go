@@ -3,6 +3,7 @@ package stephandler
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
@@ -52,26 +53,43 @@ func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 		return nil
 	}
 
-	parent, err := stores.Steps.One(db.Query{"tag": body.Parent})
-	if err != nil {
-		return err
-	}
+	if strings.HasPrefix(body.Parent, "adv:") {
+		ptag := strings.Replace(body.Parent, "adv:", "", 1)
+		parent, err := stores.Adventures.One(db.Query{"tag": ptag})
+		if err != nil {
+			return err
+		}
 
-	if body.BranchIndex < 0 {
-		return handler.ErrOutOfRange
-	} else if body.BranchIndex > len(parent.Children) {
-		return handler.ErrOutOfRange
-	}
+		parent.Steps = append(parent.Steps, step.Tag)
+		err = stores.Adventures.Update(db.Query{"tag": parent.Tag}, *parent)
+		if err != nil {
+			return err
+		}
+	} else if strings.HasPrefix(body.Parent, "step:") {
+		ptag := strings.Replace(body.Parent, "step:", "", 1)
+		parent, err := stores.Steps.One(db.Query{"tag": ptag})
+		if err != nil {
+			return err
+		}
 
-	if body.BranchIndex == len(parent.Children) { // in case we are making a new branch
-		parent.Children = append(parent.Children, []string{})
-	}
+		if body.BranchIndex < 0 {
+			return handler.ErrOutOfRange
+		} else if body.BranchIndex > len(parent.Children) {
+			return handler.ErrOutOfRange
+		}
 
-	parent.Children[body.BranchIndex] = append(parent.Children[body.BranchIndex], step.Tag)
+		if body.BranchIndex == len(parent.Children) { // in case we are making a new branch
+			parent.Children = append(parent.Children, []string{})
+		}
 
-	err = stores.Steps.Update(db.Query{"tag": parent.Tag}, *parent)
-	if err != nil {
-		return err
+		parent.Children[body.BranchIndex] = append(parent.Children[body.BranchIndex], step.Tag)
+
+		err = stores.Steps.Update(db.Query{"tag": parent.Tag}, *parent)
+		if err != nil {
+			return err
+		}
+	} else {
+		return handler.ErrInvalidParentPrefix
 	}
 
 	handler.WriteJSON(w, 200, step)

@@ -11,7 +11,7 @@ Content-Type: application/json
     "xp_award": 233333,
     "coins_award": 30,
     "energy_cost": 1,
-    "parent": "turning-on-the-forklift-aafb5",
+    "parent": "adv:forklift-certification-adf87",
     "branch_index": 0
 }
 

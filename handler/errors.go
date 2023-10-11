@@ -13,4 +13,5 @@ var (
 	ErrUnauthorized          = errors.New("unauthorized")
 	ErrPathVar               = errors.New("invalid path variable")
 	ErrOutOfRange            = errors.New("index out of range or negative")
+	ErrInvalidParentPrefix   = errors.New("invalid parent prefix")
 )
