@@ -51,6 +51,20 @@ in (pseudo)code would be:
 ]
 ```
 
+
+## `GET ` /api/step/@{steptag}
+```ts
+type Returns = Step | Error
+```
+
+## `GET ` /api/step/many
+```ts
+type Body = {
+    items: string[]; // array of tags
+}
+type Returns = Step | Error
+```
+
 ## `POST` /api/step/new
 Modifiers: teacher
 ```ts
