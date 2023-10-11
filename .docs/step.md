@@ -1,12 +1,13 @@
 # Step
 ## Definition
 ```ts
+type StepCat = "lesson" | "exercise" | "project"
 type Step = {
     name: string;
     tag: string;
     description: string;
     content: string; // markdown is stored here
-    category: "lesson" | "exercise" | "project";
+    category: StepCat;
     xp_award: number;
     coins_award: number;
     energy_cost: number;
@@ -48,4 +49,25 @@ in (pseudo)code would be:
     }
     {"step5"}
 ]
+```
+
+## `POST` /api/step/new
+Modifiers: teacher
+```ts
+type Body = {
+    name: string;
+    description: string;
+    content: string;
+    category: StepCat;
+    xp_award: number;
+    coins_award: number;
+    energy_cost: number;
+
+    parent?: string; // tag to parent (optional)
+    branch_index?: number; // the index of the branch to add the step to (optional)
+    // if branch_index == len(parent.children): creates a new branch
+    // if branch_index > len(parent.children): error
+}
+
+type Returns = Step | Error
 ```
