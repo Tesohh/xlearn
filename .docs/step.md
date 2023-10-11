@@ -57,6 +57,13 @@ in (pseudo)code would be:
 type Returns = Step | Error
 ```
 
+## `POST` /api/step/@{steptag}
+Modifiers: teacher
+```ts
+type Body = Step
+type Returns = Success | Error
+```
+
 ## `GET ` /api/step/many
 ```ts
 type Body = {
