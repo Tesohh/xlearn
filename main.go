@@ -66,6 +66,7 @@ func main() {
 	stepGeneric.HandleFunc("/new", handler.MW(stephandler.New, stores, "teacher")).Methods("POST")
 	stepGeneric.HandleFunc("/many", handler.MW(stephandler.Many, stores)).Methods("GET")
 	step.HandleFunc("", handler.MW(stephandler.One, stores)).Methods("GET")
+	step.HandleFunc("", handler.MW(stephandler.Edit, stores, "teacher")).Methods("POST")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

@@ -25,3 +25,11 @@ Content-Type: application/json
 {
     "items": ["turning-on-the-forklift-5b20b", "turning-on-the-forklift-aafb5"]
 }
+
+###
+POST {{api}}/@turning-on-the-forklift-5b20b
+Content-Type: application/json
+
+{
+    "name": "gente educata 2025"
+}
