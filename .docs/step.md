@@ -84,8 +84,12 @@ type Body = {
     coins_award: number;
     energy_cost: number;
 
-    parent?: string; // tag to parent (optional)
+    parent?: `${"step:" | "adv:"}${string}`; // tag to parent (optional)
+    // prefix with `step:` to add this step as a child of a step
+    // prefix with `adv:` to add this step as a child of an adventure
+
     branch_index?: number; // the index of the branch to add the step to (optional)
+    // only required for `step:`
     // if branch_index == len(parent.children): creates a new branch
     // if branch_index > len(parent.children): error
 }
