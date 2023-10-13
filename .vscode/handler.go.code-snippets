@@ -24,5 +24,10 @@
 			"\treturn nil",
 			"}"
 		]
+	},
+	"db.Query tag": {
+		"scope": "go",
+		"prefix": "dbqt",
+		"body": "db.Query{\"tag\": ${1:tag}}"
 	}
 }
