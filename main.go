@@ -56,6 +56,7 @@ func main() {
 
 	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin")).Methods("POST")
 	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores)).Methods("GET")
+	adv.HandleFunc("/movestep", handler.MW(adventurehandler.MoveStep, stores, "teacher")).Methods("POST")
 	adv.HandleFunc("", handler.MW(adventurehandler.One, stores)).Methods("GET")
 	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin")).Methods("POST")
 
@@ -65,7 +66,6 @@ func main() {
 
 	stepGeneric.HandleFunc("/new", handler.MW(stephandler.New, stores, "teacher")).Methods("POST")
 	stepGeneric.HandleFunc("/many", handler.MW(stephandler.Many, stores)).Methods("GET")
-	stepGeneric.HandleFunc("/move", handler.MW(stephandler.Move, stores, "teacher")).Methods("POST")
 	step.HandleFunc("", handler.MW(stephandler.One, stores)).Methods("GET")
 	step.HandleFunc("", handler.MW(stephandler.Edit, stores, "teacher")).Methods("POST")
 

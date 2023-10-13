@@ -22,4 +22,14 @@ Content-Type: application/json
     "name": "forklift certification-zestyyyyy"
 }
 
+###
 
+POST {{api}}/@forklift-certification-adf87/movestep
+Content-Type: application/json
+
+{
+    "operation": "swap",
+    "adventure": "forklift-certification-adf87",
+    "step": "turning-on-the-forklift-eea17",
+    "target": "turning-on-the-forklift-a3181"
+}

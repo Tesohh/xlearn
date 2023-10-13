@@ -1,4 +1,4 @@
-package stephandler
+package adventurehandler
 
 import (
 	"encoding/json"
@@ -8,6 +8,7 @@ import (
 
 	"github.com/Tesohh/xlearn/db"
 	"github.com/Tesohh/xlearn/handler"
+	"github.com/gorilla/mux"
 )
 
 type operation string
@@ -19,22 +20,26 @@ const (
 
 type moveBody struct {
 	Operation operation `json:"operation"`
-	Adventure string    `json:"adventure"`
 	Step      string    `json:"step"`
 	Target    string    `json:"target"`
 }
 
-func Move(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
+func MoveStep(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body moveBody
 	json.NewDecoder(r.Body).Decode(&body)
 
+	tag, ok := mux.Vars(r)["advtag"]
+	if !ok {
+		return handler.ErrPathVar
+	}
+
 	if (body == moveBody{}) {
 		return handler.ErrEmptyBody
-	} else if body.Adventure == "" || body.Step == "" || body.Target == "" {
+	} else if body.Step == "" || body.Target == "" {
 		return handler.ErrMalformedBody
 	}
 
-	adv, err := stores.Adventures.One(db.Query{"tag": body.Adventure})
+	adv, err := stores.Adventures.One(db.Query{"tag": tag})
 	if err != nil {
 		return err
 	}
@@ -55,7 +60,7 @@ func Move(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 		return fmt.Errorf("%w. Must be either \"insert\" or \"swap\"", handler.ErrInvalidOperation)
 	}
 
-	err = stores.Adventures.Update(db.Query{"tag": body.Adventure}, *adv)
+	err = stores.Adventures.Update(db.Query{"tag": tag}, *adv)
 	if err != nil {
 		return err
 	}

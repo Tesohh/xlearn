@@ -33,14 +33,3 @@ Content-Type: application/json
 {
     "name": "gente educata 2025"
 }
-
-###
-POST {{api}}/move
-Content-Type: application/json
-
-{
-    "operation": "insert",
-    "adventure": "forklift-certification-adf87",
-    "step": "turning-on-the-forklift-eea17",
-    "target": "turning-on-the-forklift-a3181"
-}
