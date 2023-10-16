@@ -34,7 +34,7 @@ func main() {
 	// auth
 	auth := r.NewRoute().PathPrefix("/user").Subrouter()
 	auth.HandleFunc("/signup", handler.MW(userhandler.Signup, stores, "unprotected")).Methods("POST")
-	auth.HandleFunc("/login", handler.MW(userhandler.Login, stores, "unprotected")).Methods("GET")
+	auth.HandleFunc("/login", handler.MW(userhandler.Login, stores, "unprotected")).Methods("POST")
 	auth.HandleFunc("/logout", handler.MW(userhandler.Logout, stores)).Methods("GET")
 
 	// user

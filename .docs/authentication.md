@@ -11,7 +11,7 @@ type Body = {
 type Returns = User | Error
 ```
 
-## `GET ` api/user/login
+## `POST` api/user/login
 Modifiers: `unprotected`
 logs in a user for 24 hours by setting the JWT cookie
 ```ts
