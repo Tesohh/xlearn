@@ -1,20 +1,18 @@
 import { backendUrl } from '$lib/const';
+import { makeRequest } from '$lib/reqHandler';
 
 export const handle = async ({ event, resolve }) => {
 	const cookie = event.cookies.get('auth');
 
 	if (cookie) {
-		const resp = await fetch(`${backendUrl}/api/user/me`, {
-			method: 'GET',
-			headers: {
-				Cookie: `jwt=${cookie}`
-			}
-		});
+		let resp = await makeRequest(`${backendUrl}/api/user/me`, 'GET', {}, cookie);
 
-		if (!resp.ok) event.locals.user = null;
+		if (resp.error) event.locals.user = null;
 		else {
-			let jsonResp = await resp.json();
-			console.log(jsonResp);
+			event.locals.user = {
+				username: 'asa',
+				level: 2
+			};
 		}
 	} else {
 		event.locals.user = null;

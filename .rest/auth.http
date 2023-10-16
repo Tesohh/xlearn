@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 
-{{api}}/login
+POST {{api}}/login
 Content-Type: application/json
 
 {
