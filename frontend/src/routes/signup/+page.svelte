@@ -1,16 +1,18 @@
 <script lang='ts'>
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
+	import toast, { Toaster } from "svelte-french-toast";
 
-    
-    import toast, { Toaster } from 'svelte-french-toast';
+    export let form;
 
     onMount(() => {
-        if (form?.invalid) toast.error("Username or Password are invalid", {
+        if (form?.invalid) toast.error("Error while signing up", {
+            style: "border-radius: 200px; background: #333; color: #fff;"
+        })
+        else if (form?.loginError) toast.error("Error while trying to login", {
             style: "border-radius: 200px; background: #333; color: #fff;"
         })
     })
-
-    export let form;
+    
 </script>
 
 <Toaster/>
@@ -19,25 +21,28 @@
     
     <div class="bg-gray-300 p-10 rounded-md">
         
-        <h1 class="text-center py-5 text-2xl">Login</h1>
+        <h1 class="text-center py-5 text-2xl">Sign up</h1>
     
-        <form action="?/login" method="post" class="w-48" on:submit={() => toast.loading("Logging in", {
+        <form action="?/signup" method="post" class="w-48" on:submit={() => {toast.error("Signing up", {
             style: "border-radius: 200px; background: #333; color: #fff;"
-        })}>
+        })}}>
         
             <div class="flex flex-col items-center text-center justify-center">
                 <label for="username">Username</label>
                 <input name="username" id="username" type="text" class="border-gray-400 border-[0.5px] border-solid">
     
                 <label for="password">Password</label>
-                <input name="password" id="password" type="password" class="border-gray-400 border-[0.5px] border-solid">
+                <input name="password" id="password" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12">
+                
+                <label for="confirmPassword">Confirm Password</label>
+                <input name="confirmPassword" id="confirmPassword" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12">
 
                 <div class="p-5">
                     <button type="submit" class="bg-black text-white flex justify-center py-2 px-4 rounded-md">Login</button>
                 </div>
 
                 <div class="text-[15px]">
-                    <a href="/signup">Sign up</a>
+                    <a href="/login">Login</a>
                 </div>
 
             </div>

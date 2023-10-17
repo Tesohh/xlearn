@@ -1,5 +1,5 @@
 import { authCookieName, backendUrl } from '$lib/const.js';
-import { login, makeRequest } from '$lib/api/reqHandler.js';
+import { login } from '$lib/reqHandler.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals }) => {
@@ -8,8 +8,6 @@ export const load = async ({ locals }) => {
 
 export const actions = {
 	login: async ({ cookies, request }) => {
-		console.log('LOGIN');
-
 		const data = await request.formData();
 		const username = data.get('username');
 		const password = data.get('password');
@@ -21,12 +19,10 @@ export const actions = {
 		const response = await login(username, password);
 
 		if (response.error) {
-			return fail(400, { error: true });
+			return fail(400, { invalid: true });
 		}
 
-		if (!response.cookie) return;
-
-		cookies.set(authCookieName, response.cookie[0].replace('token=', ''), {
+		cookies.set(authCookieName, response.cookie, {
 			httpOnly: true,
 			maxAge: 60 * 60 * 24,
 			secure: false, // TODO to change in production
