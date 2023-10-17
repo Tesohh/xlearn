@@ -23,7 +23,7 @@
         
         <h1 class="text-center py-5 text-2xl">Sign up</h1>
     
-        <form action="?/signup" method="post" class="w-48" on:submit={() => {toast.error("Signing up", {
+        <form action="?/signup" method="post" class="w-48" on:submit={() => {toast.loading("Signing up", {
             style: "border-radius: 200px; background: #333; color: #fff;"
         })}}>
         
@@ -38,7 +38,7 @@
                 <input name="confirmPassword" id="confirmPassword" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12">
 
                 <div class="p-5">
-                    <button type="submit" class="bg-black text-white flex justify-center py-2 px-4 rounded-md">Login</button>
+                    <button type="submit" class="bg-black text-white flex justify-center py-2 px-4 rounded-md">Sign up</button>
                 </div>
 
                 <div class="text-[15px]">
