@@ -121,7 +121,7 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 				WriteJSON(w, apierr.Status, M{"error": err.Error()})
 				return
 			}
-			WriteJSON(w, 400, M{"error": err.Error()})
+			WriteJSON(w, 500, M{"error": err.Error()})
 			return
 		}
 	}
