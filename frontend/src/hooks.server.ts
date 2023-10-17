@@ -1,18 +1,14 @@
-import { backendUrl } from '$lib/const';
-import { makeRequest } from '$lib/reqHandler';
+import { cookieToUser } from '$lib/api/reqHandler';
+import { authCookieName, backendUrl } from '$lib/const';
 
 export const handle = async ({ event, resolve }) => {
-	const cookie = event.cookies.get('auth');
+	const cookie = event.cookies.get(authCookieName);
 
 	if (cookie) {
-		let resp = await makeRequest(`${backendUrl}/api/user/me`, 'GET', {}, cookie);
-
-		if (resp.error) event.locals.user = null;
+		let result = await cookieToUser(cookie);
+		if (result.error) event.locals.user = null;
 		else {
-			event.locals.user = {
-				username: 'asa',
-				level: 2
-			};
+			if (result.user) event.locals.user = result.user;
 		}
 	} else {
 		event.locals.user = null;

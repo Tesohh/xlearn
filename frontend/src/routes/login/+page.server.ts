@@ -1,5 +1,5 @@
-import { backendUrl } from '$lib/const.js';
-import { login, makeRequest } from '$lib/reqHandler.js';
+import { authCookieName, backendUrl } from '$lib/const.js';
+import { login, makeRequest } from '$lib/api/reqHandler.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals }) => {
@@ -26,7 +26,13 @@ export const actions = {
 
 		if (!response.cookie) return;
 
-		cookies.set('jwt', response.cookie[0].replace('token=', ''));
+		cookies.set(authCookieName, response.cookie[0].replace('token=', ''), {
+			httpOnly: true,
+			maxAge: 60 * 60 * 24,
+			secure: false, // TODO to change in production
+			path: '/',
+			sameSite: 'strict'
+		});
 
 		throw redirect(303, '/');
 	}

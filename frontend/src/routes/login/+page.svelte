@@ -1,3 +1,10 @@
+<script lang='ts'>
+	import type { ActionData } from "./$types";
+
+    export const formData : ActionData;
+
+</script>
+
 <div class="flex w-screen h-screen items-center justify-center">
     
     <div class="bg-gray-300 p-10 rounded-md">

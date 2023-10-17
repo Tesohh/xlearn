@@ -1,4 +1,5 @@
-import { backendUrl } from './const';
+import type { User } from '$lib/types';
+import { backendUrl } from '../const';
 
 export const makeRequest = async (
 	url: string,
@@ -47,4 +48,17 @@ export const login = async (
 	if (!resp.ok) return { error: true };
 
 	return { cookie: resp.headers.getSetCookie() };
+};
+
+export const cookieToUser = async (cookie: string): Promise<{ error?: boolean; user?: User }> => {
+	let resp = await fetch(`${backendUrl}/api/user/me`, {
+		method: 'GET',
+		headers: {
+			Cookie: `token=${cookie}`
+		}
+	});
+
+	if (!resp.ok) return { error: true };
+
+	return await { user: resp.json() };
 };
