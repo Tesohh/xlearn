@@ -115,10 +115,14 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 
 		// if authentication / authorization failed at this point the function would have exited
 		// so from this point on everything is protected
-
 		err := f(w, r, stores)
 		if err != nil {
+			if apierr, ok := err.(APIError); ok {
+				WriteJSON(w, apierr.Status, M{"error": err.Error()})
+				return
+			}
 			WriteJSON(w, 400, M{"error": err.Error()})
+			return
 		}
 	}
 }

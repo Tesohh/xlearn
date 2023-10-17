@@ -23,7 +23,7 @@ func Login(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error 
 
 	user, err := stores.Users.One(db.Query{"username": body.Username})
 	if err != nil {
-		return err
+		return handler.APIError{Err: err, Status: http.StatusNotFound}
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(body.Password))
@@ -41,7 +41,7 @@ func Login(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error 
 	secret := []byte(os.Getenv("JWT_SECRET"))
 	tokenString, err := token.SignedString(secret)
 	if err != nil {
-		return err
+		return handler.APIError{Err: err, Status: http.StatusInternalServerError}
 	}
 
 	cookie := http.Cookie{
