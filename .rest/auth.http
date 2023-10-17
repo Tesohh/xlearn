@@ -4,13 +4,13 @@ POST {{api}}/signup
 Content-Type: application/json
 
 {
-    "username": "michele",
-    "password": "michelepazzofolle"
+    "username": "test",
+    "password": "123456789101112"
 }
 
 ###
 
-{{api}}/login
+POST {{api}}/login
 Content-Type: application/json
 
 {

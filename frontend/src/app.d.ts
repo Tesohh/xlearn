@@ -1,10 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 
-interface User {
-	username: string;
-	level: number;
-}
+import type { User } from '$lib/types';
 
 declare global {
 	namespace App {
