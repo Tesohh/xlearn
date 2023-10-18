@@ -49,6 +49,7 @@ func main() {
 	org.HandleFunc("", handler.MW(orghandler.One, stores)).Methods("GET")
 	org.HandleFunc("", handler.MW(orghandler.Edit, stores, "admin")).Methods("POST")
 	org.HandleFunc("/meta", handler.MW(orghandler.Meta, stores)).Methods("GET")
+	org.HandleFunc("/code/{uses}", handler.MW(orghandler.Code, stores)).Methods("GET")
 
 	// org adventures
 	advGeneric := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()

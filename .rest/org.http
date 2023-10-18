@@ -24,3 +24,7 @@ Content-Type: application/json
 {
     "tag": "SILANDRO INVESTORS TUBRETTI"
 }
+
+###
+
+GET {{api}}/code/20
