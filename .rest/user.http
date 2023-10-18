@@ -5,3 +5,7 @@
 ###
 
 POST {{api}}/joinorg/1be670
+
+###
+
+POST {{api}}/leaveorg/@tubrish-investors

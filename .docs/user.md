@@ -26,3 +26,10 @@ type Returns = {
     joined: string // tag of the org i joined
 } | Error
 ```
+
+## `POST` api/user/leaveorg/@{orgtag}
+```ts
+type Returns = {
+    left: string // tag of the org i left
+} | Error
+```
