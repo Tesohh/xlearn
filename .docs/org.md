@@ -36,3 +36,13 @@ returns an org, but omits the adventures for performance reasons (returns only t
 ```ts
 type Returns = Omit<Org, "adventures"> | Error
 ```
+
+## `GET ` api/org/@{orgtag}/code/{uses}
+generates a code to join the org, with `uses` uses
+if you put an invalid value in uses, it will default to 1.
+```ts
+type Returns = {
+    code: string
+    uses: int
+} | Error
+```
