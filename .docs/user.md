@@ -9,6 +9,7 @@ type User = {
     level: number,
     coins: number,
     role: 0 | 1 | 2, // user, teacher, admin
+    joined_orgs: string[]
 }
 ```
 
