@@ -19,4 +19,5 @@ var (
 	ErrInvalidParentPrefix     = APIError{errors.New("invalid parent prefix"), http.StatusBadRequest}
 	ErrInvalidOperation        = APIError{errors.New("invalid operation"), http.StatusBadRequest}
 	ErrRequestedItemInexistent = APIError{errors.New("requested item inexistent"), http.StatusNotFound}
+	ErrAlreadyJoinedOrg        = APIError{errors.New("user already joined this org"), http.StatusConflict}
 )

@@ -40,6 +40,7 @@ func main() {
 	// user
 	user := r.NewRoute().PathPrefix("/user").Subrouter()
 	user.HandleFunc("/me", handler.MW(userhandler.Me, stores)).Methods("GET")
+	user.HandleFunc("/joinorg/{code}", handler.MW(userhandler.JoinOrg, stores)).Methods("POST")
 
 	// org
 	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()

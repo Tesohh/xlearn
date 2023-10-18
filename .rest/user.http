@@ -1,3 +1,7 @@
 @api = http://localhost:8080/api/user
 
 {{api}}/me
+
+###
+
+POST {{api}}/joinorg/1be670

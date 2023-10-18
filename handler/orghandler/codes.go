@@ -38,7 +38,10 @@ func Code(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	}
 	org.Codes[key] = uses
 
-	stores.Orgs.Update(db.Query{"tag": org.Tag}, *org)
+	err = stores.Orgs.Update(db.Query{"tag": org.Tag}, *org)
+	if err != nil {
+		return err
+	}
 
 	handler.WriteJSON(w, 200, handler.M{"key": key, "uses": strconv.Itoa(uses)})
 	return nil
