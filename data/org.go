@@ -11,7 +11,7 @@ type Org struct {
 	Secret string `json:"-" bson:"secret,omitempty"`
 	// an array of adventures tags
 	Adventures []string       `json:"adventures,omitempty" bson:"adventures,omitempty"`
-	Codes      map[string]int `json:"codes,omitempty" bson:"codes,omitempty"`
+	Codes      map[string]int `json:"-" bson:"codes,omitempty"`
 }
 
 func (o Org) IsEmpty() bool {

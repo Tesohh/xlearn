@@ -113,6 +113,23 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 			}
 		}
 
+		if slices.Contains(modifiers, "protectorg") {
+			user, err := CurrentUser(r, stores)
+			if err != nil {
+				WriteJSON(w, 400, M{"error": err.Error()})
+				return
+			}
+			tag, ok := GetOrgTag(r)
+			if !ok {
+				WriteJSON(w, ErrRequestedItemInexistent.Status, M{"error": ErrRequestedItemInexistent.Error()})
+				return
+			}
+			if !slices.Contains(user.JoinedOrgs, tag) {
+				WriteJSON(w, ErrUnauthorized.Status, M{"error": fmt.Sprintf("%v: haven't joined protected org %v", ErrUnauthorized, tag)})
+				return
+			}
+		}
+
 		// if authentication / authorization failed at this point the function would have exited
 		// so from this point on everything is protected
 		err := f(w, r, stores)

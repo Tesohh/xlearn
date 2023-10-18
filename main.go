@@ -47,20 +47,20 @@ func main() {
 	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
 
 	orgGeneric.HandleFunc("/new", handler.MW(orghandler.New, stores, "admin")).Methods("POST")
-	org.HandleFunc("", handler.MW(orghandler.One, stores)).Methods("GET")
-	org.HandleFunc("", handler.MW(orghandler.Edit, stores, "admin")).Methods("POST")
-	org.HandleFunc("/meta", handler.MW(orghandler.Meta, stores)).Methods("GET")
-	org.HandleFunc("/code/{uses}", handler.MW(orghandler.Code, stores)).Methods("GET")
+	org.HandleFunc("", handler.MW(orghandler.One, stores, "protectorg")).Methods("GET")
+	org.HandleFunc("", handler.MW(orghandler.Edit, stores, "admin", "protectorg")).Methods("POST")
+	org.HandleFunc("/meta", handler.MW(orghandler.Meta, stores, "protectorg")).Methods("GET")
+	org.HandleFunc("/code/{uses}", handler.MW(orghandler.Code, stores, "protectorg", "admin")).Methods("GET")
 
 	// org adventures
 	advGeneric := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
 	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
 
-	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin")).Methods("POST")
-	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores)).Methods("GET")
-	adv.HandleFunc("/movestep", handler.MW(adventurehandler.MoveStep, stores, "teacher")).Methods("POST")
-	adv.HandleFunc("", handler.MW(adventurehandler.One, stores)).Methods("GET")
-	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin")).Methods("POST")
+	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin", "protectorg")).Methods("POST")
+	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores, "protectorg")).Methods("GET")
+	adv.HandleFunc("/movestep", handler.MW(adventurehandler.MoveStep, stores, "teacher", "protectorg")).Methods("POST")
+	adv.HandleFunc("", handler.MW(adventurehandler.One, stores, "protectorg")).Methods("GET")
+	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin", "protectorg")).Methods("POST")
 
 	// steps
 	stepGeneric := r.NewRoute().PathPrefix("/step").Subrouter()
