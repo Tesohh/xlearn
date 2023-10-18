@@ -5,8 +5,8 @@ import { backendUrl } from './const';
 export const login = async (
 	username: string,
 	password: string
-): Promise<{ error: boolean; cookie: string }> => {
-	let resp;
+): Promise<{ error: boolean; cookie: string | null }> => {
+	let resp: Response;
 
 	try {
 		resp = await fetch(`${backendUrl}/api/user/login`, {
@@ -20,7 +20,7 @@ export const login = async (
 		throw redirect(303, '/apiError');
 	}
 
-	if (!resp?.ok) return { error: true, cookie: '' };
+	if (!resp?.ok) return { error: true, cookie: null };
 
 	return { error: false, cookie: resp.headers.getSetCookie()[0].replace('token=', '') };
 };
@@ -65,5 +65,5 @@ export const register = async (username: string, password: string): Promise<{ er
 
 	if (!resp.ok) return { error: true };
 
-	return { error: false };
+	return { error: true };
 };
