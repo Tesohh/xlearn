@@ -17,3 +17,11 @@ returns the currently logged in user
 ```ts
 type Returns = User | Error
 ```
+
+## `POST` api/user/joinorg/{code}
+joins an org given a code. Don't need to specify what org to join!
+```ts
+type Returns = {
+    joined: string // tag of the org i joined
+} | Error
+```
