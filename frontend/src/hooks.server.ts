@@ -7,10 +7,11 @@ export const handle = async ({ event, resolve }) => {
 	if (cookie) {
 		let result = await cookieToUser(cookie);
 		// Check if the cookie is valid
-		if (result.error) event.locals.user = null;
+		if (result?.error) event.locals.user = null;
 		else {
-			if (result.user) event.locals.user = result.user;
-			else event.locals.user = null;
+			if (result.user) {
+				event.locals.user = result.user;
+			} else event.locals.user = null;
 		}
 	} else {
 		event.locals.user = null;

@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let data;
-
 </script>
 
 <style>
@@ -21,11 +20,13 @@
 					<td>Username</td>
 					<td>Display Name</td>
 					<td>Coins</td>
+					<td>Ruolo</td>
 				</tr>
 				<tr>
 					<td>{data.username}</td>
 					<td>{data.display}</td>
 					<td>{data.coins}</td>
+					<td>{data.role == 1 ? "Studente" : data.role == 2 ? "Insegnante" : data.role == 3 ? "Admin" : "Not found"}</td>
 				</tr>
 			</table>
 		</h1>
