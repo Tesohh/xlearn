@@ -37,7 +37,7 @@ func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	}
 
 	// update the org's list
-	org, err := handler.GetOrg(r, stores)
+	org, err := handler.CurrentOrg(r, stores)
 	if err != nil {
 		return err
 	}

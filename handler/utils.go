@@ -31,14 +31,14 @@ func CurrentUser(r *http.Request, stores db.StoreHolder) (*data.User, error) {
 	return stores.Users.One(db.Query{"username": username})
 }
 
-func GetOrgTag(r *http.Request) (string, bool) {
+func CurrentOrgTag(r *http.Request) (string, bool) {
 	vars := mux.Vars(r)
 	tag, ok := vars["orgtag"]
 	return tag, ok
 }
 
-func GetOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
-	tag, ok := GetOrgTag(r)
+func CurrentOrg(r *http.Request, stores db.StoreHolder) (*data.Org, error) {
+	tag, ok := CurrentOrgTag(r)
 	if !ok {
 		return nil, ErrPathVar
 	}
@@ -119,7 +119,7 @@ func MW(f APIFunc, stores db.StoreHolder, modifiers ...string) http.HandlerFunc 
 				WriteJSON(w, 400, M{"error": err.Error()})
 				return
 			}
-			tag, ok := GetOrgTag(r)
+			tag, ok := CurrentOrgTag(r)
 			if !ok {
 				WriteJSON(w, ErrRequestedItemInexistent.Status, M{"error": ErrRequestedItemInexistent.Error()})
 				return

@@ -10,7 +10,7 @@ import (
 )
 
 func Edit(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
-	tag, ok := handler.GetOrgTag(r)
+	tag, ok := handler.CurrentOrgTag(r)
 	if !ok {
 		return handler.ErrPathVar
 	}

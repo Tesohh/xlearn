@@ -42,10 +42,17 @@ type Returns = Omit<Org, "adventures"> | Error
 ## `GET ` api/org/@{orgtag}/code/{uses}
 generates a code to join the org, with `uses` uses
 if you put an invalid value in uses, it will default to 1.
-Modifiers: `protectorg`
+Modifiers: `admin`, `protectorg`
 ```ts
 type Returns = {
     code: string
     uses: int
 } | Error
+```
+
+## `POST` api/org/@{orgtag}/revokecode/{code}
+note: users who already used the code won't be affected: it only removes the code from the code map.
+Modifiers: `admin`, `protectorg`
+```ts
+type Returns = Success | Error
 ```

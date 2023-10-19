@@ -28,3 +28,7 @@ Content-Type: application/json
 ###
 
 GET {{api}}/code/20
+
+###
+
+POST {{api}}/revokecode/d629b8

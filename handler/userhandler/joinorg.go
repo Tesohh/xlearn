@@ -36,6 +36,10 @@ func JoinOrg(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 		}
 	}
 
+	if org == nil {
+		return handler.ErrRequestedItemInexistent
+	}
+
 	if slices.Contains(user.JoinedOrgs, org.Tag) {
 		return handler.ErrAlreadyJoinedOrg
 	}
@@ -44,6 +48,9 @@ func JoinOrg(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 		return handler.ErrRequestedItemInexistent
 	}
 	org.Codes[code] -= 1
+	if org.Codes[code] <= 0 {
+		delete(org.Codes, code)
+	}
 	err = stores.Orgs.Update(db.Query{"tag": org.Tag}, *org)
 	if err != nil {
 		return err

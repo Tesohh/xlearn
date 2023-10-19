@@ -27,7 +27,7 @@ func varsToInt(r *http.Request, key string, def int) int {
 func Code(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	uses := varsToInt(r, "uses", 1)
 
-	org, err := handler.GetOrg(r, stores)
+	org, err := handler.CurrentOrg(r, stores)
 	if err != nil {
 		return err
 	}
