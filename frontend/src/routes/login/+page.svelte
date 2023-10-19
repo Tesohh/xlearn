@@ -1,13 +1,12 @@
 <script lang='ts'>
+	import { toastStyle } from '$lib/const.js';
 	import { onMount } from 'svelte';
 
     
     import toast, { Toaster } from 'svelte-french-toast';
 
     onMount(() => {
-        if (form?.invalid) toast.error("Username or Password are invalid", {
-            style: "border-radius: 200px; background: #333; color: #fff;"
-        })
+        if (form?.error) toast.error(form.error, toastStyle)
     })
 
     export let form;

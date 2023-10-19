@@ -1,16 +1,12 @@
 <script lang='ts'>
+	import { toastStyle } from "$lib/const.js";
 	import { onMount } from "svelte";
 	import toast, { Toaster } from "svelte-french-toast";
 
     export let form;
 
     onMount(() => {
-        if (form?.invalid) toast.error("Error while signing up", {
-            style: "border-radius: 200px; background: #333; color: #fff;"
-        })
-        else if (form?.loginError) toast.error("Error while trying to login", {
-            style: "border-radius: 200px; background: #333; color: #fff;"
-        })
+        if (form?.error) toast.error(form.error, toastStyle)
     })
     
 </script>
@@ -23,9 +19,7 @@
         
         <h1 class="text-center py-5 text-2xl">Sign up</h1>
     
-        <form action="?/signup" method="post" class="w-48" on:submit={() => {toast.loading("Signing up", {
-            style: "border-radius: 200px; background: #333; color: #fff;"
-        })}}>
+        <form action="?/signup" method="post" class="w-48" on:submit={() => {toast.loading("Signing up", toastStyle)}}>
         
             <div class="flex flex-col items-center text-center justify-center">
                 <label for="username">Username</label>
