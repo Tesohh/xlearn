@@ -1,4 +1,4 @@
-import { cookieToUser } from '$lib/reqHandler';
+import { cookieToUser, parseUser } from '$lib/reqHandler';
 import { authCookieName } from '$lib/const';
 
 export const handle = async ({ event, resolve }) => {
@@ -7,10 +7,14 @@ export const handle = async ({ event, resolve }) => {
 	if (cookie) {
 		let result = await cookieToUser(cookie);
 		// Check if the cookie is valid
-		if (result?.error) event.locals.user = null;
-		else {
+		if (result?.error) {
+			event.locals.user = null;
+		} else {
 			if (result.user) {
-				event.locals.user = result.user;
+				const parsed = parseUser(result.user);
+				if (!parsed.error || parsed.user) {
+					event.locals.user = parsed.user;
+				}
 			} else event.locals.user = null;
 		}
 	} else {
