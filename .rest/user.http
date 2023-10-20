@@ -4,8 +4,8 @@
 
 ###
 
-POST {{api}}/joinorg/1be670
+POST {{api}}/joinorg/d629b8
 
 ###
 
-POST {{api}}/leaveorg/@tubrish-investors
+POST {{api}}/leaveorg/@silandro-investors

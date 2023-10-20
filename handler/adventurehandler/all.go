@@ -8,7 +8,7 @@ import (
 )
 
 func All(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
-	org, err := handler.GetOrg(r, stores)
+	org, err := handler.CurrentOrg(r, stores)
 	if err != nil {
 		return err
 	}
