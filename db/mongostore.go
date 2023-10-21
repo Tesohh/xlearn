@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"errors"
-	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -23,8 +22,8 @@ func (q Query) ToMongo() primitive.D {
 	return d
 }
 
-func NewMongoClient() (*mongo.Client, error) {
-	connection := os.Getenv("DB_CONNECTION")
+func NewMongoClient(connection string) (*mongo.Client, error) {
+	// connection := os.Getenv("DB_CONNECTION")
 	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(connection))
 	if err != nil {
 		return nil, err

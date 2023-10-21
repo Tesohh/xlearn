@@ -2,13 +2,29 @@ package mock
 
 import (
 	"context"
+	"fmt"
+	"os"
+	"path"
+	"runtime"
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
+	"github.com/joho/godotenv"
 )
 
+func init() {
+	_, filename, _, _ := runtime.Caller(0)
+	dir := path.Join(path.Dir(filename), "..")
+	err := os.Chdir(dir)
+	if err != nil {
+		panic(err)
+	}
+	godotenv.Load()
+}
+
 func Stores() (db.StoreHolder, error) {
-	client, err := db.NewMongoClient()
+	fmt.Println(os.Getwd())
+	client, err := db.NewMongoClient(os.Getenv("DB_CONNECTION"))
 	if err != nil { // if it doesnt connect to mongo, it needs to panic out
 		return db.StoreHolder{}, err
 	}

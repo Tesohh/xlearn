@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/Tesohh/xlearn/data"
+	"github.com/Tesohh/xlearn/mock"
 )
 
 func TestTagify(t *testing.T) {
@@ -35,4 +36,11 @@ func TestHexString(t *testing.T) {
 			}
 		}
 	})
+}
+
+func TestXxx(t *testing.T) {
+	_, err := mock.Stores()
+	if err != nil {
+		t.Fatal(err)
+	}
 }

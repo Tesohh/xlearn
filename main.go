@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
@@ -17,7 +18,7 @@ import (
 )
 
 func main() {
-	client, err := db.NewMongoClient()
+	client, err := db.NewMongoClient(os.Getenv("DB_CONNECTION"))
 	if err != nil { // if it doesnt connect to mongo, it needs to panic out
 		log.Fatal(err)
 	}
