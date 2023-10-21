@@ -11,14 +11,14 @@ const (
 )
 
 type User struct {
-	Display      string   `json:"display,omitempty" bson:"display,omitempty"`   // Tesohh Dockerton
-	Username     string   `json:"username,omitempty" bson:"username,omitempty"` // @tesohh
-	PasswordHash string   `json:"passwordhash,omitempty" bson:"passwordhash,omitempty"`
-	XP           int      `json:"xp,omitempty" bson:"xp,omitempty"`
-	Level        int      `json:"level,omitempty" bson:"level,omitempty"`
-	Coins        int      `json:"coins,omitempty" bson:"coins,omitempty"`
-	Role         Role     `json:"role,omitempty" bson:"role,omitempty"`
-	JoinedOrgs   []string `json:"joined_orgs,omitempty" bson:"joined_orgs,omitempty"`
+	Display      string   `json:"display" bson:"display,omitempty"`   // Tesohh Dockerton
+	Username     string   `json:"username" bson:"username,omitempty"` // @tesohh
+	PasswordHash string   `json:"passwordhash" bson:"passwordhash,omitempty"`
+	XP           int      `json:"xp" bson:"xp,omitempty"`
+	Level        int      `json:"level" bson:"level,omitempty"`
+	Coins        int      `json:"coins" bson:"coins,omitempty"`
+	Role         Role     `json:"role" bson:"role,omitempty"`
+	JoinedOrgs   []string `json:"joined_orgs" bson:"joined_orgs,omitempty"`
 }
 
 func (u User) IsEmpty() bool {
