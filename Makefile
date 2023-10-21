@@ -6,5 +6,5 @@ test:
 run:
 	@go run .
 
-svelte:
-	@cd frontend; npm run dev
+svelte production:
+	@cd frontend; PRODUCTION=true bun run index.js
