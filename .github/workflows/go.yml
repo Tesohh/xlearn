@@ -47,8 +47,8 @@ jobs:
     
     - name: Wait for docker to finish building
       run: sleep 60
-    
-    - name: Test
+
+    - name: Run tests
       run: go test ./...
 
       
