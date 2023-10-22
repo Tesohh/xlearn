@@ -49,8 +49,6 @@ jobs:
       run: sleep 60
     
     - name: Test
-      with:
-        go-version: '1.21'
       run: go test ./...
 
       
