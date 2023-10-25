@@ -1,3 +1,4 @@
 IGNORE**
 .env
 __debug**
+.DS_Store

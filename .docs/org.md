@@ -4,7 +4,7 @@
 type Org = {
     name: string,
     tag: string,
-    secret: string,
+    is_unprotected: boolean,
     adventures: string[]
 }
 ```
@@ -13,7 +13,7 @@ type Org = {
 ```ts
 type Body = {
     name: string,
-    secret: string,
+    is_unprotected: boolean,
 }
 type Returns = Org | Error
 ```
