@@ -26,7 +26,7 @@
 					<td>{data.username}</td>
 					<td>{data.display}</td>
 					<td>{data.coins}</td>
-					<td>{data.role == 1 ? "Studente" : data.role == 2 ? "Insegnante" : data.role == 3 ? "Admin" : "Not found"}</td>
+					<td>{data.role == 0 ? "Studente" : data.role == 1 ? "Insegnante" : data.role == 2 ? "Admin" : "Not found"}</td>
 				</tr>
 			</table>
 		</h1>
