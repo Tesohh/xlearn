@@ -4,8 +4,7 @@ POST http://localhost:8080/api/org/new
 Content-Type: application/json
 
 {
-    "name": "tubrish-investors",
-    "secret": "test"
+    "name": "tubrish-investors"
 }
 
 ###

@@ -13,8 +13,8 @@ export type UserType = z.infer<typeof User>;
 export const Org = z.object({
 	name: z.string(),
 	tag: z.string(),
-	secret: z.string().optional(),
-	adventures: z.array(z.string()).optional()
+	is_unprotected: z.boolean(),
+	adventures: z.array(z.string()).optional().or(z.null())
 });
 
 export type OrgType = z.infer<typeof Org>;

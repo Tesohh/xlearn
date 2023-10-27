@@ -70,15 +70,13 @@ export const register = async (username: string, password: string): Promise<{ er
 	}
 
 	if (!resp.ok) return { error: true };
-
-	return { error: true };
+	return { error: false };
 };
 
 export const parseUser = (userData: Object): { user: UserType | null; error: boolean } => {
 	const parsed = User.safeParse(userData);
 
 	if (!parsed.success) {
-		console.log('ERROR');
 		return { error: true, user: null };
 	}
 	return { user: parsed.data, error: false };

@@ -1,12 +1,10 @@
 <script lang="ts">
 	import OrgCard from "$lib/components/OrgCard.svelte";
 	import { toastStyle } from "$lib/const.js";
-	import { error } from "@sveltejs/kit";
 	import { onMount } from "svelte";
 	import toast, { Toaster } from "svelte-french-toast";
 
 	export let data;
-
 
 	onMount(() => {
 		if (data.user == null) toast.error("Cannot load orgs informations", toastStyle)
@@ -29,29 +27,11 @@
 				<p>No orgs found</p>
 			{/if}
 			<div class="flex h-full w-full justify-center items-center p-10">
-
-	<div class="flex justify-center items-center w-screen p-5">
-	<div class="grid grid-rows-2 grid-col-1">
-		<h1 class="text-2xl text-center">
-			<p>Informazioni utente</p>
-			<table class="items-center border-collapse border border-black p-10">
-				<tr>
-					<td>Username</td>
-					<td>Display Name</td>
-					<td>Coins</td>
-					<td>Ruolo</td>
-				</tr>
-				<tr>
-					<td>{data.username}</td>
-					<td>{data.display}</td>
-					<td>{data.coins}</td>
-					<td>{data.role == 0 ? "Studente" : data.role == 1 ? "Insegnante" : data.role == 2 ? "Admin" : "Not found"}</td>
-				</tr>
-			</table>
-		</h1>
-	
-		<div class="flex h-full w-full justify-center items-center ">
-
+				<form action="/joinorg" method="get">
+					<input type="text" name="code" id="code" class="border-black border-2 h-10 rounded-md">
+					<button type="submit" class="bg-gray-500 w-20 h-10 rounded-md">Join</button>
+				</form>
+			</div>
 		</div>
 	</div>
 {/if}

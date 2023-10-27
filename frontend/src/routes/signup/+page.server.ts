@@ -35,8 +35,10 @@ export const actions = {
 
 		const respLogin = await login(username, password);
 
-		if (respLogin.error) return fail(400, { error: errorMessages.somethingWentWrong });
-		if (respLogin.cookie)
+		if (respLogin.error) {
+			return fail(400, { error: errorMessages.somethingWentWrong });
+		}
+		if (respLogin.cookie) {
 			cookies.set(authCookieName, respLogin.cookie, {
 				httpOnly: true,
 				maxAge: 60 * 60 * 24,
@@ -44,7 +46,7 @@ export const actions = {
 				path: '/',
 				sameSite: 'strict'
 			});
-		else return fail(400, { error: errorMessages.somethingWentWrong });
+		} else return fail(400, { error: errorMessages.somethingWentWrong });
 
 		throw redirect(303, '/');
 	}

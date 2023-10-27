@@ -27,6 +27,24 @@ export const getOrgByID = async (
 	return { error: false, org: parsed.org };
 };
 
+export const joinOrgByJoinCode = async (joinCode: string, cookie: string) => {
+	let resp;
+	try {
+		resp = await fetch(`${backendUrl}/api/user/org/join/${joinCode}`, {
+			method: 'POST',
+			headers: {
+				Cookie: `token=${cookie}`
+			}
+		});
+	} catch (err) {
+		return { error: true };
+	}
+
+	if (!resp.ok) return { error: true };
+
+	return { error: false };
+};
+
 export const parseOrg = (orgObject: Object): { error: boolean; org: OrgType | null } => {
 	const parsed = Org.safeParse(orgObject);
 

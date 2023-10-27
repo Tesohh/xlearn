@@ -1,38 +1,37 @@
 {
-	// Place your adventures workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
-	// Placeholders with the same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"scope": "javascript,typescript",
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-	"handler": {
-		"scope": "go",
-		"prefix": "hand",
-		"body": [
-			"func $1(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {",
-			"\t$0",
-			"\treturn nil",
-			"}"
-		]
-	},
-	"db.Query tag": {
-		"scope": "go",
-		"prefix": "dbqt",
-		"body": "db.Query{\"tag\": ${1:tag}}"
-	},
-	"APIError": {
-		"scope": "go",
-		"prefix": "aerr",
-		"body": "handler.APIError{Err: ${1:err}, Status: http.${2:StatusInternalServerError}}"
-	}
+  // Place your adventures workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "handler": {
+    "scope": "go",
+    "prefix": "hand",
+    "body": [
+      "func $1(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {",
+      "\t$0",
+      "\treturn nil",
+      "}"
+    ]
+  },
+  "db.Query tag": {
+    "scope": "go",
+    "prefix": "dbqt",
+    "body": "db.Query{\"tag\": ${1:tag}}"
+  },
+  "APIError": {
+    "scope": "go",
+    "prefix": "aerr",
+    "body": "handler.APIError{Err: ${1:err}, Status: http.${2:StatusInternalServerError}}"
+  }
 }
