@@ -1,5 +1,6 @@
-import { cookieToUser, parseUser } from '$lib/reqHandler';
+import { cookieToUser, parseUser } from '$lib/auth';
 import { authCookieName } from '$lib/const';
+import type { HandleFetch } from '@sveltejs/kit';
 
 export const handle = async ({ event, resolve }) => {
 	const cookie = event.cookies.get(authCookieName);
@@ -23,4 +24,12 @@ export const handle = async ({ event, resolve }) => {
 
 	const response = await resolve(event);
 	return response;
+};
+
+export const handleFetch = async ({ request, fetch }) => {
+	if (request.url.startsWith('https://http.cat/')) {
+		request.headers.set('origin', 'https://http.cat/');
+	}
+
+	return fetch(request);
 };
