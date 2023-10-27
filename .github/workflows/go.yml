@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 env:
-  DB_CONNECTION: mongodb://root:root@mongo:27017/
+  DB_CONNECTION: mongodb://root:root@localhost:27017/
   JWT_SECRET: github
   DB_USERNAME: root
   DB_PASSWORD: root
