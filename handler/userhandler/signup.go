@@ -59,6 +59,12 @@ func Signup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 		PasswordHash: string(hash),
 		Coins:        5,
 	}
+
+	// check if user collection is empty, then in that case the user should be admin
+	if allUsers, _ := stores.Users.Many(db.Query{}); len(allUsers) == 0 {
+		user.Role = data.RoleAdmin
+	}
+
 	err = stores.Users.Put(user)
 	if err != nil {
 		return err
