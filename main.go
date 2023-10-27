@@ -10,6 +10,7 @@ import (
 	"github.com/Tesohh/xlearn/db"
 	"github.com/Tesohh/xlearn/handler"
 	"github.com/Tesohh/xlearn/handler/adventurehandler"
+	"github.com/Tesohh/xlearn/handler/generalhandler"
 	"github.com/Tesohh/xlearn/handler/orghandler"
 	"github.com/Tesohh/xlearn/handler/stephandler"
 	"github.com/Tesohh/xlearn/handler/userhandler"
@@ -75,6 +76,9 @@ func main() {
 	stepGeneric.HandleFunc("/many", handler.MW(stephandler.Many, stores)).Methods("GET")
 	step.HandleFunc("", handler.MW(stephandler.One, stores)).Methods("GET")
 	step.HandleFunc("", handler.MW(stephandler.Edit, stores, "teacher")).Methods("POST")
+
+	// general
+	r.HandleFunc("/danger/mockdb", handler.MW(generalhandler.MockDB, stores, "unprotected")).Methods("POST")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)
