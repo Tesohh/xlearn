@@ -19,7 +19,7 @@ returns the currently logged in user
 type Returns = User | Error
 ```
 
-## `POST` api/user/joinorg/{code}
+## `POST` api/user/org/leave/{code}
 joins an org given a code. Don't need to specify what org to join!
 ```ts
 type Returns = {
@@ -27,9 +27,21 @@ type Returns = {
 } | Error
 ```
 
-## `POST` api/user/leaveorg/@{orgtag}
+## `POST` api/user/org/leave/@{orgtag}
 ```ts
 type Returns = {
     left: string // tag of the org i left
 } | Error
+```
+
+## `POST` api/user/org/joined/
+Returns an array of orgs the user joined + unprotected orgs. 
+```ts
+type Returns = Org[] | Error
+```
+
+## `POST` api/user/org/joined/tags
+Returns an array of orgs the user joined + unprotected orgs, but only their tags.
+```ts
+type Returns = string[] | Error
 ```
