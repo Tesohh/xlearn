@@ -20,4 +20,5 @@ var (
 	ErrInvalidOperation        = APIError{errors.New("invalid operation"), http.StatusBadRequest}
 	ErrRequestedItemInexistent = APIError{errors.New("requested item inexistent"), http.StatusNotFound}
 	ErrAlreadyJoinedOrg        = APIError{errors.New("user already joined this org"), http.StatusConflict}
+	ErrDatabaseNotEmpty        = APIError{errors.New("database is not empty"), http.StatusConflict}
 )
