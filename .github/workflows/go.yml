@@ -16,6 +16,8 @@ env:
   DB_PASSWORD: root
   DBDASH_USERNAME: admin
   DBDASH_PASSWORD: pass
+  MONGO_INITDB_ROOT_USERNAME: root
+  MONGO_INITDB_ROOT_PASSWORD: root
 
 jobs:
 
@@ -38,9 +40,6 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
-          MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
