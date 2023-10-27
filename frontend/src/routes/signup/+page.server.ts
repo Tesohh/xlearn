@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { authCookieName } from '$lib/const.js';
 import errorMessages from '$lib/errorMessages.js';
-import { login, register } from '$lib/reqHandler.js';
+import { login, register } from '$lib/auth.js';
 import { error, fail, redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals }) => {

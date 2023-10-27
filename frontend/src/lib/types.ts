@@ -9,3 +9,12 @@ export const User = z.object({
 });
 
 export type UserType = z.infer<typeof User>;
+
+export const Org = z.object({
+	name: z.string(),
+	tag: z.string(),
+	secret: z.string().optional(),
+	adventures: z.array(z.string()).optional()
+});
+
+export type OrgType = z.infer<typeof Org>;
