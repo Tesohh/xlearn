@@ -41,8 +41,10 @@ func main() {
 	// user
 	user := r.NewRoute().PathPrefix("/user").Subrouter()
 	user.HandleFunc("/me", handler.MW(userhandler.Me, stores)).Methods("GET")
-	user.HandleFunc("/joinorg/{code}", handler.MW(userhandler.JoinOrg, stores)).Methods("POST")
-	user.HandleFunc("/leaveorg/@{orgtag}", handler.MW(userhandler.LeaveOrg, stores)).Methods("POST")
+	user.HandleFunc("/org/join/{code}", handler.MW(userhandler.JoinOrg, stores)).Methods("POST")
+	user.HandleFunc("/org/leave/@{orgtag}", handler.MW(userhandler.LeaveOrg, stores)).Methods("POST")
+	user.HandleFunc("/org/joined", handler.MW(userhandler.JoinedOrgs, stores)).Methods("GET")
+	user.HandleFunc("/org/joined/tags", handler.MW(userhandler.JoinedOrgsTags, stores)).Methods("GET")
 
 	// org
 	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()

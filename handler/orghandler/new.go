@@ -10,8 +10,8 @@ import (
 )
 
 type orgNewBody struct {
-	Name   string `json:"name"`
-	Secret string `json:"secret"`
+	Name          string `json:"name"`
+	IsUnprotected bool   `json:"is_unprotected"`
 }
 
 func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
@@ -21,14 +21,14 @@ func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	tag := data.Tagify(body.Name, false)
 
 	org := data.Org{
-		Name:   body.Name,
-		Tag:    tag,
-		Secret: body.Secret,
+		Name:          body.Name,
+		Tag:           tag,
+		IsUnprotected: body.IsUnprotected,
 	}
 	// validate request
 	if (body == orgNewBody{}) {
 		return handler.ErrEmptyBody
-	} else if body.Name == "" || body.Secret == "" {
+	} else if body.Name == "" {
 		return handler.ErrMalformedBody
 	}
 

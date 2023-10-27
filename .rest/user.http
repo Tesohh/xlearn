@@ -4,8 +4,16 @@
 
 ###
 
-POST {{api}}/joinorg/d629b8
+POST {{api}}/org/join/d629b8
 
 ###
 
-POST {{api}}/leaveorg/@silandro-investors
+POST {{api}}/org/leave/@silandro-investors
+
+###
+
+GET {{api}}/org/joined
+
+###
+
+GET {{api}}/org/joined/tags
