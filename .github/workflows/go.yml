@@ -16,8 +16,6 @@ env:
   DB_PASSWORD: root
   DBDASH_USERNAME: admin
   DBDASH_PASSWORD: pass
-  MONGO_INITDB_ROOT_USERNAME: root
-  MONGO_INITDB_ROOT_PASSWORD: root
 
 jobs:
 
@@ -38,18 +36,19 @@ jobs:
     services:
       mongo:
         image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: root
         ports:
           - 27017:27017
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: '1.21'
-    
-    
-   
 
     - name: Run tests
       run: go test ./...
