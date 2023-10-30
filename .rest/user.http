@@ -4,6 +4,15 @@
 
 ###
 
+POST {{api}}/me/settings/edit
+Content-Type: application/json
+
+{
+    "theme": "workshop"
+}
+
+###
+
 POST {{api}}/org/join/d629b8
 
 ###
