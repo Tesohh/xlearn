@@ -3,6 +3,7 @@ package stephandler
 import (
 	"encoding/json"
 	"net/http"
+	"reflect"
 	"strings"
 
 	"github.com/Tesohh/xlearn/data"
@@ -11,13 +12,13 @@ import (
 )
 
 type newBody struct {
-	Name        string       `json:"name,omitempty"`
-	Description string       `json:"description,omitempty"`
-	Content     string       `json:"content,omitempty"`
-	Category    data.StepCat `json:"category,omitempty"`
-	XPAward     int          `json:"xp_award,omitempty"`
-	CoinsAward  int          `json:"coins_award,omitempty"`
-	EnergyCost  int          `json:"energy_cost,omitempty"`
+	Name        string            `json:"name,omitempty"`
+	Description string            `json:"description,omitempty"`
+	Content     map[string]string `json:"content,omitempty"`
+	Category    data.StepCat      `json:"category,omitempty"`
+	XPAward     int               `json:"xp_award,omitempty"`
+	CoinsAward  int               `json:"coins_award,omitempty"`
+	EnergyCost  int               `json:"energy_cost,omitempty"`
 
 	Parent      string `json:"parent,omitempty"`
 	BranchIndex int    `json:"branch_index,omitempty"`
@@ -27,7 +28,7 @@ func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	var body newBody
 	json.NewDecoder(r.Body).Decode(&body)
 
-	if (body == newBody{}) {
+	if (reflect.DeepEqual(body, newBody{})) {
 		return handler.ErrEmptyBody
 	}
 

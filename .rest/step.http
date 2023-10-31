@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "name": "turning on the forklift",
     "description": "learn how to turn on your forklift",
-    "content": "bro take the key and put it in 🤑",
+    "content": {"en_us": "bro take the key and put it in 🤑"},
     "category": "lesson",
     "xp_award": 233333,
     "coins_award": 30,
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ###
-GET {{api}}/@turning-on-the-forklift-5b20b
+GET {{api}}/@forkliftstep1-123456
 
 ###
 GET {{api}}/many

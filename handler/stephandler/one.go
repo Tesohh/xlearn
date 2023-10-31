@@ -14,9 +14,20 @@ func One(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 		return handler.ErrPathVar
 	}
 
+	user, err := handler.CurrentUser(r, stores)
+	if err != nil {
+		return err
+	}
+
 	step, err := stores.Steps.One(db.Query{"tag": tag})
 	if err != nil {
 		return err
+	}
+
+	for k := range step.Content {
+		if k != user.Settings.Language {
+			step.Content[k] = ""
+		}
 	}
 
 	handler.WriteJSON(w, 200, step)
