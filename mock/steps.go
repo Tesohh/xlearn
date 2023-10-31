@@ -20,7 +20,7 @@ var steps = []data.Step{
 		Name:        "Forklift 1 tubre",
 		Tag:         "forkliftstep1-abcdef",
 		Description: "Tubreann",
-		Content:     map[string]string{"en_us": "Turn on the forklift. Done"},
+		Content:     map[string]string{"it": "ACcendi il forklift!!"},
 		Category:    "step",
 		XPAward:     70,
 		CoinsAward:  1,

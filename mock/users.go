@@ -55,7 +55,7 @@ var users = []data.User{
 		Role:         0,
 		JoinedOrgs:   []string{"silandro-investors", "tubre-investors"},
 		Settings: data.UserSettings{
-			Language: "en_us",
+			Language: "it",
 			Theme:    "workshop",
 		},
 	},
