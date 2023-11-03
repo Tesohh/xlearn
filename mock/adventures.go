@@ -6,7 +6,7 @@ import "github.com/Tesohh/xlearn/data"
 // "forklift-certification-abcdef"
 // "forklift-certification-fedcba"
 
-var adventures = []data.Adventure{
+var Adventures = []data.Adventure{
 	{
 		Name:        "Forklift Certification (for silandrish people)",
 		Tag:         "forklift-certification-123456",

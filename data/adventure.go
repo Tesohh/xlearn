@@ -12,3 +12,7 @@ type Adventure struct {
 func (a Adventure) IsEmpty() bool {
 	return reflect.DeepEqual(a, Adventure{})
 }
+
+func (a Adventure) GetTag() string {
+	return a.Tag
+}

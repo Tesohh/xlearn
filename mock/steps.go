@@ -4,7 +4,7 @@ import (
 	"github.com/Tesohh/xlearn/data"
 )
 
-var steps = []data.Step{
+var Steps = []data.Step{
 	{
 		Name:        "Forklift 1 silandro",
 		Tag:         "forkliftstep1-123456",

@@ -35,3 +35,7 @@ type User struct {
 func (u User) IsEmpty() bool {
 	return reflect.DeepEqual(u, User{})
 }
+
+func (u User) GetTag() string {
+	return u.Username
+}

@@ -2,7 +2,7 @@ package mock
 
 import "github.com/Tesohh/xlearn/data"
 
-var users = []data.User{
+var Users = []data.User{
 	{
 		Display:      "Michele",
 		Username:     "michele",

@@ -27,3 +27,7 @@ type Step struct {
 func (s Step) IsEmpty() bool {
 	return reflect.DeepEqual(s, Step{})
 }
+
+func (s Step) GetTag() string {
+	return s.Tag
+}

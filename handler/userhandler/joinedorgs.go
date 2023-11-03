@@ -1,7 +1,6 @@
 package userhandler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/Tesohh/xlearn/data"
@@ -18,7 +17,6 @@ func JoinedOrgs(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) e
 	var orgs []data.Org
 
 	if user.Role < data.RoleAdmin { // not admin
-		fmt.Println("ZESTFEST", user.Role)
 		orgs, err = db.Populate(user.JoinedOrgs, stores.Orgs)
 		if err != nil {
 			return err
@@ -35,7 +33,6 @@ func JoinedOrgs(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) e
 			}
 		}
 	} else { // admin
-		fmt.Println("BRODIE")
 		orgs, err = stores.Orgs.Many(db.Query{})
 		if err != nil {
 			return err

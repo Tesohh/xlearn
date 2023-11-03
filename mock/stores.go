@@ -2,7 +2,6 @@ package mock
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"path"
 	"runtime"
@@ -23,25 +22,25 @@ func init() {
 }
 
 func AddDataToStores(stores db.StoreHolder) error {
-	for _, u := range users {
+	for _, u := range Users {
 		err := stores.Users.Put(u)
 		if err != nil {
 			return err
 		}
 	}
-	for _, o := range orgs {
+	for _, o := range Orgs {
 		err := stores.Orgs.Put(o)
 		if err != nil {
 			return err
 		}
 	}
-	for _, a := range adventures {
+	for _, a := range Adventures {
 		err := stores.Adventures.Put(a)
 		if err != nil {
 			return err
 		}
 	}
-	for _, s := range steps {
+	for _, s := range Steps {
 		err := stores.Steps.Put(s)
 		if err != nil {
 			return err
@@ -51,7 +50,6 @@ func AddDataToStores(stores db.StoreHolder) error {
 }
 
 func Stores() (db.StoreHolder, error) {
-	fmt.Println(os.Getwd())
 	client, err := db.NewMongoClient(os.Getenv("DB_CONNECTION"))
 	if err != nil {
 		return db.StoreHolder{}, err

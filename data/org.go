@@ -17,3 +17,7 @@ type Org struct {
 func (o Org) IsEmpty() bool {
 	return reflect.DeepEqual(o, Org{})
 }
+
+func (o Org) GetTag() string {
+	return o.Tag
+}
