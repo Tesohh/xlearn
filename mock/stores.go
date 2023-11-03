@@ -53,10 +53,9 @@ func AddDataToStores(stores db.StoreHolder) error {
 func Stores() (db.StoreHolder, error) {
 	fmt.Println(os.Getwd())
 	client, err := db.NewMongoClient(os.Getenv("DB_CONNECTION"))
-	if err != nil { // if it doesnt connect to mongo, it needs to panic out
+	if err != nil {
 		return db.StoreHolder{}, err
 	}
-
 	// reset the database
 	err = client.Database("mock").Drop(context.Background())
 	if err != nil {
