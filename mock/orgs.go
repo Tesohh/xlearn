@@ -2,7 +2,7 @@ package mock
 
 import "github.com/Tesohh/xlearn/data"
 
-var orgs = []data.Org{
+var Orgs = []data.Org{
 	{
 		Name:       "Silandro Investors",
 		Tag:        "silandro-investors",

@@ -57,7 +57,12 @@ func Signup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 		Username:     body.Username,
 		Role:         data.RoleUser,
 		PasswordHash: string(hash),
+		Level:        1,
 		Coins:        5,
+		Settings: data.UserSettings{
+			Language: "en_us",
+			Theme:    "workshop",
+		},
 	}
 
 	// check if user collection is empty, then in that case the user should be admin

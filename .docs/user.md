@@ -12,15 +12,26 @@ type User = {
   coins: number;
   role: 0 | 1 | 2; // user, teacher, admin
   joined_orgs: string[];
+  settings: Settings;
 };
+
+type Settings = {
+  language: string;
+  theme: string;
+}
 ```
 
 ## `GET ` api/user/me
-
 returns the currently logged in user
 
 ```ts
 type Returns = User | Error;
+```
+
+## `GET ` api/user/me/settings/edit
+```ts
+type Body = Settings; // if a field is left empty it won't be modified
+type Returns = Settings | Error;
 ```
 
 ## `POST` api/user/org/leave/{code}

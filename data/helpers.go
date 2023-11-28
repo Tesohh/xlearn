@@ -22,3 +22,7 @@ func Tagify(display string, random bool) string {
 func HexString() string {
 	return fmt.Sprintf("%06s", strconv.FormatUint(rand.Uint64(), 16))[:6]
 }
+
+type GetTagger interface {
+	GetTag() string
+}

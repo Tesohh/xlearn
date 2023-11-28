@@ -1,13 +1,15 @@
 package mock
 
-import "github.com/Tesohh/xlearn/data"
+import (
+	"github.com/Tesohh/xlearn/data"
+)
 
-var steps = []data.Step{
+var Steps = []data.Step{
 	{
 		Name:        "Forklift 1 silandro",
 		Tag:         "forkliftstep1-123456",
 		Description: "asdasdaaddas",
-		Content:     "Turn on the forklift. Done",
+		Content:     map[string]string{"en_us": "Turn on the forklift. Done"},
 		Category:    "step",
 		XPAward:     70,
 		CoinsAward:  1,
@@ -18,7 +20,7 @@ var steps = []data.Step{
 		Name:        "Forklift 1 tubre",
 		Tag:         "forkliftstep1-abcdef",
 		Description: "Tubreann",
-		Content:     "Turn on the forklift. Done",
+		Content:     map[string]string{"it": "ACcendi il forklift!!"},
 		Category:    "step",
 		XPAward:     70,
 		CoinsAward:  1,
@@ -29,7 +31,7 @@ var steps = []data.Step{
 		Name:        "Forklift 1 merano",
 		Tag:         "forkliftstep1-fedcba",
 		Description: "Merannn",
-		Content:     "Turn on the forklift. Done",
+		Content:     map[string]string{"en_us": "Turn on the forklift. Done"},
 		Category:    "step",
 		XPAward:     70,
 		CoinsAward:  1,
@@ -40,7 +42,7 @@ var steps = []data.Step{
 		Name:        "BIg Step for tubre",
 		Tag:         "forkliftstep-parent-abcdef",
 		Description: "TUBRETUBER",
-		Content:     "yea brodie go look at my branches, call that ramification",
+		Content:     map[string]string{"en_us": "yea brodie go look at my branches, call that ramification"},
 		Category:    "step",
 		XPAward:     7,
 		CoinsAward:  10,
@@ -51,7 +53,7 @@ var steps = []data.Step{
 		Name:        "Turn left",
 		Tag:         "left-abcdef",
 		Description: "turn left",
-		Content:     "Turn left!",
+		Content:     map[string]string{"en_us": "Turn left!"},
 		Category:    "step",
 		XPAward:     7,
 		CoinsAward:  10,
@@ -62,7 +64,7 @@ var steps = []data.Step{
 		Name:        "Turn right",
 		Tag:         "right-abcdef",
 		Description: "turn right",
-		Content:     "Turn right!",
+		Content:     map[string]string{"en_us": "Turn right!"},
 		Category:    "step",
 		XPAward:     7,
 		CoinsAward:  10,
@@ -73,7 +75,7 @@ var steps = []data.Step{
 		Name:        "JOin",
 		Tag:         "forkliftstep-join-abcdef",
 		Description: "forkjoin",
-		Content:     "join me",
+		Content:     map[string]string{"en_us": "join me"},
 		Category:    "step",
 		XPAward:     0,
 		CoinsAward:  0,
@@ -84,7 +86,7 @@ var steps = []data.Step{
 		Name:        "JOin",
 		Tag:         "forkliftstep-join-abcdef",
 		Description: "forkjoin",
-		Content:     "join me",
+		Content:     map[string]string{"en_us": "join me"},
 		Category:    "step",
 		XPAward:     0,
 		CoinsAward:  0,

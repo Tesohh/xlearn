@@ -1,6 +1,16 @@
 version: '3.1'
 
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DB_HOSTNAME=zlearn-mongo-1
+    ports:
+      - 8080:8080
+    profiles:
+      - "api"
 
   mongo:
     image: mongo

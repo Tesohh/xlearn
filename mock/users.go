@@ -2,7 +2,7 @@ package mock
 
 import "github.com/Tesohh/xlearn/data"
 
-var users = []data.User{
+var Users = []data.User{
 	{
 		Display:      "Michele",
 		Username:     "michele",
@@ -12,6 +12,10 @@ var users = []data.User{
 		Coins:        23,
 		Role:         2,
 		JoinedOrgs:   []string{"silandro-investors", "tubre-investors", "merano-holdings"},
+		Settings: data.UserSettings{
+			Language: "en_us",
+			Theme:    "workshop",
+		},
 	},
 	{
 		Display:      "The Jolly Joker",
@@ -22,6 +26,10 @@ var users = []data.User{
 		Coins:        60000000,
 		Role:         1,
 		JoinedOrgs:   []string{"silandro-investors", "tubre-investors"},
+		Settings: data.UserSettings{
+			Language: "en_us",
+			Theme:    "workshop",
+		},
 	},
 	{
 		Display:      "Mr. MongoDB",
@@ -32,6 +40,10 @@ var users = []data.User{
 		Coins:        4,
 		Role:         1,
 		JoinedOrgs:   []string{"silandro-investors", "tubre-investors"},
+		Settings: data.UserSettings{
+			Language: "en_us",
+			Theme:    "workshop",
+		},
 	},
 	{
 		Display:      "PolaroidKing123",
@@ -42,6 +54,10 @@ var users = []data.User{
 		Coins:        6,
 		Role:         0,
 		JoinedOrgs:   []string{"silandro-investors", "tubre-investors"},
+		Settings: data.UserSettings{
+			Language: "it",
+			Theme:    "workshop",
+		},
 	},
 	{
 		Display:      "Zesty Man",
@@ -52,5 +68,9 @@ var users = []data.User{
 		Coins:        3,
 		Role:         0,
 		JoinedOrgs:   []string{"silandro-investors"},
+		Settings: data.UserSettings{
+			Language: "en_us",
+			Theme:    "workshop",
+		},
 	},
 }

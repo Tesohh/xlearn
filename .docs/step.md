@@ -53,6 +53,8 @@ in (pseudo)code would be:
 
 
 ## `GET ` /api/step/@{steptag}
+You'll get all keys in Content, but to save space, values in the non current language will be omitted.
+Please tell me if you're fine with this implementation! (i did it like this so you can still know what languages are available)
 ```ts
 type Returns = Step | Error
 ```
