@@ -18,12 +18,16 @@ export const login = async (
 			body: JSON.stringify({ username: username, password: password })
 		});
 	} catch (err) {
-		throw redirect(303, '/apiError');
+		return { error: true, cookie: null };
 	}
 
 	if (!resp?.ok) return { error: true, cookie: null };
 
-	return { error: false, cookie: resp.headers.getSetCookie()[0].replace('token=', '') };
+	const cookieStr = resp.headers.getSetCookie().at(0);
+
+	if (cookieStr == undefined) return { error: true, cookie: null };
+
+	return { error: false, cookie: cookieStr.replace('token=', '') };
 };
 
 export const cookieToUser = async (
@@ -39,7 +43,7 @@ export const cookieToUser = async (
 			}
 		});
 	} catch (err) {
-		throw redirect(303, '/apiError');
+		return { error: true, user: null };
 	}
 
 	if (!resp?.ok) return { error: true, user: null };
@@ -66,7 +70,7 @@ export const register = async (username: string, password: string): Promise<{ er
 			})
 		});
 	} catch (err) {
-		throw redirect(303, '/apiError');
+		return { error: true };
 	}
 
 	if (!resp.ok) return { error: true };
