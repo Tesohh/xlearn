@@ -20,4 +20,4 @@ Content-Type: application/json
 
 ###
 
-{{api}}/logout
+GET {{api}}/logout
