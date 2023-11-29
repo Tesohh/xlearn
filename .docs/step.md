@@ -56,7 +56,15 @@ in (pseudo)code would be:
 You'll get all keys in Content, but to save space, values in the non current language will be omitted.
 Please tell me if you're fine with this implementation! (i did it like this so you can still know what languages are available)
 ```ts
-type Returns = Step | Error
+type Returns = {
+    step: Step,
+    langs: []string,
+    local_content: {
+        title: string,
+        description: string,
+        content: string,
+    }
+} | Error
 ```
 
 ## `POST` /api/step/@{steptag}
@@ -78,9 +86,9 @@ type Returns = Step | Error
 Modifiers: teacher
 ```ts
 type Body = {
-    name: string;
-    description: string;
-    content: string;
+    names: {[key: string]: string};
+    descriptions: {[key: string]: string};
+    contents: {[key: string]: string}; // markdown is stored here
     category: StepCat;
     xp_award: number;
     coins_award: number;
