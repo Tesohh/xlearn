@@ -24,12 +24,19 @@ func One(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 		return err
 	}
 
-	for k := range step.Content {
-		if k != user.Settings.Language {
-			step.Content[k] = ""
-		}
+	localContent := map[string]string{
+		"title":       "",
+		"description": "",
+		"content":     "",
 	}
 
-	handler.WriteJSON(w, 200, step)
+	res := map[string]any{
+		"step":          step,
+		"local_content": localContent,
+		"lang":          "",
+		"langs":         []string{},
+	}
+
+	handler.WriteJSON(w, 200, res)
 	return nil
 }

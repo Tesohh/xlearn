@@ -12,13 +12,13 @@ import (
 )
 
 type newBody struct {
-	Name        string            `json:"name,omitempty"`
-	Description string            `json:"description,omitempty"`
-	Content     map[string]string `json:"content,omitempty"`
-	Category    data.StepCat      `json:"category,omitempty"`
-	XPAward     int               `json:"xp_award,omitempty"`
-	CoinsAward  int               `json:"coins_award,omitempty"`
-	EnergyCost  int               `json:"energy_cost,omitempty"`
+	Names        map[string]string `json:"name,omitempty"`
+	Descriptions map[string]string `json:"description,omitempty"`
+	Contents     map[string]string `json:"content,omitempty"`
+	Category     data.StepCat      `json:"category,omitempty"`
+	XPAward      int               `json:"xp_award,omitempty"`
+	CoinsAward   int               `json:"coins_award,omitempty"`
+	EnergyCost   int               `json:"energy_cost,omitempty"`
 
 	Parent      string `json:"parent,omitempty"`
 	BranchIndex int    `json:"branch_index,omitempty"`
@@ -33,15 +33,15 @@ func New(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	}
 
 	step := data.Step{
-		Name:        body.Name,
-		Tag:         data.Tagify(body.Name, true),
-		Description: body.Description,
-		Content:     body.Content,
-		Category:    body.Category,
-		XPAward:     body.XPAward,
-		CoinsAward:  body.CoinsAward,
-		EnergyCost:  body.EnergyCost,
-		Children:    [][]string{},
+		Names:        body.Names,
+		Tag:          data.Tagify("step", true),
+		Descriptions: body.Descriptions,
+		Contents:     body.Contents,
+		Category:     body.Category,
+		XPAward:      body.XPAward,
+		CoinsAward:   body.CoinsAward,
+		EnergyCost:   body.EnergyCost,
+		Children:     [][]string{},
 	}
 	err := stores.Steps.Put(step)
 	if err != nil {
