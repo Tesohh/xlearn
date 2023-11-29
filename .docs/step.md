@@ -3,10 +3,10 @@
 ```ts
 type StepCat = "lesson" | "exercise" | "project"
 type Step = {
-    name: string;
+    names: {[key: string]: string};
     tag: string;
-    description: string;
-    content: string; // markdown is stored here
+    descriptions: {[key: string]: string};
+contents: {[key: string]: string}; // markdown is stored here
     category: StepCat;
     xp_award: number;
     coins_award: number;
