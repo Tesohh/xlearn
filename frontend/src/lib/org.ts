@@ -1,5 +1,5 @@
 import { backendUrl } from './const';
-import { Org, type OrgType } from './types';
+import { Org, type OrgType, parseOrg } from './types';
 
 export const getOrgByID = async (
 	orgID: string,
@@ -45,10 +45,20 @@ export const joinOrgByJoinCode = async (joinCode: string, cookie: string) => {
 	return { error: false };
 };
 
-export const parseOrg = (orgObject: Object): { error: boolean; org: OrgType | null } => {
-	const parsed = Org.safeParse(orgObject);
+export const leaveOrgById = async (orgCode: string, cookie: string) => {
+	let resp;
+	try {
+		resp = await fetch(`${backendUrl}/api/org/leave/${orgCode}`, {
+			method: 'POST',
+			headers: {
+				Cookie: `token=${cookie}`
+			}
+		});
+	} catch (err) {
+		return { error: true };
+	}
 
-	if (!parsed.success) return { error: true, org: null };
+	if (!resp.ok) return { error: true };
 
-	return { error: false, org: parsed.data };
+	return { error: false };
 };

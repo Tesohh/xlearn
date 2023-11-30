@@ -1,8 +1,6 @@
 <script lang='ts'>
 	import { toastStyle } from '$lib/const.js';
 	import { onMount } from 'svelte';
-
-    
     import toast, { Toaster } from 'svelte-french-toast';
 
     onMount(() => {

@@ -1,5 +1,6 @@
 import { authCookieName } from '$lib/const.js';
-import { getOrgByID, joinOrgByJoinCode } from '$lib/org.js';
+import errorMessages from '$lib/errorMessages.js';
+import { getOrgByID, joinOrgByJoinCode, leaveOrgById } from '$lib/org.js';
 import type { OrgType } from '$lib/types.js';
 import { redirect } from '@sveltejs/kit';
 
@@ -13,6 +14,7 @@ export const load = async ({ locals, cookies }) => {
 
 	const orgsData: OrgType[] = [];
 
+	// Retrieving org data
 	for (let i = 0; i < locals.user.joined_orgs.length; i++) {
 		const orgID = locals.user.joined_orgs.at(i);
 
@@ -28,29 +30,45 @@ export const load = async ({ locals, cookies }) => {
 	return { user: locals.user, org: orgsData };
 };
 
+// Server actions
 export const actions = {
-	joinorg: async (event) => {
-		if (!event.locals.user) return { failed: true };
+	joinorg: async ({ request, cookies, locals }) => {
+		if (!locals.user) return { error: errorMessages.notLogged };
 
-		console.log('USER OK');
+		const userCookie = cookies.get(authCookieName);
 
-		const userCookie = event.cookies.get(authCookieName);
+		if (!userCookie) return { error: errorMessages.notLogged };
 
-		if (!userCookie) return { failed: true };
-		console.log('COOKIE FOUND');
-
-		const data = await event.request.formData();
-		console.log('FORMDATA FOUND');
+		const data = await request.formData();
 
 		const joinCode = data.get('code')?.toString();
 
-		if (joinCode == null) return { error: true };
-		console.log('CODE FOUND');
+		if (joinCode == null) return { error: errorMessages.noValidCodeFound };
 
 		const resp = await joinOrgByJoinCode(joinCode, userCookie);
 
-		if (resp.error) return { failed: true };
+		if (resp.error) return { error: errorMessages.errorWhileJoiningOrg };
 
-		return { success: true };
+		return { error: null };
+	},
+
+	leaveorg: async ({ request, cookies, locals }) => {
+		if (!locals.user) return { error: errorMessages.notLogged };
+
+		const userCookie = cookies.get(authCookieName);
+
+		if (!userCookie) return { error: errorMessages.notLogged };
+
+		const data = await request.formData();
+
+		const leftCode = data.get('code');
+
+		if (leftCode == null) return { error: errorMessages.noValidCodeFound };
+
+		const resp = await leaveOrgById(leftCode.toString(), userCookie);
+
+		if (resp.error) return { error: errorMessages.errorWhileLeavingOrg };
+
+		return { error: null };
 	}
 };
