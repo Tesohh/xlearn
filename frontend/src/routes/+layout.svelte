@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
+	import JoinButton from '$lib/components/JoinButton.svelte';
+import OrgButton from '$lib/components/OrgButton.svelte';
 		import type { UserType, OrgType } from '$lib/types';
 	import '../app.css';
 
@@ -16,12 +17,11 @@
 				{#if data.org}
 
 					{#each data.org as org}
-						<Button data={org}/>
+						<OrgButton data={org}/>
 					{/each}
 
 				{/if}
-				<Button data={null}/>
-
+				<JoinButton/>
 			</div>
 		</div>
 		
