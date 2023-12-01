@@ -47,11 +47,11 @@ func TestOne(t *testing.T) {
 		}
 
 		if data.LocalContent.Name != "Muletto 1 silandro" {
-			t.Errorf("got title=%s, wanted %s", data.LocalContent.Name, "Muletto 1 silandro")
+			t.Errorf("got name=%s, wanted %s", data.LocalContent.Name, "Muletto 1 silandro")
 		} else if data.LocalContent.Content != "ciao" {
-			t.Errorf("content is not ciao")
+			t.Errorf("got content=%s, wanted %s", data.LocalContent.Content, "ciao")
 		} else if data.LocalContent.Description != "ciao" {
-			t.Errorf("descriprtion is not ciao")
+			t.Errorf("got description=%s, wanted %s", data.LocalContent.Description, "ciao")
 		}
 	})
 }
