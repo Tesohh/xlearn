@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   backend:
@@ -11,6 +11,18 @@ services:
       - 8080:8080
     profiles:
       - "api"
+
+  frontend:
+    restart: unless-stopped
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - ORIGIN=http://localhost:3000
+    profiles:
+      - "frontend"
 
   mongo:
     image: mongo

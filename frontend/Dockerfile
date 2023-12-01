@@ -16,6 +16,4 @@ USER node:node
 
 EXPOSE 3000
 
-ENV PRODUCTION=true
-
 CMD ["node", "build/index.js"]
