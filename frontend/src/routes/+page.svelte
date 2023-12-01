@@ -10,10 +10,7 @@
 
 	onMount(async () => {
 		if (data.user == null) toast.error(errorMessages.orgsNotFound, toastStyle)
-		if (form?.error) {
-			joinPopupTrigger.set(true)
-			toast.error(form.error, toastStyle)
-		} else joinPopupTrigger.set(false)
+		if (form?.error) toast.error(errorMessages.errorWhileJoiningOrg, toastStyle)
 	})
 
 </script>
@@ -25,20 +22,6 @@
 		<div class="grid grid-col-1 text-center">
 
 			<h1 class="text-2xl text-center p-10">Bentornato {data.user?.display}</h1>
-
-			<!-- Joining org form -->
-
-			{#if $joinPopupTrigger}
-				<div class="flex h-full w-full justify-center items-center p-10">
-					
-					<form method="post" action="?/joinorg">
-						<input type="text" name="code" class="border-black border-2 h-10 rounded-md">
-						<button type="submit" data-sveltekit-reload class="bg-gray-500 w-20 h-10 rounded-md">Join</button>
-					</form>
-					
-					
-				</div>
-			{/if}
 
 			<a href="/logout" data-sveltekit-reload><button class="bg-gray-500 w-20 h-10 rounded-md">Logout</button></a>
 		
