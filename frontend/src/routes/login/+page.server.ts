@@ -24,7 +24,7 @@ export const actions = {
 			return fail(400, { error: errorMessages.loginWrong });
 		}
 
-		if (response.cookie == null) return fail(400, { error: 'Error while logging in. Retry' });
+		if (response.cookie == null) return fail(400, { error: errorMessages.errorLoadingAuth });
 
 		cookies.set(authCookieName, response.cookie, {
 			httpOnly: true,

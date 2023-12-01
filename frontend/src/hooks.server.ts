@@ -1,6 +1,6 @@
-import { cookieToUser, parseUser } from '$lib/auth';
+import { cookieToUser } from '$lib/auth';
 import { authCookieName } from '$lib/const';
-import type { HandleFetch } from '@sveltejs/kit';
+import { parseUser } from '$lib/types';
 
 export const handle = async ({ event, resolve }) => {
 	const cookie = event.cookies.get(authCookieName);

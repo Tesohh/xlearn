@@ -1,7 +1,5 @@
-import { User, type UserType } from '$lib/types';
-import { redirect } from '@sveltejs/kit';
+import { User, type UserType, parseUser } from '$lib/types';
 import { backendUrl } from './const';
-import type { ZodObject, output, z } from 'zod';
 
 export const login = async (
 	username: string,
@@ -23,6 +21,7 @@ export const login = async (
 
 	if (!resp?.ok) return { error: true, cookie: null };
 
+	// Retrieving the cookie string
 	const cookieStr = resp.headers.getSetCookie().at(0);
 
 	if (cookieStr == undefined) return { error: true, cookie: null };
@@ -49,6 +48,7 @@ export const cookieToUser = async (
 	if (!resp?.ok) return { error: true, user: null };
 
 	const parsed = parseUser(await resp.json());
+	// Parse errors
 	if (parsed.error || parsed.user == null) {
 		return { error: true, user: null };
 	}
@@ -75,13 +75,4 @@ export const register = async (username: string, password: string): Promise<{ er
 
 	if (!resp.ok) return { error: true };
 	return { error: false };
-};
-
-export const parseUser = (userData: Object): { user: UserType | null; error: boolean } => {
-	const parsed = User.safeParse(userData);
-
-	if (!parsed.success) {
-		return { error: true, user: null };
-	}
-	return { user: parsed.data, error: false };
 };
