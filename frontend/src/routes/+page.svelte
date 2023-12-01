@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { toastStyle } from "$lib/const.js";
 	import errorMessages from "$lib/errorMessages.js";
-	import { joinPopupTrigger } from "$lib/writables";
 	import { onMount } from "svelte";
 	import toast, { Toaster } from "svelte-french-toast";
 

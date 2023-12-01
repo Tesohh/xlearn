@@ -13,5 +13,8 @@ export default {
 	orgsNotFound: 'Orgs not found',
 	errorWhileJoiningOrg: 'Error while joining. Wrong code?',
 	noValidCodeFound: 'Please provide a valid code',
-	errorWhileLeavingOrg: 'Error while leaving the org'
+	errorWhileLeavingOrg: 'Error while leaving the org',
+
+	// Adventures
+	cannotLoadAdventures: 'Cannot load adventures'
 };

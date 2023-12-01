@@ -25,12 +25,12 @@
 
     {#if $joinPopupTrigger}
         
-        <div class="absolute left-20 bg-gray-500 rounded-md">
-            <div class="flex h-full w-full justify-center items-center p-10">
+        <div class="absolute left-20 bg-gray-500 rounded-md w-auto">
+            <div class="flex h-full w-full justify-center text-center p-10">
                 
-                <form method="post" action="?/joinorg">
+                <form method="post" action="/?/joinorg" class="flex flex-row gap-2">
                     <input type="text" name="code" class="border-black border-2 h-10 rounded-md" placeholder="Join code">
-                    <button type="submit" data-sveltekit-reload class="bg-gray-700 w-20 h-10 rounded-md">Join</button>
+                        <button type="submit" data-sveltekit-reload class="bg-gray-700 w-20 h-10 rounded-md">Join</button>
                 </form>
                 
                 

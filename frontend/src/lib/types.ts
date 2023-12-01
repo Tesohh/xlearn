@@ -19,6 +19,15 @@ export const Org = z.object({
 
 export type OrgType = z.infer<typeof Org>;
 
+export const Adventure = z.object({
+	name: z.string(),
+	tag: z.string(),
+	description: z.string(),
+	steps: z.array(z.string())
+});
+
+export type Adventure = z.infer<typeof Adventure>;
+
 // Functions
 
 export const parseUser = (userData: Object): { user: UserType | null; error: boolean } => {
@@ -36,4 +45,14 @@ export const parseOrg = (orgObject: Object): { error: boolean; org: OrgType | nu
 	if (!parsed.success) return { error: true, org: null };
 
 	return { error: false, org: parsed.data };
+};
+
+export const parseAdventure = (
+	adventureObject: Object
+): { error: boolean; adventure: Adventure | null } => {
+	const parsed = Adventure.safeParse(adventureObject);
+
+	if (!parsed.success) return { error: true, adventure: null };
+
+	return { error: false, adventure: parsed.data };
 };

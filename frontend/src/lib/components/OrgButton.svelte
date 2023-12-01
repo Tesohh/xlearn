@@ -5,7 +5,7 @@
 
 </script>
 
-<a href="/org/{data.name}" data-sveltekit-preload-data>
+<a href="/org/{data.tag}" data-sveltekit-preload-data>
     <div class="w-12 h-12 bg-blue-800 rounded-md hover:bg-blue-400 hover:rounded-sm">
 
         <div class="flex justify-center items-center w-full h-full group">
