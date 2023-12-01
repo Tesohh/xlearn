@@ -6,10 +6,10 @@ import (
 
 var Steps = []data.Step{
 	{
-		Names:        map[string]string{"en_us": "Forklift 1 silandro"},
+		Names:        map[string]string{"en_us": "Forklift 1 silandro", "it": "Muletto 1 silandro"},
 		Tag:          "forkliftstep1-123456",
-		Descriptions: map[string]string{"en_us": "asdasdasdasd"},
-		Contents:     map[string]string{"en_us": "Turn on the forklift. Done"},
+		Descriptions: map[string]string{"en_us": "asdasdasdasd", "it": "ciao"},
+		Contents:     map[string]string{"en_us": "Turn on the forklift. Done", "it": "ciao"},
 		Category:     "step",
 		XPAward:      70,
 		CoinsAward:   1,
