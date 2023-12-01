@@ -40,6 +40,7 @@ export const joinOrgByJoinCode = async (joinCode: string, cookie: string) => {
 		return { error: true };
 	}
 
+	console.log(await resp.text());
 	if (!resp.ok) return { error: true };
 
 	return { error: false };
@@ -48,7 +49,7 @@ export const joinOrgByJoinCode = async (joinCode: string, cookie: string) => {
 export const leaveOrgById = async (orgCode: string, cookie: string) => {
 	let resp;
 	try {
-		resp = await fetch(`${backendUrl}/api/org/leave/${orgCode}`, {
+		resp = await fetch(`${backendUrl}/api/user/org/leave/${orgCode}`, {
 			method: 'POST',
 			headers: {
 				Cookie: `token=${cookie}`

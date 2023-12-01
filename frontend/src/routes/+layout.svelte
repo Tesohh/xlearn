@@ -1,12 +1,33 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import JoinButton from '$lib/components/JoinButton.svelte';
-import OrgButton from '$lib/components/OrgButton.svelte';
-		import type { UserType, OrgType } from '$lib/types';
+	import OrgButton from '$lib/components/OrgButton.svelte';
+	import type { UserType, OrgType } from '$lib/types';
+	import { onMount } from 'svelte';
 	import '../app.css';
+	import HomeButton from '$lib/components/HomeButton.svelte';
+
 
 	export let data : { user: UserType, org: OrgType[] };
 
+	let title = ""
+
+	onMount(() => {
+		dynamicTitle()
+	})
+
+	function dynamicTitle() {
+		if ($page.url.pathname.startsWith("/org/")) {
+			title = decodeURIComponent(`${$page.url.pathname.replace("/org/", "")}`)
+			
+		} else if ($page.url.pathname.startsWith("/")) {
+			title = "Home"
+		}
+	}
+
 </script>
+
+<title>XLearn - {title}</title>
 
 {#if data.user}
 	<div class="grid md:grid-cols-[64px_auto_64px] grid-rows-1 gap-0">
@@ -14,6 +35,7 @@ import OrgButton from '$lib/components/OrgButton.svelte';
 		<!-- Left side bar -->
 		<div class="bg-blue-300 w-16 h-screen hidden md:block">
 			<div class="flex flex-col items-center justify-center py-10 gap-10">
+				<HomeButton />
 				{#if data.org}
 
 					{#each data.org as org}
@@ -21,7 +43,7 @@ import OrgButton from '$lib/components/OrgButton.svelte';
 					{/each}
 
 				{/if}
-				<JoinButton/>
+				<JoinButton />
 			</div>
 		</div>
 		
@@ -33,9 +55,6 @@ import OrgButton from '$lib/components/OrgButton.svelte';
 		<!-- Righ side bar -->
 		<div class="bg-blue-300 w-16 absolute right-0 h-screen hidden md:block">
 			<div class="flex flex-col items-center justify-center py-10 gap-10">
-				<!-- <Button data={"Test1"} /> -->
-				<!-- <Button data={"Test2"} /> -->
-				<!-- <Button data={"Test3"} /> -->
 
 			</div>
 		</div>

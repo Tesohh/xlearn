@@ -1,6 +1,6 @@
 import { authCookieName } from '$lib/const.js';
 import errorMessages from '$lib/errorMessages.js';
-import { getOrgByID, joinOrgByJoinCode, leaveOrgById } from '$lib/org.js';
+import { joinOrgByJoinCode, leaveOrgById } from '$lib/org.js';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ locals, cookies }) => {

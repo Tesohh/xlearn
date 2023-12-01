@@ -16,6 +16,7 @@ export const handle = async ({ event, resolve }) => {
 				if (!parsed.error || parsed.user) {
 					event.locals.user = parsed.user;
 				}
+				console.log(event.locals.user);
 			} else event.locals.user = null;
 		}
 	} else {
