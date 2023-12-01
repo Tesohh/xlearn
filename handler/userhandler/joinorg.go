@@ -2,7 +2,6 @@ package userhandler
 
 import (
 	"net/http"
-
 	"slices"
 
 	"github.com/Tesohh/xlearn/data"
@@ -37,7 +36,7 @@ func JoinOrg(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 	}
 
 	if org == nil {
-		return handler.ErrRequestedItemInexistent
+		return handler.ErrPWTooShort
 	}
 
 	if slices.Contains(user.JoinedOrgs, org.Tag) {

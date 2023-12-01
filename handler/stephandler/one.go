@@ -25,7 +25,7 @@ func One(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
 	}
 
 	localContent := map[string]string{
-		"names":       localize(step.Names, user.Settings.Language),
+		"name":        localize(step.Names, user.Settings.Language),
 		"description": localize(step.Descriptions, user.Settings.Language),
 		"content":     localize(step.Contents, user.Settings.Language),
 	}
