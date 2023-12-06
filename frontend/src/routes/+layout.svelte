@@ -30,36 +30,37 @@
 <title>XLearn - {title}</title>
 
 {#if data.user}
-	<div class="grid md:grid-cols-[64px_auto_64px] grid-rows-1 gap-0">
-
-		<!-- Left side bar -->
-		<div class="bg-blue-300 w-16 h-screen hidden md:block">
-			<div class="flex flex-col items-center justify-center py-10 gap-10">
-				<HomeButton />
-				{#if data.org}
-
-					{#each data.org as org}
-						<OrgButton data={org}/>
-					{/each}
-
-				{/if}
-				<JoinButton />
+		<div class="grid md:grid-cols-[64px_auto_64px] grid-rows-1 gap-0">
+	
+			<!-- Left side bar -->
+			<div class="bg-blue-300 w-16 h-screen hidden md:block py-10 fixed bottom-0 top-0 z-10">
+				<div class="grid grid-rows-1 grid-flow-row gap-10 justify-center">
+					<HomeButton />
+					{#if data.org}
+	
+						{#each data.org as org}
+							<OrgButton data={org}/>
+						{/each}
+	
+					{/if}
+					<JoinButton />
+				</div>
 			</div>
-		</div>
-		
-		<!-- Main content  -->
-		<div class="w-full h-full">
-			<slot />
-		</div>
-		
-		<!-- Righ side bar -->
-		<div class="bg-blue-300 w-16 absolute right-0 h-screen hidden md:block">
-			<div class="flex flex-col items-center justify-center py-10 gap-10">
-
+			
+			<!-- Main content  -->
+			<div class="w-full h-full absolute z-0">
+				<slot/>
 			</div>
+			
+			<!-- Righ side bar -->
+			<div class="bg-blue-300 w-16 right-0 h-screen hidden md:block fixed z-10">
+				<div class="flex flex-col items-center justify-center py-10 gap-10">
+	
+				</div>
+			</div>
+	
 		</div>
+	{:else}
 
-	</div>
-{:else}
 	<slot/>
 {/if}

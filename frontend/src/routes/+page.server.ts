@@ -26,7 +26,7 @@ export const actions = {
 
 		if (resp.error) return { error: errorMessages.errorWhileJoiningOrg };
 
-		return { error: null };
+		throw redirect(303, '/');
 	},
 
 	leaveorg: async ({ request, cookies, locals }) => {
