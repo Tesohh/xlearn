@@ -80,6 +80,7 @@ func main() {
 
 	// general
 	r.HandleFunc("/danger/mockdb", handler.MW(generalhandler.MockDB, stores, "unprotected")).Methods("POST")
+	r.HandleFunc("/isdbempty", handler.MW(generalhandler.IsDBEmptyEndpoint, stores, "unprotected")).Methods("GET")
 
 	fmt.Println("Server running on http://localhost:8080")
 	http.ListenAndServe(":8080", r)

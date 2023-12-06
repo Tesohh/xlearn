@@ -36,7 +36,7 @@ func JoinOrg(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 	}
 
 	if org == nil {
-		return handler.ErrPWTooShort
+		return handler.ErrRequestedItemInexistent
 	}
 
 	if slices.Contains(user.JoinedOrgs, org.Tag) {

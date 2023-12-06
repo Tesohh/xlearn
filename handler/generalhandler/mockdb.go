@@ -9,16 +9,9 @@ import (
 )
 
 func MockDB(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {
-	if docs, _ := stores.Adventures.Many(db.Query{}); len(docs) > 0 {
-		return handler.ErrDatabaseNotEmpty
-	} else if docs, _ := stores.Orgs.Many(db.Query{}); len(docs) > 0 {
-		return handler.ErrDatabaseNotEmpty
-	} else if docs, _ := stores.Steps.Many(db.Query{}); len(docs) > 0 {
-		return handler.ErrDatabaseNotEmpty
-	} else if docs, _ := stores.Users.Many(db.Query{}); len(docs) > 0 {
+	if !IsDBEmpty(stores) {
 		return handler.ErrDatabaseNotEmpty
 	}
-
 	err := mock.AddDataToStores(stores)
 	if err != nil {
 		return err
