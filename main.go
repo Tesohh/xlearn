@@ -3,12 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/Tesohh/xlearn/data"
 	"github.com/Tesohh/xlearn/db"
-	"github.com/Tesohh/xlearn/handler"
 	"github.com/Tesohh/xlearn/handler/adventurehandler"
 	"github.com/Tesohh/xlearn/handler/generalhandler"
 	"github.com/Tesohh/xlearn/handler/orghandler"
@@ -31,57 +29,44 @@ func main() {
 		Steps:      db.MongoStore[data.Step]{Client: client, Coll: client.Database("main").Collection("steps")},
 	}
 
-	r := mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter()
+	r := router{
+		r:      mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter(),
+		stores: stores,
+		routes: map[string]route{
+			"/user/signup": {handler: userhandler.Signup, modifiers: "unprotected", methods: "POST"},
+			"/user/login":  {handler: userhandler.Login, modifiers: "unprotected", methods: "POST"},
+			"/user/logout": {handler: userhandler.Logout, methods: "GET"},
 
-	// auth
-	auth := r.NewRoute().PathPrefix("/user").Subrouter()
-	auth.HandleFunc("/signup", handler.MW(userhandler.Signup, stores, "unprotected")).Methods("POST")
-	auth.HandleFunc("/login", handler.MW(userhandler.Login, stores, "unprotected")).Methods("POST")
-	auth.HandleFunc("/logout", handler.MW(userhandler.Logout, stores)).Methods("GET")
+			"/user/me":                  {handler: userhandler.Me, methods: "GET"},
+			"/user/me/settings/edit":    {handler: userhandler.EditSettings, methods: "POST"},
+			"/user/org/join/{code}":     {handler: userhandler.JoinOrg, methods: "POST"},
+			"/user/org/leave/@{orgtag}": {handler: userhandler.LeaveOrg, methods: "POST"},
+			"/user/org/joined":          {handler: userhandler.JoinedOrgs, methods: "GET"},
+			"/user/org/joined/tags":     {handler: userhandler.JoinedOrgsTags, methods: "GET"},
 
-	// user
-	user := r.NewRoute().PathPrefix("/user").Subrouter()
-	user.HandleFunc("/me", handler.MW(userhandler.Me, stores)).Methods("GET")
-	user.HandleFunc("/me/settings/edit", handler.MW(userhandler.EditSettings, stores)).Methods("POST")
-	user.HandleFunc("/org/join/{code}", handler.MW(userhandler.JoinOrg, stores)).Methods("POST")
-	user.HandleFunc("/org/leave/@{orgtag}", handler.MW(userhandler.LeaveOrg, stores)).Methods("POST")
-	user.HandleFunc("/org/joined", handler.MW(userhandler.JoinedOrgs, stores)).Methods("GET")
-	user.HandleFunc("/org/joined/tags", handler.MW(userhandler.JoinedOrgsTags, stores)).Methods("GET")
+			"/org/new":                         {handler: orghandler.New, methods: "POST"},
+			"/org/@{orgtag}":                   {handler: orghandler.One, modifiers: "protectorg", methods: "GET"},
+			"/org/@{orgtag} ":                  {handler: orghandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
+			"/org/@{orgtag}/meta":              {handler: orghandler.Meta, modifiers: "protectorg", methods: "GET"},
+			"/org/@{orgtag}/code/{uses}":       {handler: orghandler.Code, modifiers: "admin,protectorg", methods: "GET"},
+			"/org/@{orgtag}/revokecode/{code}": {handler: orghandler.RevokeCode, modifiers: "admin,protectorg", methods: "POST"},
 
-	// org
-	orgGeneric := r.NewRoute().PathPrefix("/org").Subrouter()
-	org := orgGeneric.NewRoute().PathPrefix("/@{orgtag}").Subrouter()
+			"/org/@{orgtag}/adventure/new":                {handler: adventurehandler.New, modifiers: "admin,protectorg", methods: "POST"},
+			"/org/@{orgtag}/adventure/all":                {handler: adventurehandler.All, modifiers: "protectorg", methods: "POST"},
+			"/org/@{orgtag}/adventure/@{advtag}":          {handler: adventurehandler.One, modifiers: "protectorg", methods: "GET"},
+			"/org/@{orgtag}/adventure/@{advtag} ":         {handler: adventurehandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
+			"/org/@{orgtag}/adventure/@{advtag}/movestep": {handler: adventurehandler.MoveStep, modifiers: "teacher,protectorg", methods: "POST"},
 
-	orgGeneric.HandleFunc("/new", handler.MW(orghandler.New, stores, "admin")).Methods("POST")
-	org.HandleFunc("", handler.MW(orghandler.One, stores, "protectorg")).Methods("GET")
-	org.HandleFunc("", handler.MW(orghandler.Edit, stores, "admin", "protectorg")).Methods("POST")
-	org.HandleFunc("/meta", handler.MW(orghandler.Meta, stores, "protectorg")).Methods("GET")
-	org.HandleFunc("/code/{uses}", handler.MW(orghandler.Code, stores, "protectorg", "admin")).Methods("GET")
-	org.HandleFunc("/revokecode/{code}", handler.MW(orghandler.RevokeCode, stores, "protectorg", "admin")).Methods("POST")
+			"/step/new":         {handler: stephandler.New, modifiers: "teacher", methods: "POST"},
+			"/step/many":        {handler: stephandler.Many, methods: "GET"},
+			"/step/@{steptag}":  {handler: stephandler.One, methods: "GET"},
+			"/step/@{steptag} ": {handler: stephandler.Edit, modifiers: "teacher", methods: "POST"},
 
-	// org adventures
-	advGeneric := r.NewRoute().PathPrefix("/org/@{orgtag}/adventure").Subrouter()
-	adv := advGeneric.NewRoute().PathPrefix("/@{advtag}").Subrouter()
-
-	advGeneric.HandleFunc("/new", handler.MW(adventurehandler.New, stores, "admin", "protectorg")).Methods("POST")
-	advGeneric.HandleFunc("/all", handler.MW(adventurehandler.All, stores, "protectorg")).Methods("GET")
-	adv.HandleFunc("/movestep", handler.MW(adventurehandler.MoveStep, stores, "teacher", "protectorg")).Methods("POST")
-	adv.HandleFunc("", handler.MW(adventurehandler.One, stores, "protectorg")).Methods("GET")
-	adv.HandleFunc("", handler.MW(adventurehandler.Edit, stores, "admin", "protectorg")).Methods("POST")
-
-	// steps
-	stepGeneric := r.NewRoute().PathPrefix("/step").Subrouter()
-	step := stepGeneric.NewRoute().PathPrefix("/@{steptag}").Subrouter()
-
-	stepGeneric.HandleFunc("/new", handler.MW(stephandler.New, stores, "teacher")).Methods("POST")
-	stepGeneric.HandleFunc("/many", handler.MW(stephandler.Many, stores)).Methods("GET")
-	step.HandleFunc("", handler.MW(stephandler.One, stores)).Methods("GET")
-	step.HandleFunc("", handler.MW(stephandler.Edit, stores, "teacher")).Methods("POST")
-
-	// general
-	r.HandleFunc("/danger/mockdb", handler.MW(generalhandler.MockDB, stores, "unprotected")).Methods("POST")
-	r.HandleFunc("/isdbempty", handler.MW(generalhandler.IsDBEmptyEndpoint, stores, "unprotected")).Methods("GET")
+			"/danger/mockdb": {handler: generalhandler.MockDB, modifiers: "unprotected", methods: "POST"},
+			"/isdbempty":     {handler: generalhandler.IsDBEmptyEndpoint, modifiers: "unprotected", methods: "GET"},
+		},
+	}
 
 	fmt.Println("Server running on http://localhost:8080")
-	http.ListenAndServe(":8080", r)
+	r.serve(":8080")
 }
