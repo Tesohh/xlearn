@@ -1,6 +1,6 @@
 @api = http://localhost:8080/api/org/@silandro-investors/adventure
 
-{{api}}/all
+GET {{api}}/all
 
 ###
 POST {{api}}/new

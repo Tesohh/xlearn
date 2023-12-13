@@ -52,7 +52,7 @@ func main() {
 			"/org/@{orgtag}/revokecode/{code}": {handler: orghandler.RevokeCode, modifiers: "admin,protectorg", methods: "POST"},
 
 			"/org/@{orgtag}/adventure/new":                {handler: adventurehandler.New, modifiers: "admin,protectorg", methods: "POST"},
-			"/org/@{orgtag}/adventure/all":                {handler: adventurehandler.All, modifiers: "protectorg", methods: "POST"},
+			"/org/@{orgtag}/adventure/all":                {handler: adventurehandler.All, modifiers: "protectorg", methods: "GET"},
 			"/org/@{orgtag}/adventure/@{advtag}":          {handler: adventurehandler.One, modifiers: "protectorg", methods: "GET"},
 			"/org/@{orgtag}/adventure/@{advtag} ":         {handler: adventurehandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
 			"/org/@{orgtag}/adventure/@{advtag}/movestep": {handler: adventurehandler.MoveStep, modifiers: "teacher,protectorg", methods: "POST"},
