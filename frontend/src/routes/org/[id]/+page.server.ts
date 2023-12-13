@@ -21,5 +21,7 @@ export const load = async ({ locals, params, cookies }) => {
 
 	if (data.error) return { error: errorMessages.cannotLoadAdventures };
 
+	console.log(data.adventures);
+
 	return { error: null, org: resp.org, adventures: data.adventures };
 };

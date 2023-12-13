@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from "$app/stores";
 	import { toastStyle } from "$lib/const.js";
 	import errorMessages from "$lib/errorMessages.js";
 	import { onMount } from "svelte";

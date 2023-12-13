@@ -3,7 +3,6 @@
 	import { onMount } from "svelte";
 	import toast, { Toaster } from "svelte-french-toast";
 	import { writable } from "svelte/store";
-	import type { string } from "zod";
 
     export let form;
 
