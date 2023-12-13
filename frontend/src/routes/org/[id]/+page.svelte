@@ -9,7 +9,6 @@
         if (data.error) toast.error(data.error, toastStyle)
     })
 
-
 </script>
 
 <div class="flex justify-center w-full text-center">
@@ -29,6 +28,4 @@
         </div>
 
     </div>
-
-
 </div>

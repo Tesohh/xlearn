@@ -2,7 +2,7 @@ import { getAdventuresByOrg } from '$lib/adventure.js';
 import { authCookieName } from '$lib/const.js';
 import errorMessages from '$lib/errorMessages.js';
 import { getOrgByID } from '$lib/org.js';
-import { redirect } from '@sveltejs/kit';
+import { redirect, error } from '@sveltejs/kit';
 
 export const load = async ({ locals, params, cookies }) => {
 	if (!locals.user) throw redirect(303, '/login');
@@ -15,7 +15,7 @@ export const load = async ({ locals, params, cookies }) => {
 
 	const resp = await getOrgByID(orgTag, cookie);
 
-	if (resp.error) return { error: errorMessages.orgsNotFound };
+	if (resp.error) throw error(404, 'Org not found');
 
 	const data = await getAdventuresByOrg(resp.org!.tag, cookie);
 

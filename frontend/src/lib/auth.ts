@@ -1,4 +1,4 @@
-import { User, type UserType, parseUser } from '$lib/types';
+import { type User, parseUser } from '$lib/types';
 import { backendUrl } from './const';
 
 export const login = async (
@@ -31,7 +31,7 @@ export const login = async (
 
 export const cookieToUser = async (
 	cookie: string
-): Promise<{ error: boolean; user: UserType | null }> => {
+): Promise<{ error: boolean; user: User | null }> => {
 	let resp;
 
 	try {

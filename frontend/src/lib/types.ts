@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const User = z.object({
+export const zUser = z.object({
 	display: z.string(),
 	username: z.string(),
 	coins: z.number(),
@@ -8,30 +8,41 @@ export const User = z.object({
 	joined_orgs: z.array(z.string().optional()).or(z.null())
 });
 
-export type UserType = z.infer<typeof User>;
+export type User = z.infer<typeof zUser>;
 
-export const Org = z.object({
+export const zOrg = z.object({
 	name: z.string(),
 	tag: z.string(),
 	is_unprotected: z.boolean(),
 	adventures: z.array(z.string()).optional().or(z.null())
 });
 
-export type OrgType = z.infer<typeof Org>;
+export type Org = z.infer<typeof zOrg>;
 
-export const Adventure = z.object({
+export const zAdventure = z.object({
 	name: z.string(),
 	tag: z.string(),
 	description: z.string(),
 	steps: z.array(z.string())
 });
 
-export type Adventure = z.infer<typeof Adventure>;
+export type Adventure = z.infer<typeof zAdventure>;
+
+export const Step = z.object({
+	name: z.any(),
+	tag: z.string(),
+	description: z.any(),
+	content: z.any(),
+	category: z.string().default('step'),
+	xp_award: z.number(),
+	coins_award: z.number(),
+	energy_cost: z.number()
+});
 
 // Functions
 
-export const parseUser = (userData: Object): { user: UserType | null; error: boolean } => {
-	const parsed = User.safeParse(userData);
+export const parseUser = (userData: Object): { user: User | null; error: boolean } => {
+	const parsed = zUser.safeParse(userData);
 
 	if (!parsed.success) {
 		return { error: true, user: null };
@@ -39,8 +50,8 @@ export const parseUser = (userData: Object): { user: UserType | null; error: boo
 	return { user: parsed.data, error: false };
 };
 
-export const parseOrg = (orgObject: Object): { error: boolean; org: OrgType | null } => {
-	const parsed = Org.safeParse(orgObject);
+export const parseOrg = (orgObject: Object): { error: boolean; org: Org | null } => {
+	const parsed = zOrg.safeParse(orgObject);
 
 	if (!parsed.success) return { error: true, org: null };
 
@@ -50,7 +61,7 @@ export const parseOrg = (orgObject: Object): { error: boolean; org: OrgType | nu
 export const parseAdventure = (
 	adventureObject: Object
 ): { error: boolean; adventure: Adventure | null } => {
-	const parsed = Adventure.safeParse(adventureObject);
+	const parsed = zAdventure.safeParse(adventureObject);
 
 	if (!parsed.success) return { error: true, adventure: null };
 

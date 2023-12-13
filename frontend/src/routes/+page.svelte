@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import { toastStyle } from "$lib/const.js";
 	import errorMessages from "$lib/errorMessages.js";
 	import { onMount } from "svelte";
@@ -8,6 +9,7 @@
 	export let form;
 
 	onMount(async () => {
+		console.log(document.cookie)
 		if (data.user == null) toast.error(errorMessages.orgsNotFound, toastStyle)
 		if (form?.error) toast.error(errorMessages.errorWhileJoiningOrg, toastStyle)
 	})

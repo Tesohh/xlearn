@@ -1,10 +1,10 @@
 import { backendUrl } from './const';
-import { Org, type OrgType, parseOrg } from './types';
+import { type Org, parseOrg } from './types';
 
 export const getOrgByID = async (
 	orgID: string,
 	cookie: string
-): Promise<{ error: boolean; org: OrgType | null }> => {
+): Promise<{ error: boolean; org: Org | null }> => {
 	let resp;
 
 	try {

@@ -2,12 +2,27 @@
 	import { toastStyle } from "$lib/const.js";
 	import { onMount } from "svelte";
 	import toast, { Toaster } from "svelte-french-toast";
+	import { writable } from "svelte/store";
+	import type { string } from "zod";
 
     export let form;
 
+    let password: string = "", confirmPassword: string = ""
+
+    let passwordError = writable(false)
+    
     onMount(() => {
         if (form?.error) toast.error(form.error, toastStyle)
     })
+
+    function checkPasswordMatch() {
+        if (password.length == 0) return passwordError.set(false)
+        if (confirmPassword.length == 0) return passwordError.set(true)
+        
+        if (password != confirmPassword) return passwordError.set(true)
+        
+        passwordError.set(false)
+    }
     
 </script>
 
@@ -23,19 +38,26 @@
         
             <div class="flex flex-col items-center text-center justify-center">
                 <label for="username">Username</label>
-                <input name="username" id="username" type="text" class="border-gray-400 border-[0.5px] border-solid">
+                <input name="username" id="username" type="text" class="border-gray-400 border-[0.5px] border-solid" required>
     
                 <label for="password">Password</label>
-                <input name="password" id="password" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12">
+                <input name="password" id="password" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12" bind:value={password} on:keyup={checkPasswordMatch}>
                 
                 <label for="confirmPassword">Confirm Password</label>
-                <input name="confirmPassword" id="confirmPassword" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12">
+                <input name="confirmPassword" id="confirmPassword" type="password" class="border-gray-400 border-[0.5px] border-solid" minlength="12" bind:value={confirmPassword} on:keyup={checkPasswordMatch}>
+
+                {#if $passwordError}
+                    <p>Passwords dont match</p>
+                {/if}
 
                 <div class="p-5">
-                    <button type="submit" class="bg-black text-white flex justify-center py-2 px-4 rounded-md">Sign up</button>
+
+                    <button type="submit" class="bg-{$passwordError ? 'gray-500' : 'black'} text-white flex justify-center py-2 px-4 rounded-md" disabled="{$passwordError}">Sign up</button>
+
                 </div>
 
                 <div class="text-[15px]">
+
                     <a href="/login">Login</a>
                 </div>
 

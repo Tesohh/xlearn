@@ -1,11 +1,13 @@
 import { backendUrl } from './const';
-import { parseAdventure, type Adventure } from './types';
 
-export const getAdventuresByOrg = async (orgTag: string, cookie: string) => {
+export const getAdventureSteps = async (
+	adventureID: string,
+	cookie: string
+): Promise<{ error: null | boolean; steps: null | Step[] }> => {
 	let resp;
 
 	try {
-		resp = await fetch(`${backendUrl}/api/org/@${orgTag}/adventure/all`, {
+		resp = await fetch(`${backendUrl}/#TODO`, {
 			method: 'GET',
 			headers: {
 				Cookie: `token=${cookie}`
@@ -14,7 +16,7 @@ export const getAdventuresByOrg = async (orgTag: string, cookie: string) => {
 	} catch (err) {
 		return { error: true, adventures: null };
 	}
-	if (!resp.ok) return { error: true, adventures: null };
+	if (!resp.ok) return { error: true, steps: null };
 
 	const adventureObj = await resp.json();
 
