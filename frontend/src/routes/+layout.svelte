@@ -20,9 +20,10 @@
 		if ($page.url.pathname.startsWith("/org/")) {
 			title = decodeURIComponent(`${$page.url.pathname.replace("/org/", "")}`)
 			
-		} else if ($page.url.pathname.startsWith("/")) {
-			title = "Home"
-		}
+		} 
+		else if ($page.url.pathname.startsWith("/login") ) title = "Login"
+		else if ($page.url.pathname.startsWith("/signup") ) title = "Signup"
+		else if ($page.url.pathname.startsWith("/")) title = "Home"
 	}
 
 </script>
