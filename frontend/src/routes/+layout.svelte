@@ -2,13 +2,13 @@
 	import { page } from '$app/stores';
 	import JoinButton from '$lib/components/JoinButton.svelte';
 	import OrgButton from '$lib/components/OrgButton.svelte';
-	import type { UserType, OrgType } from '$lib/types';
+	import type { User, Org } from '$lib/types';
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import HomeButton from '$lib/components/HomeButton.svelte';
 
 
-	export let data : { user: UserType, org: OrgType[] };
+	export let data : { user: User, org: Org[] };
 
 	let title = ""
 
