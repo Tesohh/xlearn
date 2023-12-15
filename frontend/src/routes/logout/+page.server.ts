@@ -3,10 +3,11 @@ import { authCookieName } from '$lib/const.js';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ cookies, locals }) => {
-	if (!locals.user) throw redirect(303, '/login');
+	if (!locals.user) redirect(303, '/login');
 
-	cookies.delete(authCookieName, {
-		secure: env.PRODUCTION ? true : false
+	/* @migration task: add path argument */ cookies.delete(authCookieName, {
+		secure: env.PRODUCTION ? true : false,
+		path: '/'
 	});
 
 	throw redirect(303, '/login');

@@ -15,7 +15,7 @@ export const load = async ({ locals, params, cookies }) => {
 
 	const resp = await getOrgByID(orgTag, cookie);
 
-	if (resp.error) throw error(404, 'Org not found');
+	if (resp.error) error(404, 'Org not found');
 
 	const data = await getAdventuresByOrg(resp.org!.tag, cookie);
 

@@ -1,6 +1,6 @@
 import { authCookieName } from '$lib/const';
 import { getOrgByID } from '$lib/org';
-import type { OrgType } from '$lib/types';
+import type { Org } from '$lib/types';
 
 export const load = async ({ locals, cookies }) => {
 	if (!locals.user) return { user: locals.user };
@@ -10,7 +10,7 @@ export const load = async ({ locals, cookies }) => {
 	const cookie = cookies.get(authCookieName);
 	if (!cookie) return { user: null, org: null };
 
-	const orgsData: OrgType[] = [];
+	const orgsData: Org[] = [];
 
 	// Retrieving org data
 	for (let i = 0; i < locals.user.joined_orgs.length; i++) {
