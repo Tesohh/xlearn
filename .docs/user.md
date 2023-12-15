@@ -34,7 +34,7 @@ type Body = Settings; // if a field is left empty it won't be modified
 type Returns = Settings | Error;
 ```
 
-## `POST` api/user/org/leave/{code}
+## `POST` api/user/org/join/{code}
 joins an org given a code. Don't need to specify what org to join!
 
 ```ts

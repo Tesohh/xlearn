@@ -33,7 +33,7 @@ func Request(method string, target string, body *M, username string, vars map[st
 
 	r := httptest.NewRequest(http.MethodPost, "/api/user/org/joined", reader)
 
-	mux.SetURLVars(r, vars)
+	r = mux.SetURLVars(r, vars)
 
 	if username != "" {
 		r.Header.Add("jwt-username", username)

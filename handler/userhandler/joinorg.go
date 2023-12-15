@@ -1,6 +1,7 @@
 package userhandler
 
 import (
+	"fmt"
 	"net/http"
 	"slices"
 
@@ -26,23 +27,26 @@ func JoinOrg(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 		return err
 	}
 
-	var org *data.Org
+	var org data.Org
 	for _, o := range orgs {
 		for k := range o.Codes {
 			if k == code {
-				org = &o
+				org = o
+				fmt.Println(org)
+				break
 			}
 		}
 	}
 
-	if org == nil {
-		return handler.ErrRequestedItemInexistent
+	if org.IsEmpty() {
+		return fmt.Errorf("error while figuring out org: %w", handler.ErrRequestedItemInexistent)
 	}
 
 	if slices.Contains(user.JoinedOrgs, org.Tag) {
 		return handler.ErrAlreadyJoinedOrg
 	}
 
+	fmt.Println(org)
 	if _, ok := org.Codes[code]; !ok {
 		return handler.ErrRequestedItemInexistent
 	}
@@ -50,7 +54,7 @@ func JoinOrg(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) erro
 	if org.Codes[code] <= 0 {
 		delete(org.Codes, code)
 	}
-	err = stores.Orgs.Update(db.Query{"tag": org.Tag}, *org)
+	err = stores.Orgs.Update(db.Query{"tag": org.Tag}, org)
 	if err != nil {
 		return err
 	}

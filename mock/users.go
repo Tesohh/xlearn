@@ -73,4 +73,18 @@ var Users = []data.User{
 			Theme:    "workshop",
 		},
 	},
+	{
+		Display:      "donerkebab",
+		Username:     "donerkebab",
+		PasswordHash: "$2a$10$2ohNV/1gszuQXPqHXdnpB.WRlwCCe5e.G9MmXH60QTxLPq2wRpciu",
+		XP:           6,
+		Level:        5,
+		Coins:        3,
+		Role:         0,
+		JoinedOrgs:   []string{},
+		Settings: data.UserSettings{
+			Language: "en_us",
+			Theme:    "workshop",
+		},
+	},
 }
