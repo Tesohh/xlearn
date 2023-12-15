@@ -3,3 +3,4 @@ IGNORE**
 .docker.env
 __debug**
 .DS_Store
+.mongodb
