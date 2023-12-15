@@ -1,7 +1,7 @@
 <script lang='ts'>
-	import type { OrgType } from "$lib/types";
+	import type { Org } from "$lib/types";
     import Icon from '@iconify/svelte';
-    export let data: OrgType;
+    export let data: Org;
 
 </script>
 

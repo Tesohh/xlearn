@@ -2,13 +2,13 @@
 	import { page } from '$app/stores';
 	import JoinButton from '$lib/components/JoinButton.svelte';
 	import OrgButton from '$lib/components/OrgButton.svelte';
-	import type { UserType, OrgType } from '$lib/types';
+	import type { User, Org } from '$lib/types';
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import HomeButton from '$lib/components/HomeButton.svelte';
 
 
-	export let data : { user: UserType, org: OrgType[] };
+	export let data : { user: User, org: Org[] };
 
 	let title = ""
 
@@ -17,18 +17,19 @@
 	})
 
 	function dynamicTitle() {
-		if ($page.url.pathname.startsWith("/org/")) {
-			title = decodeURIComponent(`${$page.url.pathname.replace("/org/", "")}`)
-			
-		} 
-		else if ($page.url.pathname.startsWith("/login") ) title = "Login"
-		else if ($page.url.pathname.startsWith("/signup") ) title = "Signup"
-		else if ($page.url.pathname.startsWith("/")) title = "Home"
+
+		const url = $page.url.pathname
+
+		if (url.startsWith("/org/")) { title = decodeURIComponent(`${url.replace("/org/", "")}`) } 
+		else if (url.startsWith("/login") ) title = "Login"
+		else if (url.startsWith("/signup") ) title = "Signup"
+		else if (url == "/") title = "Home"
+
 	}
 
 </script>
 
-<title>XLearn - {title}</title>
+<title>XLearn {title != "" ? "- " + title : ""}</title>
 
 {#if data.user}
 		<div class="grid md:grid-cols-[64px_auto_64px] grid-rows-1 gap-0">

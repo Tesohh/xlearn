@@ -8,6 +8,7 @@
 	export let form;
 
 	onMount(async () => {
+		console.log(document.cookie)
 		if (data.user == null) toast.error(errorMessages.orgsNotFound, toastStyle)
 		if (form?.error) toast.error(errorMessages.errorWhileJoiningOrg, toastStyle)
 	})
