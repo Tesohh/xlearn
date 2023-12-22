@@ -2,7 +2,7 @@ import { backendUrl } from './const';
 import { parseAdventure, type Adventure } from './types';
 
 export const getAdventuresByOrg = async (orgTag: string, cookie: string) => {
-	let resp;
+	let resp: Response;
 
 	try {
 		resp = await fetch(`${backendUrl}/api/org/@${orgTag}/adventure/all`, {
