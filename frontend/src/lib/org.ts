@@ -40,7 +40,6 @@ export const joinOrgByJoinCode = async (joinCode: string, cookie: string) => {
 		return { error: true };
 	}
 
-	console.log(await resp.text());
 	if (!resp.ok) return { error: true };
 
 	return { error: false };

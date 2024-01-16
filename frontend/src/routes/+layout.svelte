@@ -1,56 +1,51 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import JoinButton from '$lib/components/home/JoinButton.svelte';
-	import OrgButton from '$lib/components/home/OrgButton.svelte';
 	import type { User, Org } from '$lib/types';
 	import { onMount } from 'svelte';
 	import '../app.css';
-	import HomeButton from '$lib/components/home/HomeButton.svelte';
+	import IconHome from '$lib/components/home/IconHome.svelte';
+	import OrgButton from '$lib/components/home/OrgButton.svelte';
+	import { selectedOrg } from '$lib/writables';
+	import { writable } from 'svelte/store';
 
 	export let data: { user: User; org: Org[] };
 
-	let title = '';
+	let title = writable<string>('');
 
-	onMount(() => {
-		dynamicTitle();
-	});
+	$: selectedOrg.set($page.url.pathname.replace('/org/', ''));
 
-	function dynamicTitle() {
+	$: {
 		const url = $page.url.pathname;
 
 		if (url.startsWith('/org/')) {
-			title = decodeURIComponent(`${url.replace('/org/', '')}`);
-		} else if (url.startsWith('/login')) title = 'Login';
-		else if (url.startsWith('/signup')) title = 'Signup';
-		else if (url == '/') title = 'Home';
+			title.set(decodeURIComponent(`${url.replace('/org/', '')}`));
+		} else if (url.startsWith('/login')) title.set('Login');
+		else if (url.startsWith('/signup')) title.set('Signup');
+		else if (url == '/') title.set('Home');
 	}
 </script>
 
-<title>XLearn {title != '' ? '- ' + title : ''}</title>
+<title>XLearn {$title != '' ? '- ' + $title : ''}</title>
 
 {#if data.user}
-	<div class="grid md:grid-cols-[64px_auto_64px] grid-rows-1 gap-0">
-		<!-- Left side bar -->
-		<div class="bg-blue-300 w-16 h-screen hidden md:block py-10 fixed bottom-0 top-0 z-10">
-			<div class="grid grid-rows-1 grid-flow-row gap-10 justify-center">
-				<HomeButton />
-				{#if data.org}
-					{#each data.org as org}
-						<OrgButton data={org} />
-					{/each}
-				{/if}
-				<JoinButton />
-			</div>
-		</div>
-
-		<!-- Main content  -->
-		<div class="w-full h-full absolute z-0">
+	<div class="grid grid-cols-1 lg:grid-cols-[auto_440px] p-[18px] gap-[18px] h-screen">
+		<div class="h-full border-primary border-2 rounded-md">
 			<slot />
 		</div>
 
-		<!-- Righ side bar -->
-		<div class="bg-blue-300 w-16 right-0 h-screen hidden md:block fixed z-10">
-			<div class="flex flex-col items-center justify-center py-10 gap-10" />
+		<div class="h-full hidden lg:block">
+			<div class="flex flex-row h-[100px] border-primary border-2 rounded-md">
+				<IconHome url="/" iconStr="icon-[tabler--smart-home]" />
+				<IconHome url="/shop" iconStr="icon-[tabler--shopping-bag]" />
+				<IconHome url="/test" iconStr="icon-[tabler--brand-docker]" />
+				<IconHome url="/me" iconStr="icon-[tabler--user-circle]" />
+			</div>
+
+			<div class="pt-[48px] grid grid-cols-1 gap-5">
+				{#each data.org as org}
+					<OrgButton data={org} />
+				{/each}
+			</div>
 		</div>
 	</div>
 {:else}
