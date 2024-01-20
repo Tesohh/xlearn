@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import type { User, Org } from '$lib/types';
-	import { onMount } from 'svelte';
 	import '../app.css';
 	import IconHome from '$lib/components/home/IconHome.svelte';
 	import OrgButton from '$lib/components/home/OrgButton.svelte';
