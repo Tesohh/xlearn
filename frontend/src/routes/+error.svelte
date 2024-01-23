@@ -1,6 +1,5 @@
 <script lang='ts'>
 	import { page } from "$app/stores";
-    
 </script>
 
 <div class="flex justify-center items-center w-full h-full">

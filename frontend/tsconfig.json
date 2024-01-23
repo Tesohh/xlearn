@@ -1,4 +1,7 @@
 {
+	/// <reference types="@sveltejs/kit" />
+	/// <reference types="svelte" />
+	/// <reference types="vite/client" />
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"allowJs": true,
