@@ -44,10 +44,11 @@ func main() {
 			"/user/org/joined":          {handler: userhandler.JoinedOrgs, methods: "GET"},
 			"/user/org/joined/tags":     {handler: userhandler.JoinedOrgsTags, methods: "GET"},
 
-			"/org/new":                         {handler: orghandler.New, methods: "POST"},
-			"/org/@{orgtag}":                   {handler: orghandler.One, modifiers: "protectorg", methods: "GET"},
-			"/org/@{orgtag} ":                  {handler: orghandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
-			"/org/@{orgtag}/meta":              {handler: orghandler.Meta, modifiers: "protectorg", methods: "GET"},
+			"/org/new":            {handler: orghandler.New, methods: "POST"},
+			"/org/@{orgtag}":      {handler: orghandler.One, modifiers: "protectorg", methods: "GET"},
+			"/org/@{orgtag} ":     {handler: orghandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
+			"/org/@{orgtag}/meta": {handler: orghandler.Meta, modifiers: "protectorg", methods: "GET"},
+
 			"/org/@{orgtag}/code/{uses}":       {handler: orghandler.Code, modifiers: "admin,protectorg", methods: "GET"},
 			"/org/@{orgtag}/revokecode/{code}": {handler: orghandler.RevokeCode, modifiers: "admin,protectorg", methods: "POST"},
 
