@@ -22,4 +22,5 @@ var (
 	ErrAlreadyJoinedOrg        = APIError{errors.New("user already joined this org"), http.StatusConflict}
 	ErrDatabaseNotEmpty        = APIError{errors.New("database is not empty or was impossible to connect to"), http.StatusConflict}
 	ErrLanguageInvalid         = APIError{errors.New("invalid language"), http.StatusNotAcceptable}
+	ErrAlreadyCompletedStep    = APIError{errors.New("user already completed this step"), http.StatusConflict}
 )

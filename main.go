@@ -58,10 +58,11 @@ func main() {
 			"/org/@{orgtag}/adventure/@{advtag} ":         {handler: adventurehandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
 			"/org/@{orgtag}/adventure/@{advtag}/movestep": {handler: adventurehandler.MoveStep, modifiers: "teacher,protectorg", methods: "POST"},
 
-			"/step/new":         {handler: stephandler.New, modifiers: "teacher", methods: "POST"},
-			"/step/many":        {handler: stephandler.Many, methods: "GET"},
-			"/step/@{steptag}":  {handler: stephandler.One, methods: "GET"},
-			"/step/@{steptag} ": {handler: stephandler.Edit, modifiers: "teacher", methods: "POST"},
+			"/step/new":                 {handler: stephandler.New, modifiers: "teacher", methods: "POST"},
+			"/step/many":                {handler: stephandler.Many, methods: "GET"},
+			"/step/@{steptag}":          {handler: stephandler.One, methods: "GET"},
+			"/step/@{steptag} ":         {handler: stephandler.Edit, modifiers: "teacher", methods: "POST"},
+			"/step/@{steptag}/complete": {handler: stephandler.Complete, methods: "POST"},
 
 			"/danger/mockdb": {handler: generalhandler.MockDB, modifiers: "unprotected", methods: "POST"},
 			"/isdbempty":     {handler: generalhandler.IsDBEmptyEndpoint, modifiers: "unprotected", methods: "GET"},
