@@ -26,3 +26,10 @@ func HexString() string {
 type GetTagger interface {
 	GetTag() string
 }
+
+type Success struct {
+	Success string `json:"success"`
+}
+type Error struct {
+	Error string `json:"error"`
+}

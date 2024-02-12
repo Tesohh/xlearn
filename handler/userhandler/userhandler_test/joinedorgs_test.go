@@ -18,7 +18,7 @@ func TestJoinedOrgs(t *testing.T) {
 
 	t.Run("regular users can only see joined and unprotected orgs", func(t *testing.T) {
 		w := httptest.NewRecorder()
-		r := mock.Request("POST", "/api/user/org/joined", nil, "zestyman", nil)
+		r := mock.BuildRequest("POST", "/api/user/org/joined", nil, "zestyman", nil)
 		err = userhandler.JoinedOrgs(w, r, stores)
 		if err != nil {
 			t.Fatal(err)
@@ -32,7 +32,7 @@ func TestJoinedOrgs(t *testing.T) {
 
 	t.Run("admins are able to see all orgs", func(t *testing.T) {
 		w := httptest.NewRecorder()
-		r := mock.Request("POST", "/api/user/org/joined", nil, "michele", nil)
+		r := mock.BuildRequest("POST", "/api/user/org/joined", nil, "michele", nil)
 		err = userhandler.JoinedOrgs(w, r, stores)
 		if err != nil {
 			t.Fatal(err)
