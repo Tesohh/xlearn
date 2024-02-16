@@ -28,7 +28,7 @@ func Login(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error 
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(body.Password))
 	if err != nil {
-		return handler.ErrInvalidPassword
+		return handler.ErrInvalidPassword.Context("cissy")
 	}
 
 	expiration := time.Now().Add(24 * time.Hour)

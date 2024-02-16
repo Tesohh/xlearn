@@ -19,6 +19,12 @@ Content-Type: application/json
 GET {{api}}/@forkliftstep1-123456
 
 ###
+GET {{api}}/lastcompleted 
+
+###
+GET {{api}}/lastcompleted/adventure/@forklift-certification-123456
+
+###
 GET {{api}}/many
 Content-Type: application/json
 
