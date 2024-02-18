@@ -21,3 +21,14 @@ Content-Type: application/json
 ###
 
 GET {{api}}/logout
+
+###
+
+POST {{api}}/recover
+Content-Type: application/json
+
+{
+    "username": "michele",
+    "pin": "123",
+    "new_password": "micheletranquillosaggio"
+}

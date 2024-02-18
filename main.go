@@ -33,9 +33,10 @@ func main() {
 		r:      mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter(),
 		stores: stores,
 		routes: map[string]route{
-			"/user/signup": {handler: userhandler.Signup, modifiers: "unprotected", methods: "POST"},
-			"/user/login":  {handler: userhandler.Login, modifiers: "unprotected", methods: "POST"},
-			"/user/logout": {handler: userhandler.Logout, methods: "GET"},
+			"/user/signup":  {handler: userhandler.Signup, modifiers: "unprotected", methods: "POST"},
+			"/user/login":   {handler: userhandler.Login, modifiers: "unprotected", methods: "POST"},
+			"/user/logout":  {handler: userhandler.Logout, methods: "GET"},
+			"/user/recover": {handler: userhandler.Recover, modifiers: "unprotected", methods: "POST"},
 
 			"/user/me":                  {handler: userhandler.Me, methods: "GET"},
 			"/user/me/settings/edit":    {handler: userhandler.EditSettings, methods: "POST"},

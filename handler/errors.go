@@ -25,4 +25,6 @@ var (
 	ErrAlreadyCompletedStep          = APIError{errors.New("user already completed this step"), http.StatusConflict}
 	ErrNoStepsEverCompleted          = APIError{errors.New("user completed array is empty"), http.StatusNotFound}
 	ErrNoStepsCompletedFromAdventure = APIError{errors.New("can't find any completed steps from that adventure"), http.StatusNotFound}
+	ErrWrongPin                      = APIError{errors.New("incorrect pin"), http.StatusUnauthorized}
+	ErrTooManyAttempts               = APIError{errors.New("too many attempts"), http.StatusUnauthorized}
 )
