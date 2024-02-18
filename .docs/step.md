@@ -127,3 +127,19 @@ type Body = {
 
 type Returns = Step | Error;
 ```
+
+## `GET` /api/step/lastcompleted
+
+Returns the tag of the last completed step (if any)
+
+```ts
+type Returns = { last: string } | Error; // the step tag
+```
+
+## `GET` /api/step/lastcompleted/adventure/@{advtag}
+
+Returns the tag of the last completed step for the specified adventure (if any)
+
+```ts
+type Returns = { last: string } | Error; // the step tag
+```
