@@ -56,6 +56,7 @@ func Signup(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error
 		Display:      body.Display,
 		Username:     body.Username,
 		Role:         data.RoleUser,
+		Pin:          data.PinString(),
 		PasswordHash: string(hash),
 		Level:        1,
 		Coins:        5,

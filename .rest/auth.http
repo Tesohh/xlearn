@@ -29,6 +29,6 @@ Content-Type: application/json
 
 {
     "username": "michele",
-    "pin": "123",
+    "pin": "1234",
     "new_password": "micheletranquillosaggio"
 }

@@ -19,6 +19,14 @@ func Tagify(display string, random bool) string {
 	return tag
 }
 
+func RangeRand(low, hi int) int {
+	return low + rand.Intn(hi-low)
+}
+
+func PinString() string {
+	return fmt.Sprintf("%v%v%v%v", RangeRand(1, 10), RangeRand(1, 10), RangeRand(1, 10), RangeRand(1, 10))
+}
+
 func HexString() string {
 	return fmt.Sprintf("%06s", strconv.FormatUint(rand.Uint64(), 16))[:6]
 }
