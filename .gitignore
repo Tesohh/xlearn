@@ -4,3 +4,4 @@ IGNORE**
 __debug**
 .DS_Store
 .mongodb
+.cookies

@@ -37,6 +37,9 @@ func NewMongoClient(connection string) (*mongo.Client, error) {
 type IsEmptier interface {
 	IsEmpty() bool
 }
+type Saver interface {
+	Save(stores StoreHolder) error
+}
 
 type MongoStore[T IsEmptier] struct {
 	Client *mongo.Client
