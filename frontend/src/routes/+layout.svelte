@@ -1,11 +1,12 @@
 <script lang="ts">
+	import '../app.css';
 	import { page } from '$app/stores';
 	import type { User, Org } from '$lib/types';
-	import '../app.css';
 	import IconHome from '$lib/components/home/IconHome.svelte';
 	import OrgButton from '$lib/components/home/OrgButton.svelte';
 	import { selectedOrg } from '$lib/writables';
 	import { writable } from 'svelte/store';
+	import JoinButton from '$lib/components/home/JoinButton.svelte';
 
 	export let data: { user: User; org: Org[] };
 
@@ -41,9 +42,12 @@
 			</div>
 
 			<div class="pt-[48px] grid grid-cols-1 gap-5">
-				{#each data.org as org}
-					<OrgButton data={org} />
-				{/each}
+				{#if data.org}
+					{#each data.org as org}
+						<OrgButton data={org} />
+					{/each}
+				{/if}
+				<JoinButton />
 			</div>
 		</div>
 	</div>

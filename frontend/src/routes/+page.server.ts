@@ -3,7 +3,8 @@ import errorMessages from '$lib/errorMessages.js';
 import { joinOrgByJoinCode, leaveOrgById } from '$lib/org.js';
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ locals, cookies }) => {
+export const load = async ({ locals }) => {
+	console.log(locals);
 	if (!locals.user) throw redirect(303, '/login');
 };
 
@@ -19,6 +20,7 @@ export const actions = {
 		const data = await request.formData();
 
 		const joinCode = data.get('code')?.toString();
+		console.log(joinCode);
 
 		if (joinCode == null) return { error: errorMessages.noValidCodeFound };
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Adventure from '$lib/components/org/Adventure.svelte';
 	import { toastStyle } from '$lib/const.js';
+	import errorMessages from '$lib/errorMessages.js';
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 
@@ -20,7 +21,7 @@
 						<Adventure data={adv} />
 					{/each}
 				{:else}
-					<h1>Nothing to show here</h1>
+					<h1>{errorMessages.anyAdventureLoaded}</h1>
 				{/if}
 			</div>
 		</div>

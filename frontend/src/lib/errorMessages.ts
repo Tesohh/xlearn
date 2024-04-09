@@ -16,5 +16,6 @@ export default {
 	errorWhileLeavingOrg: 'Error while leaving the org',
 
 	// Adventures
-	cannotLoadAdventures: 'Cannot load adventures'
+	cannotLoadAdventures: 'Cannot load adventures',
+    anyAdventureLoaded: "Any adventure found here"
 };

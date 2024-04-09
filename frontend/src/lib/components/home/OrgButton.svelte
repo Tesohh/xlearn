@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import type { Org } from '$lib/types';
 	import { selectedOrg } from '$lib/writables';
-	import { onMount } from 'svelte';
 	export let data: Org;
 </script>
 
@@ -10,7 +8,7 @@
 	<div
 		class="w-[440px] h-[108px] border-{$selectedOrg == data.tag
 			? `primary`
-			: `notSelected`} border-2 {$selectedOrg == data.tag
+			: `inactive`} border-2 {$selectedOrg == data.tag
 			? `border-l-0 rounded-l-none`
 			: ``} rounded-md flex flex-col justify-center"
 	>

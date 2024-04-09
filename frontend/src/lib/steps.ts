@@ -1,33 +1,40 @@
 import { backendUrl } from './const';
+import { parseStep, type Adventure, type Step } from '$lib/types';
 
 export const getAdventureSteps = async (
-	adventureID: string,
+	adventure: Adventure,
 	cookie: string
 ): Promise<{ error: null | boolean; steps: null | Step[] }> => {
-	let resp;
+	let steps = new Array<Step>();
 
-	try {
-		resp = await fetch(`${backendUrl}/#TODO`, {
-			method: 'GET',
-			headers: {
-				Cookie: `token=${cookie}`
-			}
-		});
-	} catch (err) {
-		return { error: true, adventures: null };
-	}
-	if (!resp.ok) return { error: true, steps: null };
-
-	const adventureObj = await resp.json();
-
-	const adventures: Adventure[] = [];
-
-	adventureObj.forEach((adv: Object) => {
-		const parsed = parseAdventure(adv);
-		if (!parsed.error) {
-			if (parsed.adventure) adventures.push(parsed.adventure);
+	adventure.steps.forEach(async (step) => {
+		console.log(step);
+		let resp;
+		try {
+			resp = await fetch(`${backendUrl}/api/step/@${step}`, {
+				method: 'GET',
+				headers: {
+					Cookie: `token=${cookie}`
+				}
+			});
+			console.log('REQUEST');
+			console.log(await resp.json());
+		} catch (err) {
+			return { error: true, steps: null };
 		}
+		if (!resp.ok) return { error: true, steps: null };
+
+		const json = await resp.json();
+
+		const parsed = parseStep(json['step']);
+
+		if (parsed.error) return { errror: true, steps: null };
+
+		// @ts-ignore
+		steps.push(parsed.step);
 	});
 
-	return { error: false, adventures: adventures };
+	console.log(steps);
+
+	return { error: false, steps: steps };
 };
