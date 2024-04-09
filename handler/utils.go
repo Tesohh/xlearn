@@ -17,8 +17,8 @@ import (
 type M map[string]string
 
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	w.Header().Add("Content-Type", "application/json")
 	return json.NewEncoder(w).Encode(v)
 }
 

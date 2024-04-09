@@ -4,7 +4,7 @@ POST {{api}}/signup
 Content-Type: application/json
 
 {
-    "username": "michele",
+    "username": "michele99aa",
     "password": "michelepazzofolle"
 }
 
@@ -15,9 +15,20 @@ Content-Type: application/json
 
 {
     "username": "michele",
-    "password": "michelepazzofolle"
+    "password": "micheletranquillosaggio"
 }
 
 ###
 
 GET {{api}}/logout
+
+###
+
+POST {{api}}/recover
+Content-Type: application/json
+
+{
+    "username": "michele",
+    "pin": "1234",
+    "new_password": "micheletranquillosaggio"
+}

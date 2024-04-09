@@ -33,9 +33,10 @@ func main() {
 		r:      mux.NewRouter().NewRoute().PathPrefix("/api").Subrouter(),
 		stores: stores,
 		routes: map[string]route{
-			"/user/signup": {handler: userhandler.Signup, modifiers: "unprotected", methods: "POST"},
-			"/user/login":  {handler: userhandler.Login, modifiers: "unprotected", methods: "POST"},
-			"/user/logout": {handler: userhandler.Logout, methods: "GET"},
+			"/user/signup":  {handler: userhandler.Signup, modifiers: "unprotected", methods: "POST"},
+			"/user/login":   {handler: userhandler.Login, modifiers: "unprotected", methods: "POST"},
+			"/user/logout":  {handler: userhandler.Logout, methods: "GET"},
+			"/user/recover": {handler: userhandler.Recover, modifiers: "unprotected", methods: "POST"},
 
 			"/user/me":                  {handler: userhandler.Me, methods: "GET"},
 			"/user/me/settings/edit":    {handler: userhandler.EditSettings, methods: "POST"},
@@ -44,10 +45,11 @@ func main() {
 			"/user/org/joined":          {handler: userhandler.JoinedOrgs, methods: "GET"},
 			"/user/org/joined/tags":     {handler: userhandler.JoinedOrgsTags, methods: "GET"},
 
-			"/org/new":                         {handler: orghandler.New, methods: "POST"},
-			"/org/@{orgtag}":                   {handler: orghandler.One, modifiers: "protectorg", methods: "GET"},
-			"/org/@{orgtag} ":                  {handler: orghandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
-			"/org/@{orgtag}/meta":              {handler: orghandler.Meta, modifiers: "protectorg", methods: "GET"},
+			"/org/new":            {handler: orghandler.New, methods: "POST"},
+			"/org/@{orgtag}":      {handler: orghandler.One, modifiers: "protectorg", methods: "GET"},
+			"/org/@{orgtag} ":     {handler: orghandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
+			"/org/@{orgtag}/meta": {handler: orghandler.Meta, modifiers: "protectorg", methods: "GET"},
+
 			"/org/@{orgtag}/code/{uses}":       {handler: orghandler.Code, modifiers: "admin,protectorg", methods: "GET"},
 			"/org/@{orgtag}/revokecode/{code}": {handler: orghandler.RevokeCode, modifiers: "admin,protectorg", methods: "POST"},
 
@@ -57,10 +59,13 @@ func main() {
 			"/org/@{orgtag}/adventure/@{advtag} ":         {handler: adventurehandler.Edit, modifiers: "admin,protectorg", methods: "POST"},
 			"/org/@{orgtag}/adventure/@{advtag}/movestep": {handler: adventurehandler.MoveStep, modifiers: "teacher,protectorg", methods: "POST"},
 
-			"/step/new":         {handler: stephandler.New, modifiers: "teacher", methods: "POST"},
-			"/step/many":        {handler: stephandler.Many, methods: "GET"},
-			"/step/@{steptag}":  {handler: stephandler.One, methods: "GET"},
-			"/step/@{steptag} ": {handler: stephandler.Edit, modifiers: "teacher", methods: "POST"},
+			"/step/new":           {handler: stephandler.New, modifiers: "teacher", methods: "POST"},
+			"/step/many":          {handler: stephandler.Many, methods: "GET"},
+			"/step/lastcompleted": {handler: stephandler.LastCompleted, methods: "GET"},
+			"/step/lastcompleted/adventure/@{advtag}": {handler: stephandler.LastCompletedSpecific, methods: "GET"},
+			"/step/@{steptag}":                        {handler: stephandler.One, methods: "GET"},
+			"/step/@{steptag} ":                       {handler: stephandler.Edit, modifiers: "teacher", methods: "POST"},
+			"/step/@{steptag}/complete":               {handler: stephandler.Complete, methods: "POST"},
 
 			"/danger/mockdb": {handler: generalhandler.MockDB, modifiers: "unprotected", methods: "POST"},
 			"/isdbempty":     {handler: generalhandler.IsDBEmptyEndpoint, modifiers: "unprotected", methods: "GET"},

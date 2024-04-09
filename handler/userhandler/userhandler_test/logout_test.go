@@ -15,7 +15,7 @@ func TestLogout(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	r := mock.Request("POST", "/api/user/logout", nil, "", nil)
+	r := mock.BuildRequest("POST", "/api/user/logout", nil, "", nil)
 
 	err = userhandler.Logout(w, r, stores)
 	if err != nil {

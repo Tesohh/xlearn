@@ -13,6 +13,7 @@ import (
 )
 
 type M map[string]any
+type MS map[string]string
 
 // for convenience's sake, since it's only used for tests, will panic instead of returning errors.
 func JSON(data map[string]any) io.Reader {
@@ -23,7 +24,33 @@ func JSON(data map[string]any) io.Reader {
 	return bytes.NewReader(b)
 }
 
-func Request(method string, target string, body *M, username string, vars map[string]string) *http.Request {
+type Request struct {
+	Method   string
+	Target   string
+	Body     M
+	Username string
+	Vars     MS
+}
+
+func (r Request) Build() *http.Request {
+	var reader io.Reader
+	if r.Body == nil {
+		reader = nil
+	} else {
+		reader = JSON(r.Body)
+	}
+
+	req := httptest.NewRequest(http.MethodPost, "/api/user/org/joined", reader)
+	req = mux.SetURLVars(req, r.Vars)
+
+	if r.Username != "" {
+		req.Header.Add("jwt-username", r.Username)
+	}
+
+	return req
+}
+
+func BuildRequest(method string, target string, body *M, username string, vars map[string]string) *http.Request {
 	var reader io.Reader
 	if body == nil {
 		reader = nil

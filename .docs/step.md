@@ -83,6 +83,15 @@ type Body = Step;
 type Returns = Success | Error;
 ```
 
+## `POST` /api/step/@{steptag}/complete
+
+Sets the current step as completed on the user, awards coins and xp.
+errors if the step doesn't exist or if it's already complete
+
+```ts
+type Returns = Success | Error;
+```
+
 ## `GET ` /api/step/many
 
 ```ts
@@ -117,4 +126,20 @@ type Body = {
 };
 
 type Returns = Step | Error;
+```
+
+## `GET` /api/step/lastcompleted
+
+Returns the tag of the last completed step (if any)
+
+```ts
+type Returns = { last: string } | Error; // the step tag
+```
+
+## `GET` /api/step/lastcompleted/adventure/@{advtag}
+
+Returns the tag of the last completed step for the specified adventure (if any)
+
+```ts
+type Returns = { last: string } | Error; // the step tag
 ```

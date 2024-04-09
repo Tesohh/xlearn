@@ -19,7 +19,7 @@ func TestJoinOrg(t *testing.T) {
 
 	t.Run("joins the org `silandro-investors` with the code 123456", func(t *testing.T) {
 		w := httptest.NewRecorder()
-		r := mock.Request("POST", "/api/user/org/join/123456", nil, "donerkebab", map[string]string{"code": "123456"})
+		r := mock.BuildRequest("POST", "/api/user/org/join/123456", nil, "donerkebab", map[string]string{"code": "123456"})
 		mux.SetURLVars(r, map[string]string{"code": "123456"})
 
 		err = userhandler.JoinOrg(w, r, stores)

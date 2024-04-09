@@ -17,7 +17,7 @@ func TestSignup(t *testing.T) {
 	}
 
 	t.Run("short password errors", func(t *testing.T) {
-		r := mock.Request("POST", "/api/user/signup", &mock.M{
+		r := mock.BuildRequest("POST", "/api/user/signup", &mock.M{
 			"username": "newuser1",
 			"password": "short",
 		}, "", nil)
@@ -29,7 +29,7 @@ func TestSignup(t *testing.T) {
 	})
 
 	t.Run("user is added to the db", func(t *testing.T) {
-		r := mock.Request("POST", "/api/user/signup", &mock.M{
+		r := mock.BuildRequest("POST", "/api/user/signup", &mock.M{
 			"username": "newuser1",
 			"password": "goodpassword",
 		}, "", nil)
