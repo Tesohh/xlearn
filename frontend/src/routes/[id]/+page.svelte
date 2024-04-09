@@ -16,7 +16,7 @@
 	<div class="grid grid-col-1 text-center items-center">
 		<div class="grid grid-cols-1">
 			<div class="flex flex-col items-center justify-center gap-20 py-5">
-				{#if data.adventures}
+				{#if data?.adventures}
 					{#each data.adventures as adv}
 						<Adventure data={adv} />
 					{/each}

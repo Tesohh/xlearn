@@ -4,7 +4,7 @@
 	export let data: Org;
 </script>
 
-<a href="/org/{data.tag}" data-sveltekit-reload>
+<a href="/{data.tag}" data-sveltekit-preload-data>
 	<div
 		class="w-[440px] h-[108px] border-{$selectedOrg == data.tag
 			? `primary`
