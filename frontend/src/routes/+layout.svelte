@@ -49,10 +49,10 @@
 
 		<div class="h-full hidden lg:block">
 			<div class="flex flex-row h-[100px] border-primary border-2 rounded-md">
-				<IconHome id="orgs" iconStr="icon-[tabler--smart-home]" />
-				<IconHome id="shop" iconStr="icon-[tabler--shopping-bag]" />
-				<IconHome id="test" iconStr="icon-[tabler--brand-docker]" />
-				<IconHome id="user" iconStr="icon-[tabler--user-circle]" />
+				<IconHome id="orgs" iconStr="icon-[tabler--swipe]" />
+				<IconHome id="achievement" iconStr="icon-[tabler--award]" />
+				<IconHome id="user" iconStr="icon-[tabler--user-square-rounded]" />
+				<IconHome id="tobeimplemented" iconStr="" />
 			</div>
 
 			<div class="pt-[48px] grid grid-cols-1 gap-5">
