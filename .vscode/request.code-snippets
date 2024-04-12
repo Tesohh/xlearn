@@ -1,0 +1,24 @@
+{
+	"GET Request": {
+		"scope": "shellscript",
+		"prefix": "get",
+		"body": [
+			"curl -sS \"localhost:8080/$0\"\\",
+			"\t-X GET\\",
+			"\t-b .cookies -c cookies\\",
+		],
+	},
+	"POST Request": {
+		"scope": "shellscript",
+		"prefix": "post",
+		"body": [
+			"curl -sS \"localhost:8080/$1\"\\",
+			"\t-X POST\\",
+			"\t-b .cookies -c cookies\\",
+			"\t-H 'Content-Type: application/json'\\",
+			"\t-d '{",
+			"\t\t$0",
+			"\t}' | jq"
+		],
+	}
+}

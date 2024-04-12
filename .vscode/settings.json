@@ -16,5 +16,8 @@
             "username": "pyros",
             "name": "XLearn"
         }
-    ]
+    ],
+    "search.exclude": {
+        ".backend.old": true
+    }
 }
