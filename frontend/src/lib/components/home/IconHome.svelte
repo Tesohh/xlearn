@@ -1,10 +1,17 @@
 <script lang="ts">
+	import { selectedTab } from '$lib/writables';
 	export let iconStr: string;
-	export let url: string;
+	export let id: string;
 </script>
 
-<a href={url}>
+<button
+	on:click={() => {
+		selectedTab.set(id);
+	}}
+>
 	<div class="h-full w-[110px] flex items-center justify-center">
-		<svg class="{iconStr} h-[50px] w-[50px] bg-primary text-sm" />
+		<div class="p-4 border-{$selectedTab == id ? `primary border-2` : `none`} rounded-md">
+			<svg class="{iconStr} h-[50px] w-[50px] bg-primary text-sm" />
+		</div>
 	</div>
-</a>
+</button>

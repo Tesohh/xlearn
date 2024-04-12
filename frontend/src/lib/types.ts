@@ -28,16 +28,19 @@ export const zAdventure = z.object({
 
 export type Adventure = z.infer<typeof zAdventure>;
 
-export const Step = z.object({
-	name: z.any(),
+export const zStep = z.object({
+	name: z.record(z.string(), z.string()),
 	tag: z.string(),
-	description: z.any(),
-	content: z.any(),
-	category: z.string().default('step'),
+	description: z.record(z.string(), z.string()),
+	content: z.record(z.string(), z.string()),
+	category: z.enum(['lesson', 'exercise', 'project']),
 	xp_award: z.number(),
 	coins_award: z.number(),
-	energy_cost: z.number()
+	energy_cost: z.number(),
+	children: z.any()
 });
+
+export type Step = z.infer<typeof zStep>;
 
 // Functions
 
@@ -66,4 +69,17 @@ export const parseAdventure = (
 	if (!parsed.success) return { error: true, adventure: null };
 
 	return { error: false, adventure: parsed.data };
+};
+
+export const parseStep = (
+	stepObject: Object
+): {
+	error: boolean;
+	step: Step | null;
+} => {
+	const parsed = zStep.safeParse(stepObject);
+	console.log(parsed?.error);
+	if (!parsed.success) return { error: true, step: null };
+
+	return { error: false, step: parsed.data };
 };

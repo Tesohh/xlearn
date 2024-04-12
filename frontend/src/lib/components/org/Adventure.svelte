@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Org } from '$lib/types';
+	import type { Adventure } from '$lib/types';
 
-	export let data: Org;
+	export let data: Adventure;
 </script>
 
 <div

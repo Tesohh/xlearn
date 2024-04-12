@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Adventure from '$lib/components/org/Adventure.svelte';
 	import { toastStyle } from '$lib/const.js';
+	import errorMessages from '$lib/errorMessages.js';
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 
@@ -15,12 +16,12 @@
 	<div class="grid grid-col-1 text-center items-center">
 		<div class="grid grid-cols-1">
 			<div class="flex flex-col items-center justify-center gap-20 py-5">
-				{#if data.adventures}
+				{#if data?.adventures}
 					{#each data.adventures as adv}
 						<Adventure data={adv} />
 					{/each}
 				{:else}
-					<h1>Nothing to show here</h1>
+					<h1>{errorMessages.anyAdventureLoaded}</h1>
 				{/if}
 			</div>
 		</div>

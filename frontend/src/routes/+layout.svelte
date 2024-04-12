@@ -1,17 +1,32 @@
 <script lang="ts">
+	import '../app.css';
 	import { page } from '$app/stores';
 	import type { User, Org } from '$lib/types';
-	import '../app.css';
 	import IconHome from '$lib/components/home/IconHome.svelte';
 	import OrgButton from '$lib/components/home/OrgButton.svelte';
-	import { selectedOrg } from '$lib/writables';
+	import { selectedOrg, selectedTab } from '$lib/writables';
 	import { writable } from 'svelte/store';
+	import JoinButton from '$lib/components/home/JoinButton.svelte';
+	import { onMount } from 'svelte';
 
 	export let data: { user: User; org: Org[] };
 
 	let title = writable<string>('');
 
 	$: selectedOrg.set($page.url.pathname.replace('/org/', ''));
+
+	onMount(() => {
+		let key = localStorage.getItem('tab');
+		if (key != null) {
+			selectedTab.set(key);
+		}
+
+		selectedTab.subscribe((u) => {
+			if ($selectedTab != '') {
+				localStorage.setItem('tab', u);
+			}
+		});
+	});
 
 	$: {
 		const url = $page.url.pathname;
@@ -34,16 +49,23 @@
 
 		<div class="h-full hidden lg:block">
 			<div class="flex flex-row h-[100px] border-primary border-2 rounded-md">
-				<IconHome url="/" iconStr="icon-[tabler--smart-home]" />
-				<IconHome url="/shop" iconStr="icon-[tabler--shopping-bag]" />
-				<IconHome url="/test" iconStr="icon-[tabler--brand-docker]" />
-				<IconHome url="/me" iconStr="icon-[tabler--user-circle]" />
+				<IconHome id="orgs" iconStr="icon-[tabler--swipe]" />
+				<IconHome id="achievement" iconStr="icon-[tabler--award]" />
+				<IconHome id="user" iconStr="icon-[tabler--user-square-rounded]" />
+				<IconHome id="tobeimplemented" iconStr="" />
 			</div>
 
 			<div class="pt-[48px] grid grid-cols-1 gap-5">
-				{#each data.org as org}
-					<OrgButton data={org} />
-				{/each}
+				{#if $selectedTab == 'orgs'}
+					{#if data.org}
+						{#each data.org as org}
+							<OrgButton data={org} />
+						{/each}
+						<JoinButton />
+					{/if}
+				{:else}
+					<p>{$selectedTab}</p>
+				{/if}
 			</div>
 		</div>
 	</div>

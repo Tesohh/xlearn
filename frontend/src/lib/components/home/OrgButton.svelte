@@ -1,20 +1,18 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import type { Org } from '$lib/types';
 	import { selectedOrg } from '$lib/writables';
-	import { onMount } from 'svelte';
 	export let data: Org;
 </script>
 
-<a href="/org/{data.tag}" data-sveltekit-reload>
+<a href="/{data.tag}" data-sveltekit-preload-data>
 	<div
 		class="w-[440px] h-[108px] border-{$selectedOrg == data.tag
 			? `primary`
-			: `notSelected`} border-2 {$selectedOrg == data.tag
+			: `inactive`} border-2 {$selectedOrg == data.tag
 			? `border-l-0 rounded-l-none`
-			: ``} rounded-md flex flex-col justify-center"
+			: ``} rounded-md flex flex-row justify-center text-center"
 	>
-		<div class="pl-[30px]">
+		<div class="w-2/3 h-full flex flex-col justify-center">
 			<h1 class="text-xl text-primary {$selectedOrg == data.tag ? `font-bold` : ``}">
 				{data.name}
 			</h1>
@@ -24,5 +22,9 @@
 					: 'Unprotected'}
 			</p>
 		</div>
+        <div class="w-2/3">
+            <img src="https://www.imagelighteditor.com/img/bg-after.jpg" alt="" class="h-full w-fit">
+
+        </div>
 	</div>
 </a>
