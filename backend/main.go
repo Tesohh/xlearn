@@ -46,7 +46,8 @@ func main() {
 	}
 
 	e.GET("/user/one/:usertag", handler.One(stores.Users, "usertag"))
-	e.POST("/user/signup", handler.SignupUser)
+	e.POST("/user/signup", handler.UserSignup)
+	e.POST("/user/login", handler.UserLogin)
 
 	fmt.Println("connected to mongo")
 	e.Logger.Fatal(e.Start(":8080"))

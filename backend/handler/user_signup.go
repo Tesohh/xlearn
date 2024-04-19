@@ -23,7 +23,7 @@ type signupBody struct {
 	Password string `json:"password"`
 }
 
-func SignupUser(c echo.Context) error {
+func UserSignup(c echo.Context) error {
 	// boilerplate
 	cc := c.(CustomContext)
 	body, err := Decode[signupBody](cc.Request().Body)

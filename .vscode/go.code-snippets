@@ -1,0 +1,22 @@
+{
+  "handler": {
+    "scope": "go",
+    "prefix": "hand",
+    "body": [
+      "func $1(w http.ResponseWriter, r *http.Request, stores db.StoreHolder) error {",
+      "\t$0",
+      "\treturn nil",
+      "}"
+    ]
+  },
+  "db.Query tag": {
+    "scope": "go",
+    "prefix": "dbqt",
+    "body": "db.Query{\"tag\": ${1:tag}}"
+  },
+  "APIError": {
+    "scope": "go",
+    "prefix": "aerr",
+    "body": "handler.APIError{Err: ${1:err}, Status: http.${2:StatusInternalServerError}}"
+  }
+}

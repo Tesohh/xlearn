@@ -7,5 +7,6 @@ import (
 
 type CustomContext struct {
 	echo.Context
-	Stores *db.StoreHolder
+	Stores   *db.StoreHolder
+	Username string // if this is not empty, we know the user is authenticated
 }

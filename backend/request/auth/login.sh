@@ -1,6 +1,4 @@
-echo "$1"
-echo "$2"
-curl -sS "localhost:8080/user/signup"\
+curl -sS "localhost:8080/user/login"\
 	-X POST\
 	-b .cookies -c cookies\
 	-H 'Content-Type: application/json'\

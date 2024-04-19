@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
