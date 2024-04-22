@@ -6,7 +6,7 @@ import (
 
 type User struct {
 	Tag          string `json:"tag" bson:"tag,omitempty"`
-	PasswordHash string `json:"passwordhash" bson:"passwordhash,omitempty"`
+	PasswordHash string `json:"-" bson:"passwordhash,omitempty"`
 	// Pin          string `json:"pin" bson:"pin,omitempty"`
 	// RecoverAttempts int    `json:"recover_attempts" bson:"recover_attempts,omitempty"`
 	// XP    int  `json:"xp" bson:"xp,omitempty"`

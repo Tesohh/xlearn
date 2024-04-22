@@ -38,7 +38,7 @@ func UserLogin(c echo.Context) error {
 
 	// give jwt
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"tag": []byte(body.Tag),
+		"tag": body.Tag,
 		"exp": expiration.Unix(),
 	})
 	s, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
@@ -53,5 +53,5 @@ func UserLogin(c echo.Context) error {
 		Expires: expiration,
 	})
 
-	return cc.JSON(200, nil)
+	return cc.JSON(200, echo.Map{"success": "success"})
 }
